@@ -1,0 +1,48 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DefaultComponent } from './default.component';
+import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.component';
+import { RouterModule } from '@angular/router';
+import { PostsComponent } from 'src/app/modules/posts/posts.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { MatSidenavModule, MatDividerModule, MatCardModule, MatTableModule, MatStepperModule, MatButtonModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { AddTrainerComponent } from 'src/app/modules/add-trainer/add-trainer.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { AddNewCourseComponent } from 'src/app/modules/add-new-course/add-new-course.component';
+import { CoursesComponent } from 'src/app/modules/courses/courses.component';
+import { TrainersComponent } from 'src/app/modules/trainers/trainers.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSelectModule} from '@angular/material/select';
+
+@NgModule({
+  declarations: [
+    DefaultComponent,
+    DashboardComponent,
+    PostsComponent,
+    AddTrainerComponent,
+    AddNewCourseComponent,
+    CoursesComponent,
+    TrainersComponent,
+
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SharedModule,
+    MatSidenavModule,
+    MatDividerModule,
+    FlexLayoutModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSortModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonToggleModule,
+    MatSelectModule
+  ]
+})
+export class DefaultModule { }

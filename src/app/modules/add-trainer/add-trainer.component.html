@@ -1,0 +1,54 @@
+<h2>Add a trainer</h2>
+
+<form [formGroup]="turtorForm" (ngSubmit)="newTurtorForm()">
+  <div class="example-container">
+    <mat-form-field>
+      <mat-label>first name</mat-label>
+      <input matInput formControlName="firstname">
+    </mat-form-field>
+    <!-- <ng-container *ngIf="turtorForm.get('course').touched && turtorForm.get('course').hasError('required')">
+      <small>Required Field</small>
+    </ng-container> -->
+    <mat-form-field>
+      <mat-label>Last name</mat-label>
+      <input matInput formControlName="lastname">
+    </mat-form-field>
+    <!-- <ng-container *ngIf="turtorForm.get('course_id').touched && turtorForm.get('course_id').hasError('required')">
+      <small>Required Field</small>
+    </ng-container> -->
+    <mat-form-field>
+      <mat-label>cell number</mat-label>
+      <input matInput formControlName="cellnumber">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+    <!-- <ng-container
+
+      *ngIf="turtorForm.get('registration_fee').touched && turtorForm.get('registration_fee').hasError('required')">
+      <small>Required Field</small>
+    </ng-container> -->
+
+    <!-- <ng-container *ngIf="turtorForm.get('course_fee').touched && turtorForm.get('course_fee').hasError('required')">
+      <small>Required Field</small>
+    </ng-container> -->
+
+    <div *ngIf="allCourses$ | async as courses">
+      <mat-form-field>
+        <mat-label>select a courses</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let course of courses" [value]="course?.id" formControlName="email">
+            {{course?.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+  </div>
+
+  <button type="submit">submit</button>
+</form>
+
+
