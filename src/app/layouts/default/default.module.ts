@@ -14,6 +14,10 @@ import { TrainersComponent } from 'src/app/modules/trainers/trainers.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSelectModule} from '@angular/material/select';
+import { AddCourseContentComponent } from 'src/app/modules/add-course-content/add-course-content.component';
+
+import { AddAdminComponent } from 'src/app/modules/add-admin/add-admin.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +28,9 @@ import {MatSelectModule} from '@angular/material/select';
     AddNewCourseComponent,
     CoursesComponent,
     TrainersComponent,
-
+    AddCourseContentComponent,
+    AddAdminComponent,
+    
   ],
   imports: [
     CommonModule,
