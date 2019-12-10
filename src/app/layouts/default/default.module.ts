@@ -17,6 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { AddCourseContentComponent } from 'src/app/modules/add-course-content/add-course-content.component';
 
 import { AddAdminComponent } from 'src/app/modules/add-admin/add-admin.component';
+import { ApplicationsComponent } from 'src/app/modules/applications/applications.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { AddAdminComponent } from 'src/app/modules/add-admin/add-admin.component
     TrainersComponent,
     AddCourseContentComponent,
     AddAdminComponent,
+    ApplicationsComponent,
     
   ],
   imports: [
