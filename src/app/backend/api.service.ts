@@ -4,7 +4,6 @@ import { Course } from '../models/course';
 import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { async } from 'q';
 
 declare var require: any
 
@@ -42,6 +41,7 @@ export class ApiService {
   }
 
   addTutor(email: string, password: string) {
+    console.log("kkkkk")
 
     this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
       const firebase = require('firebase');
@@ -81,13 +81,28 @@ export class ApiService {
     return await this.afAuth.auth.signInWithEmailAndPassword(email, password)
   }
 
-  async uploadingImage(folder: string, fileName: string, file: File){
-    return await this._storage.upload(folder+'/'+fileName, file)
+  async uploadingImage(folder: string, courseId: string, fileName: string, file: File) {
+    return await this._storage.upload(folder + '/' + courseId + '/' + fileName + '/', file)
   }
-  async updateCourseData(courseId: string, coverImage: string){
+  async updateCourseData(courseId: string, coverImage: string) {
     let doc = {
       coverUrl: coverImage
     }
-    return await this.afs.doc("courses/"+courseId).update(doc)
+    return await this.afs.doc("courses/" + courseId).update(doc)
+  }
+
+
+  async uploadCourseRequirements(requirementsArray: string[], courseId: string) {
+
+    const arrayToObject = (array) =>
+      array.reduce((obj, item) => {
+        obj[item.requirement] = "true"
+        return obj
+      }, {})
+    const requirementObject = arrayToObject(requirementsArray);
+    let req = {
+      requirements: requirementObject
+    }
+    return await this.afs.doc("courses/" + courseId).update(req);
   }
 }

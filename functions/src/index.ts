@@ -1,14 +1,16 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
-exports.addTutor = functions.https.onCall((data, context)=>{
+admin.initializeApp();
+
+exports.addStudent = functions.https.onCall((data, context)=>{
     return admin.auth().getUserByEmail(data.email).then(user =>{
         return admin.auth().setCustomUserClaims(user.uid,{
-            tutor: true
+            student: true
         })
     }).then(()=>{
         return {
-            message: `Success! ${data.email} has been made a tutor`
+            message: `Success! ${data.email} has been made a student`
         }
     }).catch(err =>{
         return err;

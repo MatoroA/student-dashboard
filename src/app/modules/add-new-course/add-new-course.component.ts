@@ -16,6 +16,7 @@ export class AddNewCourseComponent implements OnInit {
   requirements: FormGroup;
   private file: File;
   private courseId: string;
+  private fileName: string;
   constructor(private formBuilder: FormBuilder, private _api: ApiService,
     private element: ElementRef) {
     this.requirements = this.formBuilder.group({
@@ -74,21 +75,26 @@ export class AddNewCourseComponent implements OnInit {
 
   submitRequirements(form) {
     console.log(form.value)
+    this._api.uploadCourseRequirements(form.value.additional, "6N2MeGaIAPZUQtn3OV9V");
   }
 
   changeListner(event) {
     var fullPath = event.srcElement.value
     this.file = event.target.files[0];
+    this.fileName = fullPath.replace(/^.*[\\\/]/, '');
+
+    console.log(this.getFileExtension(fullPath))
   }
 
   uploadFile() {
-    this._api.uploadingImage("course", "1234", this.file).then(results => {
+    this._api.uploadingImage("course", "xdhyhauewedwgdw",this.fileName, this.file).then(results => {
       console.log(results)
       results.ref.getDownloadURL().then(url => {
         console.log(url)
-        this._api.updateCourseData(this.courseId, url).then(res => {
-          console.log(res)
-        })
+        this.courseId = "xdhyhauewedwgdw"
+        // this._api.updateCourseData(this.courseId, url).then(res => {
+        //   console.log(res)
+        // })
       })
     })
   }
@@ -104,4 +110,10 @@ export class AddNewCourseComponent implements OnInit {
 
     return extension;
   }
+
+  addStudent(){
+    console.log("oooo")
+    this._api.addStudent("a@student.com","123456");
+  }
+
 }

@@ -33,4 +33,5 @@ export class AddTrainerComponent implements OnInit {
     console.log(this.courseId)
   }
 
+  
 } 
