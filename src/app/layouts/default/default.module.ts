@@ -5,7 +5,7 @@ import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.componen
 import { RouterModule } from '@angular/router';
 import { PostsComponent } from 'src/app/modules/posts/posts.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MatSidenavModule, MatDividerModule, MatCardModule, MatTableModule, MatStepperModule, MatButtonModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatSidenavModule, MatDividerModule, MatCardModule, MatTableModule, MatStepperModule, MatButtonModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule } from '@angular/material';
 import { AddTrainerComponent } from 'src/app/modules/add-trainer/add-trainer.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AddNewCourseComponent } from 'src/app/modules/add-new-course/add-new-course.component';
@@ -14,6 +14,11 @@ import { TrainersComponent } from 'src/app/modules/trainers/trainers.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSelectModule} from '@angular/material/select';
+import { AddCourseContentComponent } from 'src/app/modules/add-course-content/add-course-content.component';
+
+import { AddAdminComponent } from 'src/app/modules/add-admin/add-admin.component';
+import { ApplicationsComponent } from 'src/app/modules/applications/applications.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +29,10 @@ import {MatSelectModule} from '@angular/material/select';
     AddNewCourseComponent,
     CoursesComponent,
     TrainersComponent,
-
+    AddCourseContentComponent,
+    AddAdminComponent,
+    ApplicationsComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -42,7 +50,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatFormFieldModule,
     MatButtonToggleModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ]
 })
 export class DefaultModule { }

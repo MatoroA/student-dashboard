@@ -24,7 +24,8 @@ export class AddTrainerComponent implements OnInit {
     firstname: [null, Validators.compose([Validators.required])],
      lastname: [null, Validators.compose([Validators.required])],
      email: [null, Validators.compose([Validators.required])],
-     cellnumber: [null, Validators.compose([Validators.required])]
+     cellnumber: [null, Validators.compose([Validators.required])],
+     idnumber:[null, Validators.compose([Validators.required])]
     });
   }
 

@@ -14,10 +14,18 @@ import { environment } from '../environments/environment';
 
 import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
+import { LoginComponent } from './login/login.component';
+import { ApplicationsComponent } from './modules/applications/applications.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
+    
+    
+   
    
   ],
   imports: [
