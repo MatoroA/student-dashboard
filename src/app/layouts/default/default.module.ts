@@ -5,7 +5,7 @@ import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.componen
 import { RouterModule } from '@angular/router';
 import { PostsComponent } from 'src/app/modules/posts/posts.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MatSidenavModule, MatDividerModule, MatCardModule, MatTableModule, MatStepperModule, MatButtonModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatSidenavModule, MatDividerModule, MatCardModule, MatTableModule, MatStepperModule, MatButtonModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule } from '@angular/material';
 import { AddTrainerComponent } from 'src/app/modules/add-trainer/add-trainer.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AddNewCourseComponent } from 'src/app/modules/add-new-course/add-new-course.component';
@@ -50,7 +50,8 @@ import { ApplicationsComponent } from 'src/app/modules/applications/applications
     MatInputModule,
     MatFormFieldModule,
     MatButtonToggleModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ]
 })
 export class DefaultModule { }
