@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { PostsComponent } from 'src/app/modules/posts/posts.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatSidenavModule, MatDividerModule, MatCardModule, MatTableModule, MatStepperModule, MatButtonModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule } from '@angular/material';
-import { AddTrainerComponent } from 'src/app/modules/add-trainer/add-trainer.component';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AddNewCourseComponent } from 'src/app/modules/add-new-course/add-new-course.component';
 import { CoursesComponent } from 'src/app/modules/courses/courses.component';
@@ -18,6 +18,7 @@ import { AddCourseContentComponent } from 'src/app/modules/add-course-content/ad
 
 import { AddAdminComponent } from 'src/app/modules/add-admin/add-admin.component';
 import { ApplicationsComponent } from 'src/app/modules/applications/applications.component';
+import { AddUserComponent } from 'src/app/modules/add-user/add-user.component';
 
 
 @NgModule({
@@ -25,13 +26,13 @@ import { ApplicationsComponent } from 'src/app/modules/applications/applications
     DefaultComponent,
     DashboardComponent,
     PostsComponent,
-    AddTrainerComponent,
     AddNewCourseComponent,
     CoursesComponent,
     TrainersComponent,
     AddCourseContentComponent,
     AddAdminComponent,
     ApplicationsComponent,
+    AddUserComponent,
     
   ],
   imports: [

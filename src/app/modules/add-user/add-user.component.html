@@ -1,6 +1,6 @@
-<h2>Add a trainer</h2>
 
-<form [formGroup]="turtorForm" (ngSubmit)="newTurtorForm()">
+<h1>Add a user</h1>
+<form [formGroup]="turtorForm" >
   <div class="example-container">
     <mat-form-field>
       <mat-label>first name</mat-label>
@@ -32,30 +32,11 @@
       <mat-label>email</mat-label>
       <input matInput formControlName="email">
     </mat-form-field>
-    <!-- <ng-container
+   
+   
+   </div>
 
-      *ngIf="turtorForm.get('registration_fee').touched && turtorForm.get('registration_fee').hasError('required')">
-      <small>Required Field</small>
-    </ng-container> -->
-
-    <!-- <ng-container *ngIf="turtorForm.get('course_fee').touched && turtorForm.get('course_fee').hasError('required')">
-      <small>Required Field</small>
-    </ng-container> -->
-
-    <mat-label>select a courses</mat-label>
-    <div *ngIf="allCourses$ | async as courses">
-      <mat-form-field>
-        <mat-select>
-          <mat-option *ngFor="let course of courses" [value]="course?.id" formControlName="email">
-            {{course?.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    
-  </div>
-
-  <button type="submit">submit</button>
+   <button mat-flat-button>submit</button>
 </form>
 
 
