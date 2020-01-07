@@ -3,6 +3,7 @@ profile-card{
     .mat-icon{
         vertical-align: middle;
         margin-right: 20px;
+        cursor: pointer;
     }
     .profile-card{
 
@@ -16,5 +17,16 @@ profile-card{
         height: 100px;
         object-fit: cover;
         border-radius: 50%;
+    }
+}
+
+
+#link{
+    p{
+        cursor: pointer;
+        color: rgb(26, 75, 104);
+        font-size: 1.2em;
+        font-weight: 300;
+        margin-left: 10dp;
     }
 }

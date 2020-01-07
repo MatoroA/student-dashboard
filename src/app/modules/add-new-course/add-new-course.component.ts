@@ -12,22 +12,37 @@ import { Course } from 'src/app/models/course';
 export class AddNewCourseComponent implements OnInit {
 
 
-  userForm: FormGroup;
+  courseForm: FormGroup;
   requirements: FormGroup;
   private file: File;
   private courseId: string;
   private fileName: string;
+  private isCourseRegistered: boolean = false;
+  private displayCourseFiles: boolean = false;
+  fileData: File = null;
+  previewUrl: any = null;
+
+  courseInclude: FormGroup
+
+  private courseData$: Observable<Course>;
   constructor(private formBuilder: FormBuilder, private _api: ApiService,
     private element: ElementRef) {
     this.requirements = this.formBuilder.group({
       additional: this.formBuilder.array([
         this.addingFields()
       ])
-    });
+    }); 
+
+    this.courseInclude = this.formBuilder.group({
+      feeInclude: this.formBuilder.array([
+        this.addingFields()
+      ])
+    }); 
   }
 
   ngOnInit() {
-    this.userForm = this.formBuilder.group({
+
+    this.courseForm = this.formBuilder.group({
       course: [null, Validators.compose([Validators.required])],
       course_id: [null, Validators.compose([Validators.required])],
       duration: [null, Validators.compose([Validators.required])],
@@ -39,22 +54,24 @@ export class AddNewCourseComponent implements OnInit {
   }
 
   newCourseForm() {
-    console.log(this.userForm.value)
-    this._api.addCourse(this.userForm)
-      .then(res => {
+    console.log(this.courseForm.value)
+    this._api.addCourse(this.courseForm)
+      .then(res => { 
         this.courseId = res.id;
+        console.log(res)
+        this.isCourseRegistered = true;
       }, error => {
-        console.log(error)
+        console.log(error) 
       })
   }
 
-  login() {
-    this._api.signIn("a@g.com", "123456").then(user => {
-      user.user.getIdTokenResult().then(idTokenResult => {
-        console.log(idTokenResult.claims)
-      })
-    })
-  }
+  // login() {
+  //   this._api.signIn("a@g.com", "123456").then(user => {
+  //     user.user.getIdTokenResult().then(idTokenResult => {
+  //       console.log(idTokenResult.claims)
+  //     })
+  //   })
+  // }
 
   addingFields(): FormGroup {
     return this.formBuilder.group({
@@ -75,32 +92,27 @@ export class AddNewCourseComponent implements OnInit {
 
   submitRequirements(form) {
     console.log(form.value)
-    this._api.uploadCourseRequirements(form.value.additional, "6N2MeGaIAPZUQtn3OV9V");
+    this._api.uploadCourseRequirements(form.value.additional, this.courseId)
+    .then(()=>{
+      this.displayCourseFiles = true
+    },err=>{
+      console.log(err)
+    })
+    
   }
 
   changeListner(event) {
-    var fullPath = event.srcElement.value
+    
     this.file = event.target.files[0];
-    this.fileName = fullPath.replace(/^.*[\\\/]/, '');
+    
 
-    console.log(this.getFileExtension(fullPath))
+    console.log(this.file)
   }
 
-  uploadFile() {
-    this._api.uploadingImage("course", "xdhyhauewedwgdw",this.fileName, this.file).then(results => {
-      console.log(results)
-      results.ref.getDownloadURL().then(url => {
-        console.log(url)
-        this.courseId = "xdhyhauewedwgdw"
-        // this._api.updateCourseData(this.courseId, url).then(res => {
-        //   console.log(res)
-        // })
-      })
-    })
-  }
+ 
 
-  getFileExtension(path: string): string{
-    var name = path.substring(path.lastIndexOf('/')+1, path.length);
+  getFileExtension(path: string): string {
+    var name = path.substring(path.lastIndexOf('/') + 1, path.length);
     name = name.split('%20').join(' ')
     let seperatedName = name.split('.')
     let extension = ''
@@ -111,9 +123,42 @@ export class AddNewCourseComponent implements OnInit {
     return extension;
   }
 
-  addStudent(){
-    console.log("oooo")
-    this._api.addStudent("a@student.com","123456");
+  // addStudent() {
+  //   console.log("oooo")
+  //   this._api.addStudent("a@student.com", "123456");
+  // }
+
+  fileSelected(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    var fullPath = fileInput.srcElement.value;
+    this.fileName = fullPath.replace(/^.*[\\\/]/, '');
+    this.preview();
+  }
+
+  uploadFile() {
+    this._api.uploadingImage("courses", this.courseId, this.fileName, this.fileData).then(results => {
+      console.log(results)
+      results.ref.getDownloadURL().then(url => {
+        console.log(url);
+        this._api.updateCourseDBData(this.courseId, url).then(res => {
+          console.log(res)
+        })
+      })
+    })
+  }
+
+  preview() {
+    // Show preview 
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    }
   }
 
 }

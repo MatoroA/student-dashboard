@@ -16,7 +16,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
 import { LoginComponent } from './login/login.component';
 import { ApplicationsComponent } from './modules/applications/applications.component';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -25,7 +25,6 @@ import { ApplicationsComponent } from './modules/applications/applications.compo
     LoginComponent,
     
     
-   
    
   ],
   imports: [
@@ -38,9 +37,10 @@ import { ApplicationsComponent } from './modules/applications/applications.compo
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,
     MatSelectModule,
-    MatTabsModule
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 

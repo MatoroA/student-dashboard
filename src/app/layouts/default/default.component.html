@@ -4,7 +4,7 @@
 
 <mat-drawer-container>
   <mat-drawer mode="side" [opened]="sideBarOpen">
-    <app-sidebar></app-sidebar>
+    <app-sidebar *ngFor="let page of pagesToDisplay" [name]="page.name" [page]="page.page"></app-sidebar>
   </mat-drawer>
   <mat-drawer-content>
 
