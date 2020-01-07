@@ -8,7 +8,7 @@ import { TrainersComponent } from './modules/trainers/trainers.component';
 import { CoursesComponent } from './modules/courses/courses.component';
 import { AddNewCourseComponent } from './modules/add-new-course/add-new-course.component';
 import { AddCourseContentComponent } from './modules/add-course-content/add-course-content.component';
-import { AddAdminComponent } from './modules/add-admin/add-admin.component';
+
 import { LoginComponent } from './login/login.component';
 import { ApplicationsComponent } from './modules/applications/applications.component';
 import { AddUserComponent } from './modules/add-user/add-user.component';
@@ -30,7 +30,7 @@ children:[{
 },
 { path: 'addCourseContent', component: AddCourseContentComponent
 },
-{path: 'addAdmin', component:AddAdminComponent},
+
 {path: 'applications', component:ApplicationsComponent},
 {path: 'addUser', component:AddUserComponent}
 

@@ -1,3 +1,15 @@
-<p>
-  applications works!
-</p>
+<h1>Applications</h1>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+<ng-container matColumnDef="Applicant_name">
+  <th mat-header-cell *matHeaderCellDef> Applicant name</th>
+  <td mat-cell *matCellDef="let user">{{user.Applicant_name}}</td>
+</ng-container>
+<ng-container matColumnDef="Course_applied_for">
+    <th mat-header-cell *matHeaderCellDef> Course Applied for</th>
+    <td mat-cell *matCellDef="let user">{{user.Course_applied_for}}</td>
+  </ng-container>
+ 
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[1, 2, 4, 8]" showFirstLastButtons></mat-paginator>
