@@ -15,14 +15,21 @@ import { environment } from '../environments/environment';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
 import { LoginComponent } from './login/login.component';
+<<<<<<< HEAD
 import { ApplicationsComponent } from './modules/applications/applications.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+=======
+
+import { AddUserComponent } from './modules/add-user/add-user.component';
+
+>>>>>>> 337124d00994ea21ff51e143b9eb278cbaac03d0
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+  
     
     
    

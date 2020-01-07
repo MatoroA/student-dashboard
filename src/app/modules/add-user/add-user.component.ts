@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from 'src/app/backend/api.service';
-import { Observable } from 'rxjs';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Course } from 'src/app/models/course';
+import { Observable } from 'rxjs';
+import { ApiService } from 'src/app/backend/api.service';
 
 @Component({
-  selector: 'app-add-trainer',
-  templateUrl: './add-trainer.component.html',
-  styleUrls: ['./add-trainer.component.scss']
+  selector: 'app-add-user',
+  templateUrl: './add-user.component.html',
+  styleUrls: ['./add-user.component.scss']
 })
-export class AddTrainerComponent implements OnInit {
-
+export class AddUserComponent implements OnInit {
   turtorForm: FormGroup;
   private allCourses$: Observable<Course[]>;
   private courseId: string;
@@ -34,5 +33,10 @@ export class AddTrainerComponent implements OnInit {
     console.log(this.courseId)
   }
 
+<<<<<<< HEAD:src/app/modules/add-trainer/add-trainer.component.ts
   
 } 
+=======
+
+}
+>>>>>>> 337124d00994ea21ff51e143b9eb278cbaac03d0:src/app/modules/add-user/add-user.component.ts
