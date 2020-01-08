@@ -32,6 +32,7 @@ children:[{
 },
 
 {path: 'applications', component:ApplicationsComponent},
+
 {path: 'addUser', component:AddUserComponent}
 
 ]

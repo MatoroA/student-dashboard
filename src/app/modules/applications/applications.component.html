@@ -1,4 +1,12 @@
 <h1>Applications</h1>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="stats-card">
+  <mat-card fxFlex="25" *ngFor="let item of course | async">
+    {{item.name}}
+    
+  </mat-card>
+
+  </div>
+  <br>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
 <ng-container matColumnDef="Applicant_name">
   <th mat-header-cell *matHeaderCellDef> Applicant name</th>

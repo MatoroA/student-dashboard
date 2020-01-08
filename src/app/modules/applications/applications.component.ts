@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { ApiService } from 'src/app/backend/api.service';
 
 @Component({
   selector: 'app-applications',
@@ -7,8 +8,11 @@ import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
   styleUrls: ['./applications.component.scss']
 })
 export class ApplicationsComponent implements OnInit {
+  course;
+  constructor(private apiService : ApiService) {
 
-  constructor() { }
+    this.course = this.apiService.getCourses(); 
+   }
 
   displayedColumns: string[]=['Applicant_name', 'Course_applied_for']
   dataSource = new MatTableDataSource<any>([

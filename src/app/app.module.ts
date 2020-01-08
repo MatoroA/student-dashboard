@@ -17,17 +17,18 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { LoginComponent } from './login/login.component';
 
 import { AddUserComponent } from './modules/add-user/add-user.component';
+import { MatProgressBarModule } from '@angular/material';
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    LoginComponent
   
     
     
-   
    
   ],
   imports: [
@@ -40,9 +41,10 @@ import { AddUserComponent } from './modules/add-user/add-user.component';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,
     MatSelectModule,
-    MatTabsModule
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 
