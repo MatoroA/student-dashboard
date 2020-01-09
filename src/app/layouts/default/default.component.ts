@@ -33,7 +33,7 @@ export class DefaultComponent implements OnInit {
 
   ngOnInit() {
 
-    this._api.signIn("a@tutor.com", "123456").then(user => {
+    this._api.signIn("a@g.com", "123456").then(user => {
       user.user.getIdTokenResult().then(idTokenResult => {
         console.log(idTokenResult.claims)
 

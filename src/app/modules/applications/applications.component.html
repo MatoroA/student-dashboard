@@ -21,3 +21,32 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <mat-paginator [pageSizeOptions]="[1, 2, 4, 8]" showFirstLastButtons></mat-paginator>
+
+<p *ngFor="let item of coursesAndStudent">
+  {{item?.course?.name}}
+</p>
+
+
+<!-- <h1>Applications</h1>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="stats-card">
+  <mat-card fxFlex="25" *ngFor="let item of course | async">
+    {{item.name}}
+    
+  </mat-card>
+
+  </div>
+  <br>
+<table mat-table [dataSource2]="dataSource2" class="mat-elevation-z8" >
+<ng-container matColumnDef="Applicant_name">
+  <th mat-header-cell *matHeaderCellDef> Applicant name</th>
+  <td mat-cell *matCellDef="let user">gg</td>
+</ng-container>
+<ng-container matColumnDef="Course_applied_for">
+    <th mat-header-cell *matHeaderCellDef> Course Applied for</th>
+    <td mat-cell *matCellDef="let user">hh</td>
+  </ng-container>
+ 
+  <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+</table>
+<mat-paginator [pageSizeOptions2]="[1, 2, 4, 8]" showFirstLastButtons></mat-paginator> -->

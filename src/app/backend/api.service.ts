@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
+import { Student } from '../models/student';
+import { StudentCourse } from '../models/studentCourse';
 
 declare var require: any
 
@@ -77,6 +79,39 @@ export class ApiService {
     )
   }
 
+  getStudents() {
+    return this.afs.collection<Student>('students').snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Student;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    )
+  }
+
+  getStudentCourse() {
+    return  this.afs.collection<StudentCourse>('studentCourse').snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as StudentCourse;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    )
+  }
+
+  async getStudentEnrolled(){
+    return await this.afs.collection<Course>('courses').snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Course;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    )
+  }
+  getStudentDoc(id: string){
+    let studentDoc = this.afs.doc<Student>("students/"+id);
+    return studentDoc.valueChanges();
+  }
    getCourseDocument(courseId: string) : Observable<Course>{
 
     let courseDoc = this.afs.doc<Course>("courses/"+courseId)
@@ -100,16 +135,6 @@ export class ApiService {
 
 
   async uploadCourseRequirements(requirementsArray: string[], courseId: string) {
-
-    // const arrayToObject = (array) =>
-    //   array.reduce((obj, item) => {
-    //     return item.requirement
-    //   }, {})
-    // const requirementObject = arrayToObject(requirementsArray);
-    // let req = {
-    //   requirements: requirementObject
-    // }
-    // console.log(requirementsArray)
     return await this.afs.doc("courses/" + courseId).update({requirements: requirementsArray});
   }
 }
