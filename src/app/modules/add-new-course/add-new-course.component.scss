@@ -1,39 +1,17 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-    width: 75%;
-    vertical-align: middle;
-    
-  }
-  .duration-container{
-    display: inline; 
-    flex-direction: row;
-    
+
+
+
+.example-h2 {
+  margin: 10px;
 }
-.mat-form-field--inline {
+
+.example-section {
   display: flex;
-  flex-direction: row;
+  align-content: center;
   align-items: center;
+  height: 60px;
 }
 
-.mat-form-field--inline .mat-form-field {
-  display: inline-block;
-  width: 100%;
-  vertical-align: middle;
-}
-
-.mat-form-field--inline .mat-form-field:nth-child(1) {
-  margin-right: 10px;
-}
-  
-//   .example-container > * {
-//     width: 100%;
-//   }
-
-
-.course{
-  background-color: #FBFBFB;
-  width: 100%;
-  border: 1px solid red;
-  padding: 10px; 
+.example-margin {
+  margin: 0 10px;
 }

@@ -1,107 +1,55 @@
-<div class="course">
 
-  <div class="course-registration">
+
+
     <h4>Register an course</h4>
-    <form [formGroup]="courseForm" (ngSubmit)="newCourseForm()">
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>course name</mat-label>
-          <input matInput formControlName="course">
-        </mat-form-field>
-        <ng-container *ngIf="courseForm.get('course').touched && courseForm.get('course').hasError('required')">
-          <small>Required Field</small>
-        </ng-container>
-        <mat-form-field>
-          <mat-label>course ID</mat-label>
-          <input matInput formControlName="course_id">
-        </mat-form-field>
-        <ng-container *ngIf="courseForm.get('course_id').touched && courseForm.get('course_id').hasError('required')">
-          <small>Required Field</small>
-        </ng-container>
-        <mat-label>Duration</mat-label>
-        <div class="mat-form-field--inline">
-
+  
+    <div>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper >
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Fill out course details</ng-template>
           <mat-form-field>
-            <mat-label>period</mat-label>
-            <input matInput formControlName="no">
-          </mat-form-field>
+            <input matInput placeholder="Course Name" formControlName="nameCtrl" required>
+          </mat-form-field><br>
           <mat-form-field>
-            <mat-label>Select an option</mat-label>
-            <mat-select formControlName="period">
-              <mat-option value="days">day(s)</mat-option>
-              <mat-option value="months">month(s)</mat-option>
-              <mat-option value="years">year(s)</mat-option>
-            </mat-select>
+            <input matInput placeholder="Course ID" formControlName="idCtrl" required>
+          </mat-form-field><br>
+          <mat-form-field>
+            <input matInput placeholder="Course Fee" formControlName="feeCtrl" required>
+          </mat-form-field><br>
+          <mat-form-field>
+            <input matInput placeholder="Duration" formControlName="durCtrl" required>
+          </mat-form-field><br>
+          <mat-form-field>
+            <input matInput placeholder="description" formControlName="desCtrl" required>
           </mat-form-field>
+          <div>
+
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>additional info</ng-template>
+          <section class="example-section">
+      <mat-checkbox class="example-margin" [(ngModel)]="checked">Checked</mat-checkbox>
+      <mat-checkbox class="example-margin" [(ngModel)]="indeterminate">Indeterminate</mat-checkbox>
+    </section>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
         </div>
-        <ng-container
-          *ngIf="courseForm.get('registration_fee').touched && courseForm.get('registration_fee').hasError('required')">
-          <small>Required Field</small>
-        </ng-container>
-
-        <mat-form-field>
-          <mat-label>Course fee</mat-label>
-          <input matInput formControlName="course_fee">
-        </mat-form-field>
-        <ng-container *ngIf="courseForm.get('course_fee').touched && courseForm.get('course_fee').hasError('required')">
-          <small>Required Field</small>
-        </ng-container>
-      </div>
-
-      <button type="submit">next</button>
-    </form>
+      </mat-step>
+    </mat-horizontal-stepper>
   </div>
-
-  <div>
-    <h3>Course requirements</h3>
-    <div class="compose-content">
-      <form [formGroup]="requirements" (ngSubmit)="submitRequirements(requirements)">
-        <div formArrayName="additional">
-
-          <section [formGroupName]="i" *ngFor="let tech of requirements.controls.additional.controls; let i = index">
-
-            <mat-form-field>
-              <input matInput placeholder="add requirement..." formControlName="requirement">
-            </mat-form-field>
-            <button type="button" *ngIf="requirements.controls.additional.length > 1" (click)="removeInputField(i)">
-              Remove
-            </button>
-          </section>
-        </div>
-
-        <button type="button" (click)="addNewInputField()">
-          Add a new requirement
-        </button>
-        <br><br><br>
-        <button type="submit" [disabled]="!requirements.valid">Next</button>
-      </form>
-    </div>
-  </div>
-
-  <div>
-
-    <input type="file" (change)="fileSelected($event)" />
-
-    <h3>Upload course cover</h3>
-    <div class="image-preview mb-3" *ngIf="previewUrl">
-      <img [src]="previewUrl" height="200" />
-    </div>
-    <button (click)="uploadFile()">uploadFile</button>
-  </div>
-
-
-  <div class="course-display">
     
-
-  </div> 
-
-   
-</div>
-
-<!-- <div *ngIf="courseData$ | async as courseData">
-    <h4>Course name: {{courseData?.name}}</h4>
-    <h4>Cover:</h4>
-    <img src="{{courseData?.coverUrl}}" height="250">
-    <h4>Requirements</h4>
-    <p *ngFor="let re of courseData?.requirements">{{re?.requirement}}</p>
-</div> -->

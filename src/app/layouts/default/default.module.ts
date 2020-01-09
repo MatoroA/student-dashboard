@@ -5,8 +5,8 @@ import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.componen
 import { RouterModule } from '@angular/router';
 import { PostsComponent } from 'src/app/modules/posts/posts.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MatSidenavModule, MatDividerModule, MatCardModule, MatTableModule, MatStepperModule, MatButtonModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule } from '@angular/material';
-
+import { MatSidenavModule, MatDividerModule, MatCardModule, MatTableModule, MatStepperModule, MatButtonModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule, } from '@angular/material';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AddNewCourseComponent } from 'src/app/modules/add-new-course/add-new-course.component';
 import { CoursesComponent } from 'src/app/modules/courses/courses.component';
@@ -51,7 +51,10 @@ import { AddUserComponent } from 'src/app/modules/add-user/add-user.component';
     MatFormFieldModule,
     MatButtonToggleModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatStepperModule,
+    MatCheckboxModule
+
   ]
 })
 export class DefaultModule { }
