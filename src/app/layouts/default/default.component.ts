@@ -23,9 +23,10 @@ export class DefaultComponent implements OnInit {
   ]
 
   tutorPages = [
-    { name: 'home', page: '' },
-    { name: 'addCourseContent', page: 'addCourseContent' },
-    { name: 'applications', page: 'applications' }
+    { name: 'Home', page: 'home' },
+    { name: 'Applications', page: 'applications' },
+    { name: 'Registered Students', page: 'posts'},
+    { name: 'Add New Course', page: 'addNewCourse' }
   ]
 
   pagesToDisplay = [];
