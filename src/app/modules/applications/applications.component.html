@@ -11,7 +11,7 @@
   </mat-select>
 </mat-form-field>
 
-<mat-checkbox [checked]="isChecked"  (change)="showAllStudents()">Show all!</mat-checkbox>
+<mat-checkbox *ngIf="!isChecked" [checked]="isChecked"  (change)="showAllStudents()">Show all!</mat-checkbox>
 <table mat-table [dataSource]="tableData" class="mat-elevation-z8">
     <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef> Position</th>
