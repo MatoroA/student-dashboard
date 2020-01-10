@@ -9,11 +9,13 @@ import { EnrolledStudent } from 'src/app/models/enrolledStudents';
   styleUrls: ['./applications.component.scss']
 })
 export class ApplicationsComponent implements OnInit {
-  course;
+  course: any;
   private coursesAndStudent: any = [];
+  sId;
   constructor(private _apiService : ApiService) {
 
     this.course = this._apiService.getCourses(); 
+    
    }
 
   displayedColumns: string[]=this.coursesAndStudent;
@@ -82,4 +84,8 @@ export class ApplicationsComponent implements OnInit {
     });
 
   }
+
+
+
+
 }

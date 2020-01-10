@@ -11,15 +11,15 @@ export class DefaultComponent implements OnInit {
 
   sideBarOpen = true;
   adminPages = [
-    { name: 'home', page: '' },
-    { name: 'posts', page: 'posts' },
-    { name: 'addTrainer', page: 'addTrainer' },
-    { name: 'trainers', page: 'trainers' },
-    { name: 'addNewCourse', page: 'addNewCourse' },
-    { name: 'courses', page: 'courses' },
-    { name: 'addCourseContent', page: 'addCourseContent' },
-    { name: 'addAdmin', page: 'addAdmin' },
-    { name: 'applications', page: 'applications' }
+    { name: 'Home', page: '' },
+    { name: 'Posts', page: 'posts' },
+    { name: 'Add Trainer', page: 'addTrainer' },
+    { name: 'Trainers', page: 'trainers' },
+    { name: 'Add New Course', page: 'addNewCourse' },
+    { name: 'Courses', page: 'courses' },
+    { name: 'Add Course Content', page: 'addCourseContent' },
+    { name: 'Add Admin', page: 'addAdmin' },
+    { name: 'Applications', page: 'applications' }
   ]
 
   tutorPages = [
@@ -34,7 +34,7 @@ export class DefaultComponent implements OnInit {
 
   ngOnInit() {
 
-    this._api.signIn("a@g.com", "123456").then(user => {
+    this._api.signIn("a@tutor.com", "123456").then(user => {
       user.user.getIdTokenResult().then(idTokenResult => {
         console.log(idTokenResult.claims)
 
