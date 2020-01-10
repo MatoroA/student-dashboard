@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 
 import { AddUserComponent } from './modules/add-user/add-user.component';
 import { MatProgressBarModule } from '@angular/material';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -42,6 +43,7 @@ import { MatProgressBarModule } from '@angular/material';
     AngularFireStorageModule,
     MatSelectModule,
     MatProgressBarModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
