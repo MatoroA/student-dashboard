@@ -2,9 +2,13 @@ import { Student } from './student';
 import { Course } from './course';
 
 export class EnrolledStudent{
-    private students: Student[] = [];
+    private studentsList: Array<Student>;
     private course: Course;
     private courseId: string;
+
+    public constructor(){
+        this.studentsList = new Array<Student>();
+    }
 
     public setCourseId(courseId: string){
         this.courseId = courseId;
@@ -14,11 +18,11 @@ export class EnrolledStudent{
         return this.courseId;
     }
 
-    public setStudent(item: Student){
-        this.students.push(item);
+    public setStudentsList(item: Student){
+        this.studentsList.push(item);
     }
-    public getStudent(){
-        return this.students;
+    public getStudentsList(): Array<Student>{
+        return this.studentsList;
     }
     public setCourse(item: Course){
         this.course = item;
