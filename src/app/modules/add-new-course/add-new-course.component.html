@@ -1,12 +1,10 @@
+<h4>Register an course</h4>
 
-
-
-    <h4>Register an course</h4>
-  
-    <div>
-    <mat-horizontal-stepper [linear]="isLinear" #stepper >
-      <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
+<div>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <div class="example-container">
           <ng-template matStepLabel>Fill out course details</ng-template>
           <mat-form-field>
             <input matInput placeholder="Course Name" formControlName="nameCtrl" required>
@@ -27,51 +25,51 @@
 
             <button mat-button matStepperNext>Next</button>
           </div>
-        </form>
-      </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <div class="example-container">
           <ng-template matStepLabel>additional info</ng-template>
           <mat-label>Fees Includes</mat-label>
           <section class="example-section">
-      <mat-checkbox class="example-margin">Safety Clothing</mat-checkbox>
-      <mat-checkbox class="example-margin" >Learning Material</mat-checkbox>
-      <mat-checkbox class="example-margin" >Stationary</mat-checkbox>
-      <mat-checkbox class="example-margin" >Learning Material</mat-checkbox>
-      <mat-checkbox class="example-margin" >Certificate of competence</mat-checkbox>
-      <mat-checkbox class="example-margin" >work placement assistance</mat-checkbox>
-    </section>
-    <mat-label>Requirments</mat-label>
-    <section class="example-section">
-<mat-checkbox class="example-margin">Certified ID copy</mat-checkbox>
-<mat-checkbox class="example-margin" >Proof of Residence</mat-checkbox>
-<mat-checkbox class="example-margin" >Stationary</mat-checkbox>
-<mat-checkbox class="example-margin" >R300 registration fee</mat-checkbox>
-<mat-checkbox class="example-margin" >NQF level 1 or grade 9</mat-checkbox>
+            <mat-checkbox class="example-margin">Safety Clothing</mat-checkbox>
+            <mat-checkbox class="example-margin">Learning Material</mat-checkbox>
+            <mat-checkbox class="example-margin">Stationary</mat-checkbox>
+            <mat-checkbox class="example-margin">Learning Material</mat-checkbox>
+            <mat-checkbox class="example-margin">Certificate of competence</mat-checkbox>
+            <mat-checkbox class="example-margin">work placement assistance</mat-checkbox>
+          </section>
+          <mat-label>Requirments</mat-label>
+          <section class="example-section">
+            <mat-checkbox class="example-margin">Certified ID copy</mat-checkbox>
+            <mat-checkbox class="example-margin">Proof of Residence</mat-checkbox>
+            <mat-checkbox class="example-margin">Stationary</mat-checkbox>
+            <mat-checkbox class="example-margin">R300 registration fee</mat-checkbox>
+            <mat-checkbox class="example-margin">NQF level 1 or grade 9</mat-checkbox>
 
-
-
-</section>
-<mat-form-field>
-  <input matInput placeholder="payment duration" formControlName="desCtrl" required>
-</mat-form-field><br>
-<mat-form-field>
-  <input type="date" matInput placeholder="start Date" formControlName="desCtrl" required>
-</mat-form-field>
+          </section>
+          <mat-form-field>
+            <input matInput placeholder="payment duration" formControlName="payCtrl" required>
+          </mat-form-field><br>
+          <mat-form-field>
+            <input type="date" matInput placeholder="start Date" formControlName="dateCtrl" required>
+          </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button matStepperNext>Next</button>
           </div>
-        </form>
-      </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        You are now done.
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
         </div>
-      </mat-step>
-    </mat-horizontal-stepper>
-  </div>
-    
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

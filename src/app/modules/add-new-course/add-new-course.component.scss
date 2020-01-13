@@ -1,9 +1,9 @@
 
 
 
-.example-h2 {
-  margin: 10px;
-}
+// .example-h2 {
+//   margin: 10px;
+// }
 
 .example-section {
   display: flex;
@@ -14,4 +14,34 @@
 
 .example-margin {
   margin: 0 10px;
+}
+
+//////////
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  vertical-align: middle;
+  
+}
+.duration-container{
+  display: inline; 
+  flex-direction: row;
+  
+}
+.mat-form-field--inline {
+display: flex;
+flex-direction: row;
+align-items: center;
+}
+
+.mat-form-field--inline .mat-form-field {
+display: inline-block;
+width: 100%;
+vertical-align: middle;
+}
+
+.mat-form-field--inline .mat-form-field:nth-child(1) {
+margin-right: 10px;
 }

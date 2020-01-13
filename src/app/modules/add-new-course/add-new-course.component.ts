@@ -28,7 +28,8 @@ export class AddNewCourseComponent implements OnInit {
       desCtrl:['',Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      payCtrl: ['', Validators.required],
+      dateCtrl: ['', Validators.required]
     });
   }
 
