@@ -4,39 +4,46 @@
   <div class="example-container">
     <mat-form-field>
       <mat-label>first name</mat-label>
-      <input matInput formControlName="firstname">
+      <input matInput formControlName="firstname" required>
      
     </mat-form-field>
-    <!-- <ng-container *ngIf="turtorForm.get('course').touched && turtorForm.get('course').hasError('required')">
-      <small>Required Field</small>
-    </ng-container> -->
+    
     <mat-form-field>
       <mat-label>last name</mat-label>
-      <input matInput formControlName="lastname">
+      <input matInput formControlName="lastname" required>
     </mat-form-field>
     <!-- <ng-container *ngIf="turtorForm.get('course_id').touched && turtorForm.get('course_id').hasError('required')">
       <small>Required Field</small>
     </ng-container> -->
+    
+      <label>Gender :</label>
+      <mat-radio-group formControlName="gender" required>
+        <mat-radio-button value="male">male</mat-radio-button>
+        <mat-radio-button value="female">female</mat-radio-button>
+       
+      </mat-radio-group>
 
     <mat-form-field>
       <mat-label>Id number</mat-label>
-      <input matInput formControlName="idnumber">
+      <input matInput formControlName="idnumber" required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>cell number</mat-label>
-      <input matInput formControlName="cellnumber">
+      <input matInput formControlName="cellnumber" required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>email</mat-label>
-      <input matInput formControlName="email">
+      <input matInput formControlName="email" required>
     </mat-form-field>
    
    
    </div>
 
-   <button mat-flat-button>submit</button>
+
 </form>
+  <button mat-raised-button [disabled]="!turtorForm.valid">Submit</button>
+
 
 

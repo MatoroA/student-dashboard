@@ -24,7 +24,8 @@ export class AddUserComponent implements OnInit {
      lastname: [null, Validators.compose([Validators.required])],
      email: [null, Validators.compose([Validators.required])],
      cellnumber: [null, Validators.compose([Validators.required])],
-     idnumber:[null, Validators.compose([Validators.required])]
+     idnumber:[null, Validators.compose([Validators.required])],
+     gender:[null, Validators.compose([Validators.required])]
     });
   }
 

@@ -27,7 +27,7 @@ export class DefaultComponent implements OnInit {
     { name: 'Applications', page: 'applications' },
     { name: 'Registered Students', page: 'posts'},
     { name: 'Add New Course', page: 'addNewCourse' },
-    {name : 'addUser', page: 'addUser'}
+    {name : 'Register a Student', page: 'addUser'}
   ]
 
   pagesToDisplay = [];

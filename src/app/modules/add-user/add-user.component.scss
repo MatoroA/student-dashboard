@@ -29,3 +29,27 @@
 //   .example-container > * {
 //     width: 100%;
 //   }
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+.example-margin {
+  margin: 0 10px;
+}
+.example-container .mat-radio-button {
+  margin: 0 12px;
+}
+
+button{
+
+  background-color: #800020;
+  color: white;
+  
+}
