@@ -33,4 +33,9 @@ export class AddNewCourseComponent implements OnInit {
     });
   }
 
+  submit(){
+    console.log(this.firstFormGroup.value)
+  }
 }
+
+

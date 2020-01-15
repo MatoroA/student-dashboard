@@ -3,10 +3,13 @@ export class Trainer{
     private courseId: string;
     private name: string;
     private surname: string;
+    private email: string;
+    private cellphone: string;
+    private password: string;
     private courseList: string[];
 
     constructor(){
-        this.courseList = [];
+        this.courseList = [];   
 
     }
     public setId(id: string){
@@ -14,6 +17,24 @@ export class Trainer{
     }
     public getId(){
         return this.id;
+    }
+    public setCellphone(cellphone: string){
+        this.cellphone = cellphone;
+    }
+    public getCellphone(){
+        return this.cellphone;
+    }
+    public setPassword(password: string){
+        this.password = password;
+    }
+    public getPassword(){
+        return this.password;
+    }
+    public setEmail(email: string){
+        this.email = email;
+    }
+    public getEmail(){
+        return this.email;
     }
     public setCourseId(courseId: string){
         this.courseId = courseId;

@@ -7,6 +7,7 @@ import { PostsComponent } from 'src/app/modules/posts/posts.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatSidenavModule, MatDividerModule, MatCardModule, MatTableModule, MatStepperModule, MatButtonModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule, } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AddNewCourseComponent } from 'src/app/modules/add-new-course/add-new-course.component';
 import { CoursesComponent } from 'src/app/modules/courses/courses.component';
@@ -18,11 +19,11 @@ import { AddCourseContentComponent } from 'src/app/modules/add-course-content/ad
 
 import { ApplicationsComponent } from 'src/app/modules/applications/applications.component';
 import { AddUserComponent } from 'src/app/modules/add-user/add-user.component';
-import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/dialog/delete-dialog/delete-dialog.component';
-import { StudentFormComponent } from 'src/app/modules/student-form/student-form.component';
-
+import { StudentFormComponent } from 'src/app/modules/forms/student-form/student-form.component';
+import { TurtorFormComponent } from 'src/app/modules/forms/turtor-form/turtor-form.component';
+import { AdminFormComponent } from 'src/app/modules/forms/admin-form/admin-form.component';
 
 
 @NgModule({
@@ -37,6 +38,8 @@ import { StudentFormComponent } from 'src/app/modules/student-form/student-form.
     AddCourseContentComponent,
     ApplicationsComponent,
     AddUserComponent,
+    TurtorFormComponent,
+    AdminFormComponent
     
   ],
   imports: [
@@ -60,6 +63,7 @@ import { StudentFormComponent } from 'src/app/modules/student-form/student-form.
     MatStepperModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatButtonModule,
     MatDialogModule
   ],
   entryComponents: [DeleteDialogComponent]

@@ -21,18 +21,12 @@ import { MatProgressBarModule } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import { DeleteDialogComponent } from './dialog/delete-dialog/delete-dialog.component';
-// import { StudentFormComponent } from './modules/student-form/student-form.component';
-
-
-
-
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DeleteDialogComponent,
-    // StudentFormComponent,
   ],
   imports: [
     BrowserModule, 

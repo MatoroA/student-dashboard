@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Student } from '../models/student';
 import { StudentCourse } from '../models/studentCourse';
 import { Turtor } from '../models/turtor';
+import { Trainer } from '../models/trainer';
 
 declare var require: any
 
@@ -43,16 +44,36 @@ export class ApiService {
 
   }
 
-  addTutor(email: string, password: string) {
-    console.log("kkkkk")
-
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
+  addTutor(trainer: Trainer) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(trainer.getEmail(), trainer.getPassword()).then(user => {
+      
       const firebase = require('firebase');
       const firebaseFunction = firebase.functions();
       const adminRole = firebaseFunction.httpsCallable('addTutor');
-      adminRole({ email: email }).then(result => {
+      adminRole({ email: trainer.getEmail() }).then(result => {
         console.log(result)
-      })
+
+        console.log(this.getTurtorDoc(user.user.uid))
+
+        let doc = {
+          firstname: trainer.getName(),
+          lastname: trainer.getSurnmae(),
+          email: trainer.getEmail(),
+          course: trainer.getCourseList(),
+          uid: user.user.uid
+        }
+
+        this.afs.doc("turtors/"+user.user.uid).get()
+        .subscribe(docSnapshot=>{
+          if(docSnapshot.exists){
+            this.afs.doc("turtors/"+user.user.uid).update({course: trainer.getCourseList()})
+          } else {
+            this.afs.doc("turtors/"+user.user.uid).set(doc)
+          }
+
+          return "User has been successfully created....."
+        });
+      });
 
     })
 
