@@ -13,16 +13,16 @@ export class DefaultComponent implements OnInit {
   adminPages = [
     { name: 'Home', page: '' },
     { name: 'Posts', page: 'posts' },
-    { name: 'Add Trainer', page: 'addTrainer' },
-    { name: 'Trainers', page: 'trainers' },
+    // { name: 'Add Trainer', page: 'addTrainer' },
+    // { name: 'Trainers', page: 'trainers' },
     { name: 'Add New Course', page: 'addNewCourse' },
     { name: 'Courses', page: 'courses' },
     { name: 'Add Course Content', page: 'addCourseContent' },
-    { name: 'Add Admin', page: 'addAdmin' },
+    { name: 'Add User', page: 'addUser' },
     { name: 'Applications', page: 'applications' }
   ]
 
-  tutorPages = [
+  tutorPages = [ 
     { name: 'Home', page: 'home' },
     { name: 'Applications', page: 'applications' },
     { name: 'Registered Students', page: 'posts'},
@@ -35,7 +35,7 @@ export class DefaultComponent implements OnInit {
 
   ngOnInit() {
 
-    this._api.signIn("a@tutor.com", "123456").then(user => {
+    this._api.signIn("a@g.com", "123456").then(user => {
       user.user.getIdTokenResult().then(idTokenResult => {
         console.log(idTokenResult.claims)
 
@@ -48,14 +48,7 @@ export class DefaultComponent implements OnInit {
           this.pagesToDisplay = this.tutorPages;
         }
       })
-    })
-    // this.afAuth.auth.currentUser.getIdTokenResult().then(userType => {
-
-    //   console.log(userType)
-    // })
-
-    // });
-
+    });
   }
 
   sideBarToggler() {

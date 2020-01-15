@@ -7,6 +7,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { Student } from '../models/student';
 import { StudentCourse } from '../models/studentCourse';
+import { Turtor } from '../models/turtor';
 
 declare var require: any
 
@@ -69,6 +70,11 @@ export class ApiService {
     })
 
   }
+
+  updateCourses(uid: string, collection: string, docId: string, coursesId: string[]){
+    return this.afs.doc(collection+"/"+docId).update({course: coursesId })
+  }
+
   getCourses() {
     return this.afs.collection<Course>('courses').snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -99,6 +105,16 @@ export class ApiService {
     )
   }
 
+  getTurtors() {
+    return  this.afs.collection<Turtor>('turtors').snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Turtor;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    )
+  }
+
   async getStudentEnrolled(){
     return await this.afs.collection<Course>('courses').snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -110,6 +126,11 @@ export class ApiService {
   }
   getStudentDoc(id: string){
     let studentDoc = this.afs.doc<Student>("students/"+id);
+    return studentDoc.valueChanges();
+  }
+  getTurtorDoc(id: string){
+    console.log(id)
+    let studentDoc = this.afs.doc<Turtor>("turtors/"+id);
     return studentDoc.valueChanges();
   }
    getCourseDocument(courseId: string) : Observable<Course>{
