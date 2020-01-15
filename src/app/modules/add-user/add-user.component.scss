@@ -1,55 +1,77 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-    width: 75%;
-    vertical-align: middle;
+// .example-container {
+//     display: flex;
+//     flex-direction: column;
+//     width: 75%;
+//     vertical-align: middle;
     
-  }
-  .duration-container{
-    display: inline; 
-    flex-direction: row;
-    
-}
-.mat-form-field--inline {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.mat-form-field--inline .mat-form-field {
-  display: inline-block;
-  width: 100%;
-  vertical-align: middle;
-}
-
-.mat-form-field--inline .mat-form-field:nth-child(1) {
-  margin-right: 10px;
-}
-  
-//   .example-container > * {
-//     width: 100%;
 //   }
-.example-button-row button,
-.example-button-row a {
-  margin-right: 8px;
-}
+//   .duration-container{
+//     display: inline; 
+//     flex-direction: row;
+    
+// }
+// .mat-form-field--inline {
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+// }
 
-.example-section {
-  display: flex;
-  align-content: center;
-  align-items: center;
-  height: 60px;
-}
-.example-margin {
-  margin: 0 10px;
-}
-.example-container .mat-radio-button {
-  margin: 0 12px;
-}
+// .mat-form-field--inline .mat-form-field {
+//   display: inline-block;
+//   width: 100%;
+//   vertical-align: middle;
+// }
 
-button{
-
-  background-color: #800020;
-  color: white;
+// .mat-form-field--inline .mat-form-field:nth-child(1) {
+//   margin-right: 10px;
+// }
   
+// //   .example-container > * {
+// //     width: 100%;
+// //   }
+// .example-button-row button,
+// .example-button-row a {
+//   margin-right: 8px;
+// }
+
+// .example-section {
+//   display: flex;
+//   align-content: center;
+//   align-items: center;
+//   height: 60px;
+// }
+// .example-margin {
+//   margin: 0 10px;
+// }
+// .example-container .mat-radio-button {
+//   margin: 0 12px;
+// }
+
+// button{
+
+//   background-color: #800020;
+//   color: white;
+  
+// }
+
+
+// .class-show-form{
+//   border: 1px solid red;
+//   width: 80%;
+//   height: auto;
+//   margin-top: 35px;
+//   padding: 10px;
+// }
+
+.page-add-user{
+
+  h1{
+    font-weight: 400;
+  }
+
+  mat-radio-group{
+    mat-radio-button{
+      margin-right: 30px;
+    }
+  }
 }

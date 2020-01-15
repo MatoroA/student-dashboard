@@ -19,6 +19,11 @@ import { AddCourseContentComponent } from 'src/app/modules/add-course-content/ad
 
 import { ApplicationsComponent } from 'src/app/modules/applications/applications.component';
 import { AddUserComponent } from 'src/app/modules/add-user/add-user.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DeleteDialogComponent } from 'src/app/dialog/delete-dialog/delete-dialog.component';
+import { StudentFormComponent } from 'src/app/modules/forms/student-form/student-form.component';
+import { TurtorFormComponent } from 'src/app/modules/forms/turtor-form/turtor-form.component';
+import { AdminFormComponent } from 'src/app/modules/forms/admin-form/admin-form.component';
 
 
 @NgModule({
@@ -26,13 +31,15 @@ import { AddUserComponent } from 'src/app/modules/add-user/add-user.component';
     DefaultComponent,
     DashboardComponent,
     PostsComponent,
+    StudentFormComponent,
     AddNewCourseComponent,
     CoursesComponent,
     TrainersComponent,
     AddCourseContentComponent,
-    
     ApplicationsComponent,
     AddUserComponent,
+    TurtorFormComponent,
+    AdminFormComponent
     
   ],
   imports: [
@@ -56,8 +63,9 @@ import { AddUserComponent } from 'src/app/modules/add-user/add-user.component';
     MatStepperModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatButtonModule
-
-  ]
+    MatButtonModule,
+    MatDialogModule
+  ],
+  entryComponents: [DeleteDialogComponent]
 })
 export class DefaultModule { }

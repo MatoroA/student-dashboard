@@ -1,0 +1,70 @@
+<mat-form-field id="course-select">
+  <mat-label>Select course:</mat-label>
+  <mat-select (selectionChange)="selectedCourse($event.value)">
+    <mat-option *ngFor="let course of allCourses$ | async as courses" [value]="course?.id">
+      {{course?.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div class="turtors">
+
+  <div class="available" *ngIf="turtorsOnTheCourse?.length > 0; else no_turtors">
+    <h2 id="msg" >Available turtors for this course are:</h2>
+    <div class="box" *ngFor="let item of turtorsOnTheCourse">
+      <p>{{item?.name}} {{item?.surname}}</p>
+      <button (click)="delete(item?.id, item?.courseId)">delete</button>
+    </div>
+
+    <br><br>
+    <hr>
+    <button id="add-turtor" (click)="showForm()">
+      <i class="material-icons">
+        add
+      </i>
+    </button>
+    Add new turtor...
+  </div>
+
+  <ng-template class="available" #no_turtors>
+    <h2 id="msg" >This course currently doesnt have turtors assigned....</h2>
+    <br><br>
+  </ng-template>
+
+  <div *ngIf="showTurtorForm || turtorsOnTheCourse?.length == 0" class="turtor-form" >
+    <form [formGroup]="turtorForm" (ngSubmit)="submitForm()" >
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>first name</mat-label>
+          <input matInput formControlName="firstname">
+
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>last name</mat-label>
+          <input matInput formControlName="lastname">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>cellphone</mat-label>
+          <input matInput formControlName="cellphone">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>password</mat-label>
+          <input matInput formControlName="password2">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>confirm password</mat-label>
+          <input matInput formControlName="password1">
+        </mat-form-field>
+
+      </div>
+      <button mat-flat-button>submit</button>
+
+    </form>
+  </div>
+</div>

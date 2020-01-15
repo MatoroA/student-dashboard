@@ -7,6 +7,8 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { Student } from '../models/student';
 import { StudentCourse } from '../models/studentCourse';
+import { Turtor } from '../models/turtor';
+import { Trainer } from '../models/trainer';
 
 declare var require: any
 
@@ -42,16 +44,36 @@ export class ApiService {
 
   }
 
-  addTutor(email: string, password: string) {
-    console.log("kkkkk")
-
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
+  addTutor(trainer: Trainer) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(trainer.getEmail(), trainer.getPassword()).then(user => {
+      
       const firebase = require('firebase');
       const firebaseFunction = firebase.functions();
       const adminRole = firebaseFunction.httpsCallable('addTutor');
-      adminRole({ email: email }).then(result => {
+      adminRole({ email: trainer.getEmail() }).then(result => {
         console.log(result)
-      })
+
+        console.log(this.getTurtorDoc(user.user.uid))
+
+        let doc = {
+          firstname: trainer.getName(),
+          lastname: trainer.getSurnmae(),
+          email: trainer.getEmail(),
+          course: trainer.getCourseList(),
+          uid: user.user.uid
+        }
+
+        this.afs.doc("turtors/"+user.user.uid).get()
+        .subscribe(docSnapshot=>{
+          if(docSnapshot.exists){
+            this.afs.doc("turtors/"+user.user.uid).update({course: trainer.getCourseList()})
+          } else {
+            this.afs.doc("turtors/"+user.user.uid).set(doc)
+          }
+
+          return "User has been successfully created....."
+        });
+      });
 
     })
 
@@ -69,6 +91,11 @@ export class ApiService {
     })
 
   }
+
+  updateCourses(uid: string, collection: string, docId: string, coursesId: string[]){
+    return this.afs.doc(collection+"/"+docId).update({course: coursesId })
+  }
+
   getCourses() {
     return this.afs.collection<Course>('courses').snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -99,6 +126,16 @@ export class ApiService {
     )
   }
 
+  getTurtors() {
+    return  this.afs.collection<Turtor>('turtors').snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Turtor;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    )
+  }
+
   async getStudentEnrolled(){
     return await this.afs.collection<Course>('courses').snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -110,6 +147,11 @@ export class ApiService {
   }
   getStudentDoc(id: string){
     let studentDoc = this.afs.doc<Student>("students/"+id);
+    return studentDoc.valueChanges();
+  }
+  getTurtorDoc(id: string){
+    console.log(id)
+    let studentDoc = this.afs.doc<Turtor>("turtors/"+id);
     return studentDoc.valueChanges();
   }
    getCourseDocument(courseId: string) : Observable<Course>{

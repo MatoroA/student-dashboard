@@ -19,18 +19,14 @@ import { LoginComponent } from './login/login.component';
 import { AddUserComponent } from './modules/add-user/add-user.component';
 import { MatProgressBarModule } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
-
-
+import {MatRadioModule} from '@angular/material/radio';
+import { DeleteDialogComponent } from './dialog/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
-  
-    
-    
-   
+    LoginComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule, 
@@ -43,7 +39,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     AngularFireStorageModule,
     MatSelectModule,
     MatProgressBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
