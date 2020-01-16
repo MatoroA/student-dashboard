@@ -11,6 +11,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { AreaComponent } from './widgets/area/area.component';
 import { WidgetsComponent } from './widgets/widgets.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart.component';
+import { DoubleBarComponent } from './widgets/double-bar/double-bar.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { BarChartComponent } from './widgets/bar-chart/bar-chart.component';
     AreaComponent,
     WidgetsComponent,
     BarChartComponent,
+    DoubleBarComponent,
     
   ],
   imports: [
@@ -44,7 +46,8 @@ import { BarChartComponent } from './widgets/bar-chart/bar-chart.component';
     SidebarComponent,
     FooterComponent,
     AreaComponent,
-    BarChartComponent 
+    BarChartComponent,
+    DoubleBarComponent 
    
   ]
 })

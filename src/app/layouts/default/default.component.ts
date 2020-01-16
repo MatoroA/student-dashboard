@@ -12,7 +12,7 @@ export class DefaultComponent implements OnInit {
   sideBarOpen = true;
   adminPages = [
     { name: 'Home', page: '' },
-    { name: 'Posts', page: 'posts' },
+    //{ name: 'Posts', page: 'posts' },
     // { name: 'Add Trainer', page: 'addTrainer' },
     // { name: 'Trainers', page: 'trainers' },
     { name: 'Add New Course', page: 'addNewCourse' },
@@ -31,7 +31,9 @@ export class DefaultComponent implements OnInit {
   ]
 
   pagesToDisplay = [];
-  constructor(public afAuth: AngularFireAuth, private _api: ApiService) { }
+  constructor(
+    public afAuth: AngularFireAuth,
+     private _api: ApiService) { }
 
   ngOnInit() {
 
