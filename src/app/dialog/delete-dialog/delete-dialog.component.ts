@@ -53,6 +53,7 @@ export class DeleteDialogComponent implements OnInit {
 
     this._apiService.updateCourses(this.userId, "turtors", this.userId, this.newCourses)
     console.log(this.newCourses)
+    this.dialogRef.close('');
   }
 
 
