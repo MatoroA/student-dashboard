@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ApiService } from 'src/app/backend/api.service';
-
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',
@@ -11,7 +10,7 @@ export class DefaultComponent implements OnInit {
 
   sideBarOpen = true;
   adminPages = [
-    { name: 'Home', page: '' },
+    { name: 'Home', page: 'home' },
     { name: 'Posts', page: 'posts' },
     // { name: 'Add Trainer', page: 'addTrainer' },
     // { name: 'Trainers', page: 'trainers' },
@@ -34,7 +33,6 @@ export class DefaultComponent implements OnInit {
   constructor(public afAuth: AngularFireAuth, private _api: ApiService) { }
 
   ngOnInit() {
-
     this._api.signIn("a@g.com", "123456").then(user => {
       user.user.getIdTokenResult().then(idTokenResult => {
         console.log(idTokenResult.claims)

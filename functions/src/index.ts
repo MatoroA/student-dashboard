@@ -16,3 +16,36 @@ exports.addStudent = functions.https.onCall((data, context)=>{
         return err;
     });
 });
+
+
+export const sendOnFirestoreCreate = functions.firestore
+.document('studentCourse/{stId}')
+.onCreate(async snapshot =>{
+    const notification: admin.messaging.Notification = {
+        title: 'New Discount Available',
+        body: 'body'
+    };
+
+    const payload: admin.messaging.Message = {
+        notification,
+
+        webpush: {
+            notification: {
+                vibrate: [200, 100, 200],
+                actions: [
+                    {
+                        action: 'like',
+                        title: 'Yaay'
+                    },
+                    {
+                        action: 'dislike',
+                        title: 'Boooo!'
+                    }
+                ]
+            }
+        },
+        topic: 'New student application'
+    }
+
+    return admin.messaging().send(payload);
+})

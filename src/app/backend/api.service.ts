@@ -41,7 +41,7 @@ export class ApiService {
       })
 
     })
-
+ 
   }
 
   addTutor(trainer: Trainer) {

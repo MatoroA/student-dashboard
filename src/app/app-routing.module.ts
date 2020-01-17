@@ -17,7 +17,7 @@ import { AddUserComponent } from './modules/add-user/add-user.component';
 const routes: Routes = [
   {path:'default', component: DefaultComponent,
 children:[{
-  path:'', component:DashboardComponent
+  path:'home', component:DashboardComponent
 },
 {
   path:'posts', component:PostsComponent 

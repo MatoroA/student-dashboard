@@ -18,4 +18,12 @@ mat-drawer-container{
 mat-drawer-content{
     padding: 20px;
     background-color: #EBECF0;
+    color: #868686;
+
+    mat-card{
+        height: 100%;
+        width: 100%;
+        position: relative;
+        color: #808080;
+    }
 }

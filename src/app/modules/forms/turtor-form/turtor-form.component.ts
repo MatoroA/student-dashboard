@@ -18,7 +18,7 @@ export class TurtorFormComponent implements OnInit {
 
   turtorForm: FormGroup;
   private allCourses$: Observable<Course[]>;
-  private turtors: Trainer[];
+  private turtors: Trainer[] = null;
   private turtorsOnTheCourse: Trainer[];
   private showTurtorForm: boolean = false;
 

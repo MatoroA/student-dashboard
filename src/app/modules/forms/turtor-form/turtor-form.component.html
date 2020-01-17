@@ -18,16 +18,16 @@
 
     <br><br>
     <hr>
-    <button id="add-turtor" (click)="showForm()">
+    <p id="add-turtor" (click)="showForm()">
       <i class="material-icons">
         add
       </i>
-    </button>
+    </p>
     Add new turtor...
   </div>
 
   <ng-template class="available" #no_turtors>
-    <h2 id="msg" >This course currently doesnt have turtors assigned....</h2>
+    <h2 id="msg" *ngIf="coures != ''" >This course currently doesnt have turtors assigned....</h2>
     <br><br>
   </ng-template>
 

@@ -19,7 +19,7 @@ export interface DialogData{
 })
 export class AddUserComponent implements OnInit {
 
-  private userId: number = null;
+  private userId: number = -1;
 
   constructor() {
   }
