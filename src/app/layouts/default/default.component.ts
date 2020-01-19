@@ -33,20 +33,21 @@ export class DefaultComponent implements OnInit {
   constructor(public afAuth: AngularFireAuth, private _api: ApiService) { }
 
   ngOnInit() {
-    this._api.signIn("a@g.com", "123456").then(user => {
-      user.user.getIdTokenResult().then(idTokenResult => {
-        console.log(idTokenResult.claims)
+    this.pagesToDisplay = this.adminPages;
+    // this._api.signIn("a@g.com", "123456").then(user => {
+    //   user.user.getIdTokenResult().then(idTokenResult => {
+    //     console.log(idTokenResult.claims)
 
-        if (idTokenResult.claims.admin) {
-          this.pagesToDisplay = this.adminPages;
+    //     if (idTokenResult.claims.admin) {
+    //       this.pagesToDisplay = this.adminPages;
 
-        }
-        if (idTokenResult.claims.tutor) {
+    //     }
+    //     if (idTokenResult.claims.tutor) {
 
-          this.pagesToDisplay = this.tutorPages;
-        }
-      })
-    });
+    //       this.pagesToDisplay = this.tutorPages;
+    //     }
+    //   })
+    // });
   }
 
   sideBarToggler() {

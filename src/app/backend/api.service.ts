@@ -45,12 +45,14 @@ export class ApiService {
   }
 
   addTutor(trainer: Trainer) {
+
+    console.log(trainer)
     return this.afAuth.auth.createUserWithEmailAndPassword(trainer.getEmail(), trainer.getPassword()).then(user => {
       
       const firebase = require('firebase');
       const firebaseFunction = firebase.functions();
-      const adminRole = firebaseFunction.httpsCallable('addTutor');
-      adminRole({ email: trainer.getEmail() }).then(result => {
+      const roleTurtor = firebaseFunction.httpsCallable('addTurtor');
+      roleTurtor({ email: trainer.getEmail() }).then(result => {
         console.log(result)
 
         console.log(this.getTurtorDoc(user.user.uid))

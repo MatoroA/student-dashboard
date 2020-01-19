@@ -1,21 +1,19 @@
 
 p{
- //border: 1px solid black;
+padding: 4px 4px 4px 15px;
     color: #868686;
-    margin-left: 20px;
-    margin-top: 25px;
     font-weight: 500;
     font-size: 1em;
     cursor: pointer;
-    outline: none !important; 
+    outline: none !important;
 }
 
 .selected-link{
     color: #800020;
-    margin-left: 20px;
-    margin-top: 25px;
+    padding: 4px 4px 4px 15px;
     font-weight: 500;
     font-size: 1.15em;
+    background-color: #EBECF0;
     cursor: pointer;
     outline: none !important; 
 }

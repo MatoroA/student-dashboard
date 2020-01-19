@@ -1,41 +1,69 @@
-<!-- <div *ngIf="userId == 1">
- 
-  
+<form [formGroup] = "form" (ngSubmit)="onSubmit()">
 
-  
-  <br><br>
-<form [formGroup]="turtorForm" *ngIf="showTurtorForm">
-  <div class="example-container">
-    <mat-form-field>
-      <mat-label>first name turtor</mat-label>
-      <input matInput formControlName="firstname">
+  <mat-form-field >
+    <input matInput 
+     formControlName = "name"
+    placeholder="First name"
+    autocomplete="off"
+    type="text"/>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput formControlName = "surname"
+    placeholder="Last name"
+    autocomplete="off"
+    type="text"/>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput formControlName = "email"
+    placeholder="Email"
+    autocomplete="off"
+    type="email"/>
 
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>last name</mat-label>
-      <input matInput formControlName="lastname">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Id number</mat-label>
-      <input matInput formControlName="idnumber">
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>cell number</mat-label>
-      <input matInput formControlName="cellnumber">
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>email</mat-label>
-      <input matInput formControlName="email">
-    </mat-form-field>
+    <!-- <mat-error *ngIf="email.invalid && email.dirty">
+      You must enter a vaild email address
+    </mat-error> -->
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput formControlName = "cellphone"
+    placeholder="Cellphone number"
+    autocomplete="off"
+    type="tel"/>
+  </mat-form-field>
 
 
-  </div>
-
-  <button mat-flat-button>submit</button>
-
+  <br>
+  <button matButton
+    [disabled]="form.invalid" type="submit">Add a new admin</button>
 </form>
-</div>  -->
 
-<p>Admin</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

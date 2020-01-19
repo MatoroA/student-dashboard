@@ -14,22 +14,24 @@ export class AdminFormComponent implements OnInit {
   turtorForm: FormGroup;
   private allCourses$: Observable<Course[]>;
   
+
+  form: FormGroup;
   
-  constructor(private formBuilder: FormBuilder, private _api: ApiService, public dialog: MatDialog) {
-    this.allCourses$ = this._api.getCourses();
-    this.allCourses$ = this._api.getCourses();
-    console.log(this.allCourses$)
-   this.turtorForm = this.formBuilder.group({
-    firstname: [null, Validators.compose([Validators.required])],
-     lastname: [null, Validators.compose([Validators.required])],
-     email: [null, Validators.compose([Validators.required])],
-     cellnumber: [null, Validators.compose([Validators.required])],
-     idnumber:[null, Validators.compose([Validators.required])],
-     gender:[null, Validators.compose([Validators.required])]
-    });
+  constructor(private fb: FormBuilder) {
    }
 
   ngOnInit() {
+
+    this.form = this.fb.group({
+      name: ['', [Validators.required, Validators.maxLength(40)]],
+      surname: ['', [Validators.required, Validators.maxLength(40)]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(40)]],
+      cellphone: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]]
+    })
+  }
+
+  onSubmit(){
+    console.log(this.form)
   }
 
 }
