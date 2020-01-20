@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ApiService } from 'src/app/backend/api.service';
-
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',
@@ -36,21 +35,21 @@ export class DefaultComponent implements OnInit {
      private _api: ApiService) { }
 
   ngOnInit() {
+    this.pagesToDisplay = this.adminPages;
+    // this._api.signIn("a@g.com", "123456").then(user => {
+    //   user.user.getIdTokenResult().then(idTokenResult => {
+    //     console.log(idTokenResult.claims)
 
-    this._api.signIn("a@g.com", "123456").then(user => {
-      user.user.getIdTokenResult().then(idTokenResult => {
-        console.log(idTokenResult.claims)
+    //     if (idTokenResult.claims.admin) {
+    //       this.pagesToDisplay = this.adminPages;
 
-        if (idTokenResult.claims.admin) {
-          this.pagesToDisplay = this.adminPages;
+    //     }
+    //     if (idTokenResult.claims.tutor) {
 
-        }
-        if (idTokenResult.claims.tutor) {
-
-          this.pagesToDisplay = this.tutorPages;
-        }
-      })
-    });
+    //       this.pagesToDisplay = this.tutorPages;
+    //     }
+    //   })
+    // });
   }
 
   sideBarToggler() {

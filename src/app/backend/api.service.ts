@@ -9,6 +9,8 @@ import { Student } from '../models/student';
 import { StudentCourse } from '../models/studentCourse';
 import { Turtor } from '../models/turtor';
 import { Trainer } from '../models/trainer';
+import { NewCourse } from '../models/new-course';
+import { Time } from 'highcharts';
 
 declare var require: any
 
@@ -41,16 +43,18 @@ export class ApiService {
       })
 
     })
-
+ 
   }
 
   addTutor(trainer: Trainer) {
+
+    console.log(trainer)
     return this.afAuth.auth.createUserWithEmailAndPassword(trainer.getEmail(), trainer.getPassword()).then(user => {
       
       const firebase = require('firebase');
       const firebaseFunction = firebase.functions();
-      const adminRole = firebaseFunction.httpsCallable('addTutor');
-      adminRole({ email: trainer.getEmail() }).then(result => {
+      const roleTurtor = firebaseFunction.httpsCallable('addTurtor');
+      roleTurtor({ email: trainer.getEmail() }).then(result => {
         console.log(result)
 
         console.log(this.getTurtorDoc(user.user.uid))
@@ -178,5 +182,31 @@ export class ApiService {
 
   async uploadCourseRequirements(requirementsArray: string[], courseId: string) {
     return await this.afs.doc("courses/" + courseId).update({requirements: requirementsArray});
+  }
+
+  async uploadCourse(course: NewCourse){
+
+    this._storage.upload("courses/"+course.getCourseName()+"/"+course.getImageName(),course.getImageCover()).then(results=>{
+      results.downloadURL
+      results.ref.getDownloadURL().then(url=>{
+        let courseDoc = {
+          coverUrl: url,
+          code: course.getCourseId(),
+          name: course.getCourseName(),
+          requirements: course.getRequirements(),
+          fee: course.getCourseFee(),
+          description: course.getDescription()
+        }
+
+        console.log(url)
+  
+        return this.afs.collection("courses").add(courseDoc);
+      })
+
+    })
+
+
+
+   
   }
 }

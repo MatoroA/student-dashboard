@@ -18,11 +18,11 @@ export class TurtorFormComponent implements OnInit {
 
   turtorForm: FormGroup;
   private allCourses$: Observable<Course[]>;
-  private turtors: Trainer[];
+  private turtors: Trainer[] = null;
   private turtorsOnTheCourse: Trainer[];
   private showTurtorForm: boolean = false;
 
-  private course: string = null;
+  private course: string = '';
 
   constructor(private formBuilder: FormBuilder, private _api: ApiService, public dialog: MatDialog) {
 
@@ -98,6 +98,8 @@ export class TurtorFormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getTurtorsAndCourse();
+      this.selectedCourse(this.courseId);
       // this.animal = result;
     });
   }
