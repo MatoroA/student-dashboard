@@ -15,6 +15,11 @@
           </mat-form-field><br>
           <mat-form-field>
             <input matInput placeholder="Course Fee" formControlName="feeCtrl" required>
+            
+          </mat-form-field><br>
+          <mat-form-field>
+            <input matInput placeholder="Deposit"  formControlName="depCtrl" required >
+            
           </mat-form-field><br>
           <mat-label>Duration:</mat-label>
           <div class="date-field">
@@ -25,6 +30,7 @@
             <input matInput placeholder="End Date" type="date" formControlName="dur2Ctrl" required >
             
           </mat-form-field>
+         
      
           
         </div><br>
@@ -35,12 +41,7 @@
           </mat-form-field>
           <div><br>
 
-<<<<<<< HEAD
-            <button mat-raised-button matStepperNext [disabled]="!firstFormGroup.valid" (click)="submit()">Next</button>
-            
-=======
             <button mat-raised-button matStepperNext [disabled]="!firstFormGroup.valid" type="submit">Next</button>
->>>>>>> 7b6a35ce9f00e10430ed28e85cbb68ad41255e0f
           </div>
         </div>
       </form>

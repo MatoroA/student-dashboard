@@ -35,7 +35,8 @@ export class AddNewCourseComponent implements OnInit {
       feeCtrl:['', Validators.required],
       dur1Ctrl:['',Validators.required],
       dur2Ctrl:['',Validators.required],
-      desCtrl:['',Validators.required]
+      desCtrl:['',Validators.required],
+      depCtrl:['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
       safetyClothing: [''],
