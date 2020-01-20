@@ -9,6 +9,8 @@ import { Student } from '../models/student';
 import { StudentCourse } from '../models/studentCourse';
 import { Turtor } from '../models/turtor';
 import { Trainer } from '../models/trainer';
+import { NewCourse } from '../models/new-course';
+import { Time } from 'highcharts';
 
 declare var require: any
 
@@ -180,5 +182,31 @@ export class ApiService {
 
   async uploadCourseRequirements(requirementsArray: string[], courseId: string) {
     return await this.afs.doc("courses/" + courseId).update({requirements: requirementsArray});
+  }
+
+  async uploadCourse(course: NewCourse){
+
+    this._storage.upload("courses/"+course.getCourseName()+"/"+course.getImageName(),course.getImageCover()).then(results=>{
+      results.downloadURL
+      results.ref.getDownloadURL().then(url=>{
+        let courseDoc = {
+          coverUrl: url,
+          code: course.getCourseId(),
+          name: course.getCourseName(),
+          requirements: course.getRequirements(),
+          fee: course.getCourseFee(),
+          description: course.getDescription()
+        }
+
+        console.log(url)
+  
+        return this.afs.collection("courses").add(courseDoc);
+      })
+
+    })
+
+
+
+   
   }
 }

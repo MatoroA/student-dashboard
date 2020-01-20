@@ -18,34 +18,30 @@ exports.addStudent = functions.https.onCall((data, context)=>{
 });
 
 
-export const sendOnFirestoreCreate = functions.firestore
-.document('studentCourse/{stId}')
-.onCreate(async snapshot =>{
-    const notification: admin.messaging.Notification = {
-        title: 'New Discount Available',
-        body: 'body'
-    };
+exports.addTurtor = functions.https.onCall((data, context)=>{
+    return admin.auth().getUserByEmail(data.email).then(user =>{
+        return admin.auth().setCustomUserClaims(user.uid,{
+            turtor: true
+        })
+    }).then(()=>{
+        return {
+            message: `Success! ${data.email} has been made a turtor`
+        }
+    }).catch(err =>{
+        return err;
+    });
+});
 
-    const payload: admin.messaging.Message = {
-        notification,
-
-        webpush: {
-            notification: {
-                vibrate: [200, 100, 200],
-                actions: [
-                    {
-                        action: 'like',
-                        title: 'Yaay'
-                    },
-                    {
-                        action: 'dislike',
-                        title: 'Boooo!'
-                    }
-                ]
-            }
-        },
-        topic: 'New student application'
-    }
-
-    return admin.messaging().send(payload);
-})
+exports.addAdmin = functions.https.onCall((data, context)=>{
+    return admin.auth().getUserByEmail(data.email).then(user =>{
+        return admin.auth().setCustomUserClaims(user.uid,{
+            admin: true
+        })
+    }).then(()=>{
+        return {
+            message: `Success! ${data.email} has been made a student`
+        }
+    }).catch(err =>{
+        return err;
+    });
+});
