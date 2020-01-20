@@ -14,7 +14,7 @@ export class ApplicationsComponent implements OnInit {
   private tableData = new MatTableDataSource<any>();
   enrolledArray: EnrolledStudent[] = [];
   isChecked: boolean = false;
-  displayedColumns: string[] = ['position','applicant', 'course', 'cellphone'];
+  displayedColumns: string[] = ['position','applicant', 'course', 'cellphone', 'Staus'];
   pageSizeOptions;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -23,7 +23,7 @@ export class ApplicationsComponent implements OnInit {
   constructor(private _apiService: ApiService, private changeDetection: ChangeDetectorRef) {
 
     this.course = this._apiService.getCourses();
-    
+  
   }
   async ngOnInit() {
     this._apiService.getCourses().subscribe(courseList => {

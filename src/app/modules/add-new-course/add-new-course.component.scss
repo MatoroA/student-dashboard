@@ -1,10 +1,6 @@
 
 
 
-// .example-h2 {
-//   margin: 10px;
-// }
-
 .example-section {
   display: flex;
   align-content: center;
@@ -12,17 +8,23 @@
   height: 60px;
 }
 
-.example-margin {
-  margin: 0 10px;
-}
-
-//////////
 
 .example-container {
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 100%;
   vertical-align: middle;
+  margin-right: 12px;
+  
+  
+}
+
+.example-container .date-field{
+  display: flex;
+  flex-direction: row;
+  width: 25%;
+  vertical-align: center;
+  margin-right: 12px;
   
 }
 .duration-container{
@@ -33,17 +35,20 @@
 .mat-form-field--inline {
 display: flex;
 flex-direction: row;
-align-items: center;
+align-items: middle;
 }
 
 .mat-form-field--inline .mat-form-field {
 display: inline-block;
 width: 100%;
 vertical-align: middle;
+
+  
 }
 
 .mat-form-field--inline .mat-form-field:nth-child(1) {
 margin-right: 10px;
+margin-left: 10px;
 }
 button{
 

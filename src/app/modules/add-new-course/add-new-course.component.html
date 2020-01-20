@@ -1,4 +1,4 @@
-<h4>Register an course</h4>
+<h4>Register a course</h4>
 
 <div>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
@@ -7,23 +7,36 @@
         <div class="example-container">
           <ng-template matStepLabel>Fill out course details</ng-template>
           <mat-form-field>
-            <input matInput placeholder="Course Name" formControlName="nameCtrl" required>
-          </mat-form-field><br>
+            <input matInput placeholder="Course Name" formControlName="nameCtrl">
+          </mat-form-field>
+          <br>
           <mat-form-field>
             <input matInput placeholder="Course ID" formControlName="idCtrl" required>
           </mat-form-field><br>
           <mat-form-field>
             <input matInput placeholder="Course Fee" formControlName="feeCtrl" required>
           </mat-form-field><br>
+          <mat-label>Duration:</mat-label>
+          <div class="date-field">
           <mat-form-field>
-            <input matInput placeholder="Duration" formControlName="durCtrl" required>
-          </mat-form-field><br>
-          <mat-form-field>
-            <input matInput placeholder="description" formControlName="desCtrl" required>
+            <input matInput placeholder="Start Date" type="date" formControlName="dur1Ctrl" required>
           </mat-form-field>
-          <div>
+          <mat-form-field>
+            <input matInput placeholder="End Date" type="date" formControlName="dur2Ctrl" required >
+            
+          </mat-form-field>
+     
+          
+        </div><br>
+          <mat-form-field class="example-full-width">
+            <textarea matInput #message maxlength="256" placeholder="description" formControlName="desCtrl" required></textarea>
+            <mat-hint align="start"><strong>Provide a full description on the course</strong> </mat-hint>
+            <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+          </mat-form-field>
+          <div><br>
 
             <button mat-raised-button matStepperNext [disabled]="!firstFormGroup.valid" (click)="submit()">Next</button>
+            
           </div>
         </div>
       </form>

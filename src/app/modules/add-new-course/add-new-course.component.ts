@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms'
+import { FormGroup, FormControl, FormBuilder, Validators, FormArray, AbstractControl, ValidationErrors } from '@angular/forms'
 import { ApiService } from 'src/app/backend/api.service';
 import { Observable } from 'rxjs';
 import { Course } from 'src/app/models/course';
@@ -16,15 +16,20 @@ export class AddNewCourseComponent implements OnInit {
   isLinear: any = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  dateVerifier : boolean;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder) {
+
+    
+  }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       nameCtrl: ['', Validators.required],
       idCtrl:['',Validators.required],
       feeCtrl:['', Validators.required],
-      durCtrl:['',Validators.required],
+      dur1Ctrl:['',Validators.required],
+      dur2Ctrl:['',Validators.required],
       desCtrl:['',Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
@@ -34,8 +39,9 @@ export class AddNewCourseComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.firstFormGroup.value)
+    console.log(this.firstFormGroup.value.dur1Ctrl);
   }
+ 
 }
 
 
