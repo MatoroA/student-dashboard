@@ -126,6 +126,8 @@ button{
     .material-icons{
       color: #800020;
     }
+
+    
 }
 
 
@@ -135,4 +137,22 @@ button{
   height: auto;
   margin-top: 35px;
   padding: 10px;
+}
+
+.mat-form-field{
+  width: 300px;
+}
+table{
+  width: 90%;
+  background-color: #FCFCFCFC;
+
+  #row{
+  }
+
+  #row:hover {
+    background-color: #8000202a;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1.3em;
+  }
 }

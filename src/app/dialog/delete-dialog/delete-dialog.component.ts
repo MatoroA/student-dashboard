@@ -22,7 +22,7 @@ export class DeleteDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<DeleteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _apiService: ApiService) { 
     }
-
+ 
   ngOnInit() {
     this.courseId = this.data.courseId;
     console.log(this.courseId)

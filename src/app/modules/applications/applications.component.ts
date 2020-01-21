@@ -20,7 +20,7 @@ export class ApplicationsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private _apiService: ApiService, private changeDetection: ChangeDetectorRef) {
+  constructor(private _apiService: ApiService) {
 
     this.course = this._apiService.getCourses();
   

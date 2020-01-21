@@ -6,4 +6,5 @@ export interface Course{
     name: string;
     paymentDuration: string;
     requirements: string;
+    id: string;
 }

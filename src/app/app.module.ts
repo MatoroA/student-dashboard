@@ -21,12 +21,14 @@ import { MatProgressBarModule } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import { DeleteDialogComponent } from './dialog/delete-dialog/delete-dialog.component';
+import { UpdateTurtorComponent } from './dialog/update-turtor/update-turtor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DeleteDialogComponent,
+    UpdateTurtorComponent,
   ],
   imports: [
     BrowserModule, 

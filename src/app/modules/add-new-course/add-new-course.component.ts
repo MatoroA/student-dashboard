@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/backend/api.service';
 import { Observable } from 'rxjs';
 import { Course } from 'src/app/models/course';
 import { NewCourse } from 'src/app/models/new-course';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-add-new-course',
@@ -51,32 +52,50 @@ export class AddNewCourseComponent implements OnInit {
       // payCtrl: ['', Validators.required],
       // dateCtrl: ['', Validators.required],
       additional: this._formBuilder.array([
-        this.addingFields()
+        this.additionalReuirementField()
+      ]),
+      feesInclude: this._formBuilder.array([
+        this.additionalField()
       ])
     });
   }
 
-  addingFields(): FormGroup {
+  additionalReuirementField(): FormGroup {
     return this._formBuilder.group({
-      requirement: ['', Validators.required]
+      requirement: ['', ]
     });
 
   }
 
-  addNewInputField(): void {
+  additionalField(): FormGroup {
+    return this._formBuilder.group({
+      include: ['',]
+    });
 
-    if(this.isAdditionalRequirementClicked){
+  }
+
+  addNewInputField(i: number): void {
+
+    if(i == 0){
       const control = <FormArray>this.secondFormGroup.controls.additional;
-      control.push(this.addingFields());
-    } else {
-      this.isAdditionalRequirementClicked = true;
+      control.push(this.additionalReuirementField());
+    } else if(i == 1) {
+      const control = <FormArray>this.secondFormGroup.controls.feesInclude;
+      control.push(this.additionalField());
     }
 
   }
 
-  removeInputField(i: number): void {
-    const control = <FormArray>this.secondFormGroup.controls.additional;
-    control.removeAt(i);
+  removeInputField(i: number, j: number): void {
+
+    if(j == 0){
+      const control = <FormArray>this.secondFormGroup.controls.additional;
+      control.removeAt(i);
+    } else if( j == 1){
+      const control = <FormArray>this.secondFormGroup.controls.feesInclude;
+      control.removeAt(i);
+    }
+
   }
 
 
@@ -120,7 +139,11 @@ export class AddNewCourseComponent implements OnInit {
     console.log(this.course)
 
     for(let item of this.secondFormGroup.value.additional){
-      this.course.setReuirements(item.requirement);
+
+      let requirement = item.requirement.replace(/\s/g, "").toLowerCase();
+      if( requirement != "" ){
+        this.course.setReuirements(item.requirement);
+      }
     }
   }
 

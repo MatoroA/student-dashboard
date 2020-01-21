@@ -24,7 +24,8 @@ import { DeleteDialogComponent } from 'src/app/dialog/delete-dialog/delete-dialo
 import { StudentFormComponent } from 'src/app/modules/forms/student-form/student-form.component';
 import { TurtorFormComponent } from 'src/app/modules/forms/turtor-form/turtor-form.component';
 import { AdminFormComponent } from 'src/app/modules/forms/admin-form/admin-form.component';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { UpdateTurtorComponent } from 'src/app/dialog/update-turtor/update-turtor.component';
 
 @NgModule({
   declarations: [
@@ -64,8 +65,9 @@ import { AdminFormComponent } from 'src/app/modules/forms/admin-form/admin-form.
     MatCheckboxModule,
     MatRadioModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSlideToggleModule
   ],
-  entryComponents: [DeleteDialogComponent]
+  entryComponents: [DeleteDialogComponent, UpdateTurtorComponent]
 })
 export class DefaultModule { }

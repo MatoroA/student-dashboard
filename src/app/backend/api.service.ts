@@ -22,16 +22,10 @@ export class ApiService {
   constructor(private afs: AngularFirestore, public afAuth: AngularFireAuth,
     private _storage: AngularFireStorage) { }
 
-  async addCourse(form: any) {
-    let courseDoc = {
-      courseId: form.value.course_id,
-      name: form.value.course,
-      period: form.value.no + ' ' + form.value.period,
-      courseFee: form.value.course_fee
-    }
-    return await this.afs.collection("courses").add(courseDoc);
-  }
 
+  updateCourseList(uid: string, courseId: String[]) {
+    this.afs.doc("turtors/" + uid).update({ course: courseId })
+  }
   addAdmin(email: string, password: string) {
 
     this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
@@ -43,14 +37,14 @@ export class ApiService {
       })
 
     })
- 
+
   }
 
   addTutor(trainer: Trainer) {
 
     console.log(trainer)
     return this.afAuth.auth.createUserWithEmailAndPassword(trainer.getEmail(), trainer.getPassword()).then(user => {
-      
+
       const firebase = require('firebase');
       const firebaseFunction = firebase.functions();
       const roleTurtor = firebaseFunction.httpsCallable('addTurtor');
@@ -67,16 +61,16 @@ export class ApiService {
           uid: user.user.uid
         }
 
-        this.afs.doc("turtors/"+user.user.uid).get()
-        .subscribe(docSnapshot=>{
-          if(docSnapshot.exists){
-            this.afs.doc("turtors/"+user.user.uid).update({course: trainer.getCourseList()})
-          } else {
-            this.afs.doc("turtors/"+user.user.uid).set(doc)
-          }
+        this.afs.doc("turtors/" + user.user.uid).get()
+          .subscribe(docSnapshot => {
+            if (docSnapshot.exists) {
+              this.afs.doc("turtors/" + user.user.uid).update({ course: trainer.getCourseList() })
+            } else {
+              this.afs.doc("turtors/" + user.user.uid).set(doc)
+            }
 
-          return "User has been successfully created....."
-        });
+            return "User has been successfully created....."
+          });
       });
 
     })
@@ -96,8 +90,8 @@ export class ApiService {
 
   }
 
-  updateCourses(uid: string, collection: string, docId: string, coursesId: string[]){
-    return this.afs.doc(collection+"/"+docId).update({course: coursesId })
+  updateCourses(uid: string, collection: string, docId: string, coursesId: string[]) {
+    return this.afs.doc(collection + "/" + docId).update({ course: coursesId })
   }
 
   getCourses() {
@@ -121,7 +115,7 @@ export class ApiService {
   }
 
   getStudentCourse() {
-    return  this.afs.collection<StudentCourse>('studentCourse').snapshotChanges().pipe(
+    return this.afs.collection<StudentCourse>('studentCourse').snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as StudentCourse;
         const id = a.payload.doc.id;
@@ -131,7 +125,7 @@ export class ApiService {
   }
 
   getTurtors() {
-    return  this.afs.collection<Turtor>('turtors').snapshotChanges().pipe(
+    return this.afs.collection<Turtor>('turtors').snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Turtor;
         const id = a.payload.doc.id;
@@ -140,7 +134,7 @@ export class ApiService {
     )
   }
 
-  async getStudentEnrolled(){
+  async getStudentEnrolled() {
     return await this.afs.collection<Course>('courses').snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Course;
@@ -149,18 +143,18 @@ export class ApiService {
       }))
     )
   }
-  getStudentDoc(id: string){
-    let studentDoc = this.afs.doc<Student>("students/"+id);
+  getStudentDoc(id: string) {
+    let studentDoc = this.afs.doc<Student>("students/" + id);
     return studentDoc.valueChanges();
   }
-  getTurtorDoc(id: string){
+  getTurtorDoc(id: string) {
     console.log(id)
-    let studentDoc = this.afs.doc<Turtor>("turtors/"+id);
+    let studentDoc = this.afs.doc<Turtor>("turtors/" + id);
     return studentDoc.valueChanges();
   }
-   getCourseDocument(courseId: string) : Observable<Course>{
+  getCourseDocument(courseId: string): Observable<Course> {
 
-    let courseDoc = this.afs.doc<Course>("courses/"+courseId)
+    let courseDoc = this.afs.doc<Course>("courses/" + courseId)
 
     return courseDoc.valueChanges();
   }
@@ -181,14 +175,14 @@ export class ApiService {
 
 
   async uploadCourseRequirements(requirementsArray: string[], courseId: string) {
-    return await this.afs.doc("courses/" + courseId).update({requirements: requirementsArray});
+    return await this.afs.doc("courses/" + courseId).update({ requirements: requirementsArray });
   }
 
-  async uploadCourse(course: NewCourse){
+  async uploadCourse(course: NewCourse) {
 
-    this._storage.upload("courses/"+course.getCourseName()+"/"+course.getImageName(),course.getImageCover()).then(results=>{
+    this._storage.upload("courses/" + course.getCourseName() + "/" + course.getImageName(), course.getImageCover()).then(results => {
       results.downloadURL
-      results.ref.getDownloadURL().then(url=>{
+      results.ref.getDownloadURL().then(url => {
         let courseDoc = {
           coverUrl: url,
           code: course.getCourseId(),
@@ -199,7 +193,7 @@ export class ApiService {
         }
 
         console.log(url)
-  
+
         return this.afs.collection("courses").add(courseDoc);
       })
 
@@ -207,6 +201,6 @@ export class ApiService {
 
 
 
-   
+
   }
 }
