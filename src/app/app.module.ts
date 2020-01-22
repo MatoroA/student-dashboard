@@ -22,6 +22,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import { DeleteDialogComponent } from './dialog/delete-dialog/delete-dialog.component';
 import { UpdateTurtorComponent } from './dialog/update-turtor/update-turtor.component';
+import { ApplicantComponent } from './dialog/applicant/applicant.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { UpdateTurtorComponent } from './dialog/update-turtor/update-turtor.comp
     LoginComponent,
     DeleteDialogComponent,
     UpdateTurtorComponent,
+    ApplicantComponent,
   ],
   imports: [
     BrowserModule, 

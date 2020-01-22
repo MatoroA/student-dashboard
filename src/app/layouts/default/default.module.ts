@@ -26,6 +26,7 @@ import { TurtorFormComponent } from 'src/app/modules/forms/turtor-form/turtor-fo
 import { AdminFormComponent } from 'src/app/modules/forms/admin-form/admin-form.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { UpdateTurtorComponent } from 'src/app/dialog/update-turtor/update-turtor.component';
+import { ApplicantComponent } from 'src/app/dialog/applicant/applicant.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,6 @@ import { UpdateTurtorComponent } from 'src/app/dialog/update-turtor/update-turto
     MatDialogModule,
     MatSlideToggleModule
   ],
-  entryComponents: [DeleteDialogComponent, UpdateTurtorComponent]
+  entryComponents: [DeleteDialogComponent, UpdateTurtorComponent, ApplicantComponent]
 })
 export class DefaultModule { }

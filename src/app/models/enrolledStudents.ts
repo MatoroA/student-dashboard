@@ -5,6 +5,7 @@ export class EnrolledStudent{
     private studentsList: Array<Student>;
     private course: Course;
     private courseId: string;
+    private studentCourseId: string;
 
     public constructor(){
         this.studentsList = new Array<Student>();
@@ -31,5 +32,15 @@ export class EnrolledStudent{
         return this.course;
     }
 
+    public setStudentCourseId(item: string){
+        this.studentCourseId = item;
+    }
+    public getStudentCourseId(){
+        return this.studentCourseId;
+    }
+
+    public clearStudentList(){
+        this.studentsList = [];
+    }
     
 }

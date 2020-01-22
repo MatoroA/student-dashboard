@@ -40,6 +40,19 @@ export class ApiService {
 
   }
 
+  updateStudentStatus(docId: string, registeredDocId: string, status: string){
+    console.log(docId)
+    this.afs.doc("students/"+docId).update({registered: registeredDocId }).then(()=>{
+      this.afs.doc("studentCourse/"+registeredDocId).update({status: status})
+    })
+  }
+
+
+
+
+
+
+
   addTutor(trainer: Trainer) {
 
     console.log(trainer)
@@ -187,12 +200,12 @@ export class ApiService {
           coverUrl: url,
           code: course.getCourseId(),
           name: course.getCourseName(),
-          requirements: course.getRequirements(),
+          requirement: course.getRequirements(),
           fee: course.getCourseFee(),
           description: course.getDescription()
         }
 
-        console.log(url)
+        console.log(courseDoc)
 
         return this.afs.collection("courses").add(courseDoc);
       })

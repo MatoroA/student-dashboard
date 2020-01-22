@@ -12,4 +12,6 @@ export class Student{
     public enrolledCourses?:string[]; 
     public uid: string;
     public profilePicUrl?: string;
+    public studentCourseId?: string;
+    public status: string;
 }
