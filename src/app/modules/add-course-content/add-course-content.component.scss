@@ -1,5 +1,12 @@
 .upload{
 
+    mat-form-field{
+        width: 500px;
+    }
+
+    h1{
+        font-weight: 500;
+    }
     .content{
 
         text-align: center;
@@ -22,27 +29,67 @@
         }
 
         .btns{
-            text-align: center;
-            margin: auto;
-            border: 1px solid red;
-            display: block;
 
-            #add-file{
-                padding: 5px;
-                width: 100px;
-                border: 1px solid blue;
-            }
-            #upload-all-file{
-                padding: 5px;
-                width: 100px;
-                border: 1px solid yellow;
-            }
-            #cancel-file{
-                padding: 5px;
-                width: 100px;
-                border: 1px solid green;
+            .check{
+                margin: auto;
+                width: 450px;
+                display: grid;
+                grid-template-columns: auto auto auto;
+                padding: 10px;
+
+                #add-file{
+                    padding: 5px;
+                    width: auto;
+                    border: 1px solid blue;
+                }
+                #upload-all-file{
+                    padding: 5px;
+                    width: auto;
+                    border: 1px solid yellow;
+                }
+                #cancel-file{
+                    padding: 5px;
+                    width: auto;
+                    border: 1px solid green;
+                }
             }
         }
+
+
+
+        .item{
+            margin: auto;
+            display: grid;
+            grid-template-columns: auto auto;
+            width: 800px;
+            background-color: rgb(230, 230, 230);
+
+            .preview{
+                width: 100%;
+
+                img{
+                    border: 1px solid blue;
+                    margin: auto;
+                    height: 150px; 
+                }
+            }
+            .details{
+                display: block;
+            }
+
+        }
+        .content-to-upload{
+            border: 1px solid red;
+            width: 70%;
+            margin: auto;
+        }
+            // text-align: center;
+            // border: 1px solid red;
+            // display: grid;
+            // grid-template-columns: 200px 200px 200px;
+            // margin: auto;
+
+
     }
 
 }

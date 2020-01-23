@@ -8,9 +8,10 @@
     </mat-select>
   </mat-form-field>
 
+  <h1 *ngIf="!isCourseSelected">Please select a course to add content to.</h1>
 
 
-  <div class="content">
+  <div class="content" *ngIf="isCourseSelected" >
 
     <h1 id="name">{{courseData?.name}}</h1>
 
@@ -18,28 +19,126 @@
         cloud_upload
       </i></h1>
 
-      <div class="btns">
-        <p id="add-file" (click) >Add File</p>
-        <p id="upload-all-file">Upload All File(s)</p>
-        <p id="cancel-file">Cancel</p>
+
+
+
+    <form [formGroup]="courseForm">
+
+      <div formArrayName="content">
+
+
+        <section [formGroupName]="i" *ngFor="let tech of courseForm.controls.content.controls; let i = index">
+          <div class="btns">
+
+            <div class="check">
+              <p id="add-file" (click)="addNewInputField(i)">Add File</p>
+              <p id="upload-all-file" (click)="uploadAll()">Upload All File(s)</p>
+              <p id="cancel-file">Cancel</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="preview">
+
+              <h3>Course image :</h3>
+              <span style="color:red;" *ngIf="message">{{message}}</span>
+              <input #file type="file" accept='image/*' (change)="preview(file.files, i)" />
+            
+                <!-- <img [src]="imgURL" *ngIf="count == 0">
+ -->
+
+              <div *ngFor="let item of courseArrayList.getAll(); let j = index">
+
+                  <div *ngIf="courseArrayList.getSize() > 0;else other_content">
+                      <img [src]="courseArrayList.getItemAt(j).getImgUrl()">
+                    </div>
+              </div>
+
+
+              <p>Select file(s)</p>
+            </div>
+            <div class="details">
+              <mat-form-field>
+                <input matInput placeholder="Enter the title" formControlName="title">
+              </mat-form-field>
+              <br>
+              <mat-form-field>
+                <input matInput placeholder="audience" formControlName="audience">
+              </mat-form-field>
+
+            </div>
+          </div>
+          <!-- <mat-list-item role="listitem">  -->
+
+
+          <!-- </mat-list-item> -->
+
+
+          <span id="remove" *ngIf="courseForm.controls.content.length > 1" (click)="removeInputField(i, 0)">
+            Remove
+          </span>
+        </section>
+
+
       </div>
-    <h2 *ngIf="selectedCourse != ''">
-      Select course to add content
-    </h2>
 
-    <h3>Course image :</h3>
-    <!-- <span style="color:red;" *ngIf="message">{{message}}</span> -->
-    <input #file type="file" accept='image/*' (change)="preview(file.files)" />
-    <img [src]="imgURL" height="200" *ngIf="imgURL">
 
-    <video width="320" height="240" controls>
-      <source [src]="imgURL">
-      <!-- <source [src]="movie.ogg" type="video/ogg"> -->
-      Your browser does not support the video tag.
-    </video>
+    </form>
+
+    <!-- <div class="content-to-upload">
+
+      
+
+ -->
+    <!-- 
+           -->
+
+    <!-- </section>
+
+      </div>
+
+    </div>
+
+    <button (click)="addNewInputField(0)" type="button" id="requirement-btn">
+      <i class="material-icons">add</i>
+    </button>
+    Add new requirement -->
+
+
+
+
+
+
 
 
   </div>
 
 
-</div>
+
+
+  <!-- <form [formGroup]="courseForm">
+
+        <div class="content">
+
+        </div>
+
+      </form> -->
+  <!-- </div> -->
+
+  <!-- <h2 *ngIf="selectedCourse != ''">
+      Select course to add content
+    </h2>
+
+    <h3>Course image :</h3>
+    <span style="color:red;" *ngIf="message">{{message}}</span>
+    <input #file type="file" accept='image/*' (change)="preview(file.files)" />
+    <img [src]="imgURL" height="200" *ngIf="imgURL">
+
+    <video width="320" height="240" controls>
+      <source [src]="imgURL">
+      <source [src]="movie.ogg" type="video/ogg">
+      Your browser does not support the video tag.
+    </video> -->
+
+
+  <!-- </div> -->
