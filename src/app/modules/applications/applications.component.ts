@@ -14,7 +14,7 @@ export class ApplicationsComponent implements OnInit {
   private tableData = new MatTableDataSource<any>();
   enrolledArray: EnrolledStudent[] = [];
   isChecked: boolean = false;
-  displayedColumns: string[] = ['position','applicant', 'course', 'cellphone', 'Staus'];
+  displayedColumns: string[] = ['position','applicant', 'course', 'cellphone'];
   pageSizeOptions;
 
   @ViewChild(MatSort) sort: MatSort;

@@ -82,7 +82,7 @@
 
           <button (click)="addNewInputField(1)" type="button" id="requirement-btn">
               <i class="material-icons">add</i>
-            </button>
+            </button><br>
             Additional
 
 
@@ -123,9 +123,9 @@
           </div>
 
           <button (click)="addNewInputField(0)" type="button" id="requirement-btn">
-              <i class="material-icons">add</i>
-            </button>
-            Add new requirement
+              <i class="material-icons">add</i> new requirement
+            </button><br>
+         
 
 
           <div>
@@ -136,13 +136,13 @@
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
+      <ng-template matStepLabel>Course cover image</ng-template>
+      Course cover image
 
-      <h3>Course image :</h3>
+      <h2>Course image :</h2>
       <!-- <span style="color:red;" *ngIf="message">{{message}}</span> -->
       <input #file type="file" accept='image/*' (change)="preview(file.files)" />
-      <img [src]="imgURL" height="200" *ngIf="imgURL">
+      <img [src]="imgURL" height="200" *ngIf="imgURL"><br>
 
       <div>
         <button mat-raised-button matStepperPrevious (click)="uploadCourse()">Upload course</button>

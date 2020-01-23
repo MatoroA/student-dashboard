@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { MatDividerModule, MatToolbarModule, MatIconModule, MatMenuModule, MatButtonModule, MatListModule, MatStepperModule, MatTableModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatDividerModule, MatToolbarModule, MatIconModule, MatMenuModule, MatButtonModule, MatListModule, MatStepperModule, MatTableModule, MatInputModule, MatFormFieldModule,  } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import {MatTabsModule} from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { AreaComponent } from './widgets/area/area.component';
@@ -37,7 +37,7 @@ import { DoubleBarComponent } from './widgets/double-bar/double-bar.component';
     HighchartsChartModule,
     MatStepperModule,
     MatListModule,
-    
+    MatTabsModule,
    
     
   ],

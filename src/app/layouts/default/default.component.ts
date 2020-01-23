@@ -10,7 +10,7 @@ export class DefaultComponent implements OnInit {
 
   sideBarOpen = true;
   adminPages = [
-    { name: 'Home', page: '' },
+    { name: 'Home', page: 'home' },
     //{ name: 'Posts', page: 'posts' },
     // { name: 'Add Trainer', page: 'addTrainer' },
     // { name: 'Trainers', page: 'trainers' },
@@ -18,13 +18,14 @@ export class DefaultComponent implements OnInit {
     { name: 'Courses', page: 'courses' },
     { name: 'Add Course Content', page: 'addCourseContent' },
     { name: 'Add User', page: 'addUser' },
-    { name: 'Applications', page: 'applications' }
+    { name: 'Applications', page: 'applications' },
+    { name: 'Registered Students', page: 'posts'}
   ]
 
   tutorPages = [ 
     { name: 'Home', page: 'home' },
     { name: 'Applications', page: 'applications' },
-    { name: 'Registered Students', page: 'posts'},
+    
     { name: 'Add New Course', page: 'addNewCourse' },
     {name : 'Register a Student', page: 'addUser'}
   ]

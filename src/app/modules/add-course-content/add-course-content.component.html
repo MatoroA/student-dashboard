@@ -1,3 +1,15 @@
-<p>
-  add-course-content works!
-</p>
+<h1>Add new course content</h1>
+<p>select a .pdf file</p>
+<input #file type="file" accept='.pdf' (change)="preview(file.files)" />
+<p>select a video file </p>
+<input type="file" accept="video/*" /> <!-- video types --> 
+<br>
+<mat-form-field>
+    <mat-label>Courses</mat-label>
+    <mat-select (selectionChange)="doSomething($event)">
+      <mat-option >courses
+       
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+<br><div class="btn"><button>Submit</button></div>
