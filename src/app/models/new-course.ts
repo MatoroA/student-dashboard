@@ -9,6 +9,7 @@ export class NewCourse{
     private endDate: string;
     private coverImage: string;
     private imageName: string;
+    private code: string;
 
     constructor(){
         this.requirements = [];
@@ -79,5 +80,11 @@ export class NewCourse{
     }
     getImageName(){
         return this.imageName;
+    }
+    setCode(code: string){
+        this.code = code;
+    }
+    getCode(){
+        return this.code;
     }
 }

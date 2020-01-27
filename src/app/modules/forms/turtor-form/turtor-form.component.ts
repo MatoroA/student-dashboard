@@ -34,7 +34,8 @@ export class TurtorFormComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private formBuilder: FormBuilder, private _api: ApiService, private _userdata: StoringUserDataService ,public dialog: MatDialog) {
+  constructor(private formBuilder: FormBuilder, private _api: ApiService,
+     private _userdata: StoringUserDataService ,public dialog: MatDialog) {
 
     this.turtorForm = this.formBuilder.group({
       firstname: [null, Validators.compose([Validators.required])],

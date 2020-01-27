@@ -106,14 +106,19 @@ export class AddNewCourseComponent implements OnInit {
     let name = this.firstFormGroup.get('nameCtrl').value;
     let id = this.firstFormGroup.get('idCtrl').value;
     let fees = this.firstFormGroup.get('feeCtrl').value;
-    let duration = this.firstFormGroup.get('durCtrl').value;
+    let duration1 = this.firstFormGroup.get('dur1Ctrl').value;
+    let duration2 = this.firstFormGroup.get('dur2Ctrl').value;
     let description = this.firstFormGroup.get('desCtrl').value;
+
+    let duration  = duration1 +'-' + duration2;
 
     this.course.setCourseName(name);
     this.course.setCourseId(id);
     this.course.setCourseFee(fees);
     this.course.setDescription(duration);
     this.course.setDescription(description);
+
+    console.log(this.course)
   }
 
 

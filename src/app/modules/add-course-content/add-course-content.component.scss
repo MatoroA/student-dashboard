@@ -1,7 +1,48 @@
-button{
+.upload{
 
-    background-color: #800020;
-    color: white;
-    margin-top: 20px;
-    
-  }
+    .content{
+
+        text-align: center;
+
+        #name{
+            color: #8000209d;
+        }
+
+        h1{
+            margin: auto;
+            color: #80002031;
+
+            .material-icons{
+                font-size: 150px;
+            }
+        }
+
+        h2{
+            color: red;
+        }
+
+        .btns{
+            text-align: center;
+            margin: auto;
+            border: 1px solid red;
+            display: block;
+
+            #add-file{
+                padding: 5px;
+                width: 100px;
+                border: 1px solid blue;
+            }
+            #upload-all-file{
+                padding: 5px;
+                width: 100px;
+                border: 1px solid yellow;
+            }
+            #cancel-file{
+                padding: 5px;
+                width: 100px;
+                border: 1px solid green;
+            }
+        }
+    }
+
+}

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
+import { ApiService } from 'src/app/backend/api.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Course } from 'src/app/models/course';
 
 @Component({
   selector: 'app-bar-chart',
@@ -11,21 +14,27 @@ export class BarChartComponent implements OnInit {
 
   chartOptions : {};
   series:any;
+  coursename : Course ;
+  array1: any[];
 
   Highcharts = Highcharts;
-  constructor() { }
+  constructor(private apiservice : ApiService ,private afs: AngularFirestore,) {
+
+
+    
+    
+   }
 
   ngOnInit() {
+
     this.chartOptions= {
       chart: {
           type: 'column'
       },
       title: {
-          text: 'Browser market shares. January, 2018'
+          text: 'Registered students'
       },
-      subtitle: {
-          text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-      },
+      
       accessibility: {
           announceNewData: {
               enabled: true
@@ -60,45 +69,31 @@ export class BarChartComponent implements OnInit {
   
       series: [
           {
-              name: "Browsers",
+              name: "courses",
               colorByPoint: true,
-              data: [
+              data:  [
+               
                   {
-                      name: "Chrome",
+                      name: "brick laying",
                       y: 62.74,
                       
                   },
                   {
-                      name: "Firefox",
+                      name: "plumbing",
                       y: 10.57,
                  
                   },
                   {
-                      name: "Internet Explorer",
+                      name: " Electrical Enginering",
                       y: 7.23,
                       
                   },
                   {
-                      name: "Safari",
+                      name: "capentry",
                       y: 5.58,
                       
-                  },
-                  {
-                      name: "Edge",
-                      y: 4.02,
-                     
-                  },
-                  {
-                      name: "Opera",
-                      y: 1.92,
-                     
-                  },
-                  {
-                      name: "Other",
-                      y: 7.62,
-          
-
                   }
+
               ]
           }
       ],

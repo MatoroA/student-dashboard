@@ -17,20 +17,38 @@
       </ng-container>
   <ng-container matColumnDef="applicant">
     <th mat-header-cell *matHeaderCellDef> Applicant name</th>
-    <td mat-cell *matCellDef="let user">{{user.name}}</td>
+    <td mat-cell *matCellDef="let user">{{user.firstName}} {{user.lastName}}</td>
   </ng-container>
   <ng-container matColumnDef="course">
     <th mat-header-cell *matHeaderCellDef>Registered course</th>
-    <td mat-cell *matCellDef="let user">{{user.course}}</td>
+    <td mat-cell *matCellDef="let user">
+      <h1>{{user.course}}</h1>
+      
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="cellphone">
     <th mat-header-cell *matHeaderCellDef> Cellphone</th>
-    <td mat-cell *matCellDef="let user">{{user.cellphone}}</td>
+    <td mat-cell *matCellDef="let user">{{user.cellNumber}}</td>
   </ng-container>
 
+<<<<<<< HEAD
   
+=======
+  <ng-container matColumnDef="Status">
+    <th mat-header-cell *matHeaderCellDef> CV</th>
+    <td mat-cell *matCellDef="let user">
+      <p *ngIf="user.cvUrl != ''">Yes</p>
+  </ng-container>
+
+  <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id copy</th>
+      <td mat-cell *matCellDef="let user">
+        <p *ngIf="user.idUrl != ''">Yes</p>
+    </ng-container>
+
+>>>>>>> 6e2aabef1f9cac620f8092c5a34b1227a318f2cd
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row (click)="clickedRow(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <mat-paginator [pageSizeOptions]="[1, 2, 4, 8]" showFirstLastButtons></mat-paginator>
