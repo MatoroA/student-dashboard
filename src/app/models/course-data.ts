@@ -1,13 +1,44 @@
+import { Observable } from 'rxjs';
+import { Content } from './content-interface';
+
 export class CourseData{
-    private imgUrl: any;
+    private file: any;
+    private url: string;
     private title: string;
     private audience: string;
-
-    public getImgUrl(){
-        return this.imgUrl;
+    private format: string;
+    private fileName: string;
+    private uploadProgress$: Observable<number>;
+    
+    public setFileName(fileName: string){
+        this.fileName = fileName;
     }
-    public setImgUrl(imgUrl: any){
-        this.imgUrl = imgUrl;
+
+    public setFileUrl(url: string){
+        this.url = url;
+    }
+
+    getFileUrl(){
+        return this.url;
+    }
+
+    getFileName(){
+        return this.fileName;
+    }
+
+    public setFormat(format){
+        this.format = format;
+    }
+
+    getFormat(){
+        return this.format;
+    }
+
+    public getFile(){
+        return this.file;
+    }
+    public setFile(file: any){
+        this.file = file;
     }
     public setTitle(title: string){
         this.title = title;
@@ -20,5 +51,12 @@ export class CourseData{
     }
     public getAudience(){
         return this.audience;
+    }
+    public setProgress(progress$: Observable<number>){
+        this.uploadProgress$ = progress$;
+    }
+
+    getProgress$(){
+        return this.uploadProgress$;
     }
 }

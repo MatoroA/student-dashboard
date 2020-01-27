@@ -27,6 +27,9 @@ import { AdminFormComponent } from 'src/app/modules/forms/admin-form/admin-form.
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { UpdateTurtorComponent } from 'src/app/dialog/update-turtor/update-turtor.component';
 import { ApplicantComponent } from 'src/app/dialog/applicant/applicant.component';
+import { OpenFileComponent } from 'src/app/dialog/open-file/open-file.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -67,8 +70,11 @@ import { ApplicantComponent } from 'src/app/dialog/applicant/applicant.component
     MatRadioModule,
     MatButtonModule,
     MatDialogModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    PdfViewerModule,
+    MatProgressBarModule
   ],
-  entryComponents: [DeleteDialogComponent, UpdateTurtorComponent, ApplicantComponent]
+  entryComponents: [DeleteDialogComponent, UpdateTurtorComponent, ApplicantComponent, 
+    OpenFileComponent]
 })
 export class DefaultModule { }

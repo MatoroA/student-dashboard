@@ -10,7 +10,7 @@ export class DefaultComponent implements OnInit {
 
   sideBarOpen = true;
   adminPages = [
-    { name: 'Home', page: '' },
+    { name: 'Home', page: 'home' },
     //{ name: 'Posts', page: 'posts' },
     // { name: 'Add Trainer', page: 'addTrainer' },
     // { name: 'Trainers', page: 'trainers' },

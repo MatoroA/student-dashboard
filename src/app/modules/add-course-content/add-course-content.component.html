@@ -8,10 +8,9 @@
     </mat-select>
   </mat-form-field>
 
-  <h1 *ngIf="!isCourseSelected">Please select a course to add content to.</h1>
+  <h2 *ngIf="!isCourseSelected">Please select a course to add content to.</h2>
 
-
-  <div class="content" *ngIf="isCourseSelected" >
+  <div class="content" *ngIf="isCourseSelected">
 
     <h1 id="name">{{courseData?.name}}</h1>
 
@@ -19,39 +18,55 @@
         cloud_upload
       </i></h1>
 
+    <form [formGroup]="courseForm" (ngSubmit)="submitForm()">
 
+      <div class="btns">
 
-
-    <form [formGroup]="courseForm">
+        <div class="check">
+          <p id="add-file" (click)="addNewInputField(i)">Add File</p>
+          <p id="upload-all-file" (click)="submitForm()">Upload All File(s)</p>
+          <p id="cancel-file">Cancel</p>
+        </div>
+      </div>
 
       <div formArrayName="content">
 
 
         <section [formGroupName]="i" *ngFor="let tech of courseForm.controls.content.controls; let i = index">
-          <div class="btns">
-
-            <div class="check">
-              <p id="add-file" (click)="addNewInputField(i)">Add File</p>
-              <p id="upload-all-file" (click)="uploadAll()">Upload All File(s)</p>
-              <p id="cancel-file">Cancel</p>
-            </div>
-          </div>
 
           <div class="item">
             <div class="preview">
-
-              <h3>Course image :</h3>
+              <h3>Course content:</h3>
               <span style="color:red;" *ngIf="message">{{message}}</span>
-              <input #file type="file" accept='image/*' (change)="preview(file.files, i)" />
-            
-                <!-- <img [src]="imgURL" *ngIf="count == 0">
- -->
+              <input #file type="file" accept='application/msword, application/vnd.ms-excel, video/mp4,video/x-m4v,video/*,
+              application/vnd.ms-powerpoint,application/pdf, image/*' (change)="preview(file.files, i)" />
 
-              <div *ngFor="let item of courseArrayList.getAll(); let j = index">
+              <div *ngIf="courseArrayList.getItemAt(i)">
+                <img [src]="courseArrayList.getItemAt(i).getFile()"
+                  *ngIf="courseArrayList.getItemAt(i).getFormat()==='image' && courseArrayList.getItemAt(i)"
+                  height="200"> <br />
+                <video [src]="courseArrayList.getItemAt(i).getFile()"
+                  *ngIf="courseArrayList.getItemAt(i).getFormat()==='video' && courseArrayList.getItemAt(i)"
+                  height="200" controls></video> <br />
 
-                  <div *ngIf="courseArrayList.getSize() > 0;else other_content">
-                      <img [src]="courseArrayList.getItemAt(j).getImgUrl()">
-                    </div>
+                <div class="pdf" *ngIf="courseArrayList.getItemAt(i).getFormat()==='pdf'"
+                  (click)="openPdfFile(courseArrayList.getItemAt(i).getFile())">
+                  <i class="material-icons">
+                    picture_as_pdf
+                  </i>
+                  {{courseArrayList.getItemAt(i).getFileName()}}
+                </div>
+              </div>
+              <div *ngIf="!courseArrayList.getItemAt(i)">
+                <img [src]="url" *ngIf="format==='image' && url" height="200"> <br />
+                <video [src]="url" *ngIf="format==='video' && url" height="200" controls></video> <br />
+                <div class="pdf" *ngIf="format==='pdf' && url" (click)="openPdfFile(url)">
+                  <i class="material-icons">
+                    picture_as_pdf
+                  </i>
+                  {{fileName}}
+                </div>
+
               </div>
 
 
@@ -62,52 +77,34 @@
                 <input matInput placeholder="Enter the title" formControlName="title">
               </mat-form-field>
               <br>
-              <mat-form-field>
-                <input matInput placeholder="audience" formControlName="audience">
-              </mat-form-field>
+
+              <mat-radio-group aria-label="Select an option" formControlName="audience">
+                <mat-radio-button value="premium">Premium</mat-radio-button>
+                <mat-radio-button value="all">All</mat-radio-button>
+              </mat-radio-group>
 
             </div>
           </div>
-          <!-- <mat-list-item role="listitem">  -->
-
-
-          <!-- </mat-list-item> -->
-
-
-          <span id="remove" *ngIf="courseForm.controls.content.length > 1" (click)="removeInputField(i, 0)">
+          <span id="remove" *ngIf="courseForm.controls.content.length > 1" (click)="removeInputField(i)">
             Remove
           </span>
+
+          <p id="add-file" (click)="addNewInputField(i)">Add File</p>
+
+          <div *ngIf="courseArrayList.getItemAt(i)">
+            <mat-progress-bar class="mt-2"  *ngIf="courseArrayList.getItemAt(i).getProgress$() | async as progress"
+            mode="determinate" value="progress"></mat-progress-bar>
+          </div>
         </section>
+
+
+
 
 
       </div>
 
 
     </form>
-
-    <!-- <div class="content-to-upload">
-
-      
-
- -->
-    <!-- 
-           -->
-
-    <!-- </section>
-
-      </div>
-
-    </div>
-
-    <button (click)="addNewInputField(0)" type="button" id="requirement-btn">
-      <i class="material-icons">add</i>
-    </button>
-    Add new requirement -->
-
-
-
-
-
 
 
 

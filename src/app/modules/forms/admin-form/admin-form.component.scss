@@ -1,0 +1,17 @@
+form{
+    margin-top: 25px;
+
+    mat-form-field{
+        width: 500px;
+    }
+
+    button{
+        border: none;
+        background-color: #800020;
+        padding: 15px;
+        cursor: pointer;
+        color: white;
+        font-size: 1.1em;
+        border-radius: 4px;
+    }
+}

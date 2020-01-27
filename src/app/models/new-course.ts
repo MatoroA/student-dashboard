@@ -1,3 +1,5 @@
+import { Content } from './content-interface';
+
 export class NewCourse{
     private courseName: string;
     private courseFee: string;
@@ -10,9 +12,18 @@ export class NewCourse{
     private coverImage: string;
     private imageName: string;
     private code: string;
+    private courseContentDb: Content[];
 
     constructor(){
+        this.courseContentDb = [];
         this.requirements = [];
+    }
+    
+    public setCourseContent(info: Content){
+        this.courseContentDb.push(info);
+    }
+    getCourseContent(){
+        return this.courseContentDb;
     }
 
     setCourseName(name: string){
