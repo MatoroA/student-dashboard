@@ -24,8 +24,11 @@ export class AddNewCourseComponent implements OnInit {
   imgURL: any;
   public message: string;
   private isAdditionalRequirementClicked: boolean = false;
+  dataList:any= ['one ', 'two', 'three', 'four']
 
-  constructor(private _formBuilder: FormBuilder, private _apiService: ApiService) { }
+  constructor(private _formBuilder: FormBuilder, private _apiService: ApiService) {
+    
+   }
 
   ngOnInit() {
     this.course = new NewCourse();
@@ -49,6 +52,7 @@ export class AddNewCourseComponent implements OnInit {
       proofOfResidence: [''],
       registrationFee: [''],
       qualificationLevel: [''],
+      include:['',Validators.required],
       // payCtrl: ['', Validators.required],
       // dateCtrl: ['', Validators.required],
       additional: this._formBuilder.array([
@@ -186,6 +190,10 @@ export class AddNewCourseComponent implements OnInit {
     })
   }
  
+  addtoList(value){
+
+    return this.dataList.push(value);
+  }
 }
 
 

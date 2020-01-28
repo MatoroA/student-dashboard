@@ -14,7 +14,7 @@ export class DeleteDialogComponent implements OnInit {
   private userId: string = null;
   private courseName: string = null;
   private courseCode: string = null;
-  private userName: string = null;
+  private userName: string = null; 
   private courses: string[] = [];
   private newCourses: string[] = [];
 

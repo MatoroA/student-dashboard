@@ -1,4 +1,4 @@
-<h4>Register a course</h4>
+<h1>Register a course</h1>
 
 <div>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
@@ -15,27 +15,28 @@
           </mat-form-field><br>
           <mat-form-field>
             <input matInput placeholder="Course Fee" formControlName="feeCtrl" required>
-            
+
           </mat-form-field><br>
           <mat-form-field>
-            <input matInput placeholder="Deposit"  formControlName="depCtrl" required >
-            
+            <input matInput placeholder="Deposit" formControlName="depCtrl" required>
+
           </mat-form-field><br>
           <mat-label>Duration:</mat-label>
           <div class="date-field">
-          <mat-form-field>
-            <input matInput placeholder="Start Date" type="date" formControlName="dur1Ctrl" required>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="End Date" type="date" formControlName="dur2Ctrl" required >
-            
-          </mat-form-field>
-         
-     
-          
-        </div><br>
+            <mat-form-field>
+              <input matInput placeholder="Start Date" type="date" formControlName="dur1Ctrl" required>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="End Date" type="date" formControlName="dur2Ctrl" required>
+
+            </mat-form-field>
+
+
+
+          </div><br>
           <mat-form-field class="example-full-width">
-            <textarea matInput #message maxlength="256" placeholder="description" formControlName="desCtrl" required></textarea>
+            <textarea matInput #message maxlength="256" placeholder="description" formControlName="desCtrl"
+              required></textarea>
             <mat-hint align="start"><strong>Provide a full description on the course</strong> </mat-hint>
             <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
           </mat-form-field>
@@ -52,45 +53,42 @@
           <ng-template matStepLabel>additional info</ng-template>
           <mat-label>Fees Includes</mat-label>
           <section class="example-section">
-            <mat-checkbox class="example-margin" formControlName="safetyClothing" value="safetyClothing">Safety Clothing
-            </mat-checkbox>
-            <mat-checkbox class="example-margin" formControlName="learningMaterial">Learning Material</mat-checkbox>
-            <mat-checkbox class="example-margin" formControlName="stationary">Stationary</mat-checkbox>
-            <mat-checkbox class="example-margin" formControlName="certificate">Certificate of competence</mat-checkbox>
-            <mat-checkbox class="example-margin" formControlName="placement">work placement assistance</mat-checkbox>
+            <div *ngFor='let item of dataList'>
+              <mat-checkbox class="example-margin" formControlName="safetyClothing" value="{{item}}">{{item}} </mat-checkbox>
+             
+            </div><br>
+            <mat-form-field>
+              <input matInput placeholder="fees include" formControlName="include">
+            </mat-form-field>
+            <button type="button" (click)="addtoList(secondFormGroup.value)" id="requirement-btn">
+              <i class="material-icons">add</i>
+            </button><br>
           </section>
 
-          <div formArrayName="feesInclude" >  
-
+          <!-- <div formArrayName="feesInclude">
             <section [formGroupName]="i"
               *ngFor="let tech of secondFormGroup.controls.feesInclude.controls; let i = index">
-
-              <!-- <mat-list-item role="listitem"> -->
-
               <mat-form-field>
                 <input matInput placeholder="fees include" formControlName="include">
               </mat-form-field>
-              <!-- </mat-list-item> -->
+            
 
-              <span id="remove" *ngIf="secondFormGroup.controls.feesInclude.length > 1" (click)="removeInputField(i, 1)">
-                Remove
-              </span>
-
+              <button (click)="addNewInputField(1)" type="button" id="requirement-btn">
+                <i class="material-icons">add</i>
+              </button><br>
             </section>
+          </div> -->
 
-          </div>
 
-          <button (click)="addNewInputField(1)" type="button" id="requirement-btn">
-              <i class="material-icons">add</i>
-            </button><br>
-            Additional
+          Additional
 
 
           <mat-label>Requirments</mat-label>
           <section class="example-section">
             <mat-checkbox class="example-margin" formControlName="certifiedId">Certified ID copy</mat-checkbox>
             <mat-checkbox class="example-margin" formControlName="proofOfResidence">CV</mat-checkbox>
-            <mat-checkbox class="example-margin" formControlName="registrationFee" value="R300 registration fee" >R300 registration fee</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="registrationFee" value="R300 registration fee">R300
+              registration fee</mat-checkbox>
             <mat-checkbox class="example-margin" formControlName="qualificationLevel">NQF level 1 or grade 9
             </mat-checkbox>
 
@@ -102,7 +100,7 @@
             <input type="date" matInput placeholder="start Date" formControlName="dateCtrl" required>
           </mat-form-field> -->
 
-          <div formArrayName="additional">  
+          <div formArrayName="additional">
 
             <section [formGroupName]="i"
               *ngFor="let tech of secondFormGroup.controls.additional.controls; let i = index">
@@ -123,9 +121,9 @@
           </div>
 
           <button (click)="addNewInputField(0)" type="button" id="requirement-btn">
-              <i class="material-icons">add</i> new requirement
-            </button><br>
-         
+            <i class="material-icons">add</i> new requirement
+          </button><br>
+
 
 
           <div>

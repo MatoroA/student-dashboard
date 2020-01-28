@@ -10,7 +10,9 @@ import { StudentCourse } from '../models/studentCourse';
 import { Turtor } from '../models/turtor';
 import { Trainer } from '../models/trainer';
 import { NewCourse } from '../models/new-course';
-import { Time } from 'highcharts';
+import { Admin } from 'src/app/models/admin';
+import { ArrayList } from 'src/app/models/custom-arraylist';
+import { Content } from '../models/content-interface';
 
 declare var require: any
 
@@ -26,32 +28,36 @@ export class ApiService {
   updateCourseList(uid: string, courseId: String[]) {
     this.afs.doc("turtors/" + uid).update({ course: courseId })
   }
-  addAdmin(email: string, password: string) {
-
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
+  async addAdmin(admin: Admin) {
+    return await this.afAuth.auth.createUserWithEmailAndPassword(admin.getEmail(), admin.getPassword()).then(user => {
       const firebase = require('firebase');
       const firebaseFunction = firebase.functions();
       const adminRole = firebaseFunction.httpsCallable('addAdmin');
-      adminRole({ email: email }).then(result => {
-        console.log(result)
-      })
+      adminRole({ email: admin.getEmail() }).then(result => {
+        console.log(result);
 
-    })
+        let doc = {
+          firstname: admin.getName(),
+          lastname: admin.getSurname(),
+          email: admin.getEmail(),
+          cellPhone: admin.getCellPhone(),
+          uid: user.user.uid
+        }
 
+        this.afs.doc("Users/" + user.user.uid).set(doc);
+
+
+        return result;
+      });
+    });
   }
 
-  updateStudentStatus(docId: string, registeredDocId: string, status: string){
+  updateStudentStatus(docId: string, registeredDocId: string, status: string) {
     console.log(docId)
-    this.afs.doc("students/"+docId).update({registered: registeredDocId }).then(()=>{
-      this.afs.doc("studentCourse/"+registeredDocId).update({status: status})
+    this.afs.doc("students/" + docId).update({ registered: registeredDocId }).then(() => {
+      this.afs.doc("studentCourse/" + registeredDocId).update({ status: status })
     })
   }
-
-
-
-
-
-
 
   addTutor(trainer: Trainer) {
 
@@ -64,8 +70,6 @@ export class ApiService {
       roleTurtor({ email: trainer.getEmail() }).then(result => {
         console.log(result)
 
-        console.log(this.getTurtorDoc(user.user.uid))
-
         let doc = {
           firstname: trainer.getName(),
           lastname: trainer.getSurnmae(),
@@ -73,19 +77,9 @@ export class ApiService {
           course: trainer.getCourseList(),
           uid: user.user.uid
         }
-
-        this.afs.doc("turtors/" + user.user.uid).get()
-          .subscribe(docSnapshot => {
-            if (docSnapshot.exists) {
-              this.afs.doc("turtors/" + user.user.uid).update({ course: trainer.getCourseList() })
-            } else {
-              this.afs.doc("turtors/" + user.user.uid).set(doc)
-            }
-
-            return "User has been successfully created....."
-          });
+        this.afs.doc("turtors/" + user.user.uid).set(doc);
+        return "User has been successfully created.....";
       });
-
     })
 
   }
@@ -209,11 +203,52 @@ export class ApiService {
 
         return this.afs.collection("courses").add(courseDoc);
       })
-
     })
-
-
-
-
   }
+
+  uploadFiles(course: NewCourse, courseContent: ArrayList) {
+
+    for (let i = 0; i < courseContent.getAll().length; i++) {
+      console.log(courseContent.getItemAt(i).getFileName())
+      const task = this._storage.upload("courses/" + course.getCourseName() + "/contents/" + courseContent.getItemAt(i).getFileName(), courseContent.getItemAt(i).getFileUrl());
+      courseContent.getItemAt(i).setProgress(task.percentageChanges());
+
+      task.then(results => {
+        console.log(results)
+        results.ref.getDownloadURL().then(url => {
+          const data: Content = {
+            fileUrl: url,
+            access: courseContent.getItemAt(i).getAudience(),
+            title: courseContent.getItemAt(i).getTitle(),
+            format: courseContent.getItemAt(i).getFormat()
+          }
+
+          course.setCourseContent(data);
+
+          if (courseContent.getAll().length == i + 1) {
+              this.afs.doc("courses/"+course.getCourseId()).update({contents: course.getCourseContent()})
+            .then(res=>{
+              console.log(res);
+            })
+          }
+
+        })
+      })
+    }
+    console.log(course.getCourseName())
+  }
+  //   const task = this._storage.upload(filepath,this.selectedImage)
+
+
+
+  //   task.snapshotChanges().pipe(
+  //     finalize(() => {
+  //       fileRef.getDownloadURL().subscribe((url) => {
+  //         this.upSvc.insertImageDetails(this.daydetails.value);
+  //         this.toaster.success("Submitted successfully")
+  //         this.router.navigate(['../Home'],{relativeTo:this.activatedroute})
+  //       })
+  //     }),
+  //   ).subscribe()
+  // }
 }

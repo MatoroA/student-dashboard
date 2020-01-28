@@ -23,6 +23,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import { DeleteDialogComponent } from './dialog/delete-dialog/delete-dialog.component';
 import { UpdateTurtorComponent } from './dialog/update-turtor/update-turtor.component';
 import { ApplicantComponent } from './dialog/applicant/applicant.component';
+import { OpenFileComponent } from './dialog/open-file/open-file.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { ApplicantComponent } from './dialog/applicant/applicant.component';
     DeleteDialogComponent,
     UpdateTurtorComponent,
     ApplicantComponent,
+    OpenFileComponent,
   ],
   imports: [
     BrowserModule, 
@@ -45,7 +48,7 @@ import { ApplicantComponent } from './dialog/applicant/applicant.component';
     MatProgressBarModule,
     MatCheckboxModule,
     MatRadioModule,
-
+    PdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

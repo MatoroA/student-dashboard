@@ -16,11 +16,21 @@ export class BarChartComponent implements OnInit {
   series:any;
   coursename : Course ;
   array1: any[];
+  details:{name:string,y:number}
 
   Highcharts = Highcharts;
+    
   constructor(private apiservice : ApiService ,private afs: AngularFirestore,) {
 
-
+    afs.collection("courses").snapshotChanges().subscribe((data:any) =>{ 
+       
+        this.coursename = data.map ( e => {
+            return{
+              key: e.payload.doc.id,
+              ...e.payload.doc.data()
+            } as Course
+          });
+    } );
     
     
    }
