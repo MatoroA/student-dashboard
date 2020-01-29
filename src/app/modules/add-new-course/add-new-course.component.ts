@@ -24,8 +24,8 @@ export class AddNewCourseComponent implements OnInit {
   imgURL: any;
   public message: string;
   private isAdditionalRequirementClicked: boolean = false;
-  dataList:any= ['one ', 'two', 'three', 'four']
-
+  package:any= ['Safety clothing', 'Learning material', 'Stationary', 'Certificate of competance','Work Placement Assistance']
+  requirments:any=['Certified','Proof Of Residence', 'R500 Registration fee','NQF level 1 or Grade 9']
   constructor(private _formBuilder: FormBuilder, private _apiService: ApiService) {
     
    }
@@ -43,64 +43,57 @@ export class AddNewCourseComponent implements OnInit {
       depCtrl:['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-      safetyClothing: [''],
-      learningMaterial: [''],
-      stationary: [''],
-      certificate: [''],
-      placement: [''],
-      certifiedId: [''],
-      proofOfResidence: [''],
-      registrationFee: [''],
-      qualificationLevel: [''],
+      pakageItems: [''],
+      requireItems:[''],
       include:['',Validators.required],
-      // payCtrl: ['', Validators.required],
-      // dateCtrl: ['', Validators.required],
-      additional: this._formBuilder.array([
-        this.additionalReuirementField()
-      ]),
-      feesInclude: this._formBuilder.array([
-        this.additionalField()
-      ])
+      require:['',Validators.required],
+      
+      // additional: this._formBuilder.array([
+      //   this.additionalReuirementField()
+      // ]),
+      // feesInclude: this._formBuilder.array([
+      //   this.additionalField()
+      // ])
     });
   }
 
-  additionalReuirementField(): FormGroup {
-    return this._formBuilder.group({
-      requirement: ['', ]
-    });
+  // additionalReuirementField(): FormGroup {
+  //   return this._formBuilder.group({
+  //     requirement: ['', ]
+  //   });
 
-  }
+  // }
 
-  additionalField(): FormGroup {
-    return this._formBuilder.group({
-      include: ['',]
-    });
+  // additionalField(): FormGroup {
+  //   return this._formBuilder.group({
+  //     include: ['',]
+  //   });
 
-  }
+  // }
 
-  addNewInputField(i: number): void {
+  // addNewInputField(i: number): void {
 
-    if(i == 0){
-      const control = <FormArray>this.secondFormGroup.controls.additional;
-      control.push(this.additionalReuirementField());
-    } else if(i == 1) {
-      const control = <FormArray>this.secondFormGroup.controls.feesInclude;
-      control.push(this.additionalField());
-    }
+  //   if(i == 0){
+  //     const control = <FormArray>this.secondFormGroup.controls.additional;
+  //     control.push(this.additionalReuirementField());
+  //   } else if(i == 1) {
+  //     const control = <FormArray>this.secondFormGroup.controls.feesInclude;
+  //     control.push(this.additionalField());
+  //   }
 
-  }
+  // }
 
-  removeInputField(i: number, j: number): void {
+  // removeInputField(i: number, j: number): void {
 
-    if(j == 0){
-      const control = <FormArray>this.secondFormGroup.controls.additional;
-      control.removeAt(i);
-    } else if( j == 1){
-      const control = <FormArray>this.secondFormGroup.controls.feesInclude;
-      control.removeAt(i);
-    }
+  //   if(j == 0){
+  //     const control = <FormArray>this.secondFormGroup.controls.additional;
+  //     control.removeAt(i);
+  //   } else if( j == 1){
+  //     const control = <FormArray>this.secondFormGroup.controls.feesInclude;
+  //     control.removeAt(i);
+  //   }
 
-  }
+  // }
 
 
 
@@ -190,9 +183,15 @@ export class AddNewCourseComponent implements OnInit {
     })
   }
  
-  addtoList(value){
+  addtoList(){
 
-    return this.dataList.push(value);
+    return this.package.push(this.secondFormGroup.get("include").value);
+    
+  }
+  addtoList1(){
+
+    return this.requirments.push(this.secondFormGroup.get("require").value);
+    
   }
 }
 
