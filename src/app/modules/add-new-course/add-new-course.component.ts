@@ -45,8 +45,8 @@ export class AddNewCourseComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       pakageItems: [''],
       requireItems:[''],
-      include:['',Validators.required],
-      require:['',Validators.required],
+      include:[''],
+      require:['']
       
       // additional: this._formBuilder.array([
       //   this.additionalReuirementField()

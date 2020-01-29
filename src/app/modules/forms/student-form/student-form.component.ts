@@ -12,21 +12,22 @@ import { MatDialog } from '@angular/material';
 })
 export class StudentFormComponent implements OnInit {
 
-  turtorForm: FormGroup;
+  gender: string[] = ['Male', 'Female'];
+  userForm: FormGroup;
   private allCourses$: Observable<Course[]>;
   
   
   constructor(private formBuilder: FormBuilder, private _api: ApiService, public dialog: MatDialog) {
-  //   this.allCourses$ = this._api.getCourses();
-  //   console.log(this.allCourses$)
-  //  this.turtorForm = this.formBuilder.group({
-  //   firstname: [null, Validators.compose([Validators.required])],
-  //    lastname: [null, Validators.compose([Validators.required])],
-  //    email: [null, Validators.compose([Validators.required])],
-  //    cellnumber: [null, Validators.compose([Validators.required])],
-  //    idnumber:[null, Validators.compose([Validators.required])],
-  //    gender:[null, Validators.compose([Validators.required])]
-  //   });
+    this.allCourses$ = this._api.getCourses();
+    console.log(this.allCourses$)
+   this.userForm = this.formBuilder.group({
+    firstname: [null, Validators.compose([Validators.required])],
+     lastname: [null, Validators.compose([Validators.required])],
+     email: [null, Validators.compose([Validators.required])],
+     cellnumber: [null, Validators.compose([Validators.required])],
+     idnumber:[null, Validators.compose([Validators.required])],
+     gender:[null, Validators.compose([Validators.required])]
+    });
    }
 
   ngOnInit() {

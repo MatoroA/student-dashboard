@@ -53,7 +53,7 @@
           <mat-label>Fees Includes</mat-label>
           
             <div *ngFor='let item of package'>
-              <mat-checkbox class="example-margin" formControlName="pakageItems" value="{{item}}">{{item}} </mat-checkbox>
+              <mat-checkbox class="example-margin" formControlName="pakageItems" [value]="item">{{item}} </mat-checkbox>
              
             </div><br>
             <mat-form-field>
