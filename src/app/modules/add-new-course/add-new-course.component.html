@@ -47,37 +47,42 @@
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup" (ngSubmit)="secondForm()">
+      <form [formGroup]="secondFormGroup" >
         <div class="example-container2">
           <ng-template matStepLabel>additional info</ng-template>
-          <mat-label>Fees Includes</mat-label>
+          <mat-label>Fees Includes:</mat-label>
           
             <div *ngFor='let item of package'>
-              <mat-checkbox class="example-margin" formControlName="pakageItems" [value]="item">{{item}} </mat-checkbox>
+              <mat-checkbox class="example-margin" formControlName="pakageItems" value="item">{{item}} </mat-checkbox>
              
             </div><br>
             <mat-form-field>
-              <input matInput placeholder="add more items to the list" formControlName="include" id="InputID">
+              <input matInput placeholder="add items to the list" formControlName="include" id="InputID">
               
             </mat-form-field>
             <button type="button" (click)="addtoList()">
               <i class="material-icons">add</i></button>
             <br>
   
-            <mat-label>Requirements: </mat-label>
-          
+            <!-- <mat-label>Requirements: </mat-label>
+            <mat-checkbox class="example-margin" formControlName="one" value="Safety clothing" > Safety clothing</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="two" value="Learning material" > Learning material</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="three" value="Stationary" > Stationary</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="four" value="Certificate of competance" > Certificate of competance</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="five" value="Work Placement Assistance" > Work Placement Assistance</mat-checkbox> -->
+            
             <div *ngFor='let item of requirments'>
-              <mat-checkbox class="example-margin" formControlName="requireItems" value="{{item}}">{{item}} </mat-checkbox>
-             
+              <mat-checkbox class="example-margin" formControlName="requireItems" value="item" >{{item}} </mat-checkbox>
+        
             </div><br>
             <mat-form-field>
-              <input matInput placeholder="add more items to the list" formControlName="require" >
+              <input matInput placeholder="add requirments" formControlName="require" >
               
             </mat-form-field>
-            <button type="button" (click)="addtoList1()" id="requirement-btn" (click)="value=''">
+            <button type="button" (click)="addtoList1()" id="requirement-btn">
               <i class="material-icons">add</i></button>
             <br>
-            <button mat-raised-button >submit</button><br>
+            <button mat-raised-button (click)="onItemSub()">submit</button><br>
           <div>
             <button mat-raised-button matStepperPrevious>Back</button>
             <button mat-raised-button matStepperNext type="submit" [disabled]="!secondFormGroup.valid">Next</button>

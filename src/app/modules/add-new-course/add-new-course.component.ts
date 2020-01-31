@@ -24,8 +24,11 @@ export class AddNewCourseComponent implements OnInit {
   imgURL: any;
   public message: string;
   private isAdditionalRequirementClicked: boolean = false;
-  package:any= ['Safety clothing', 'Learning material', 'Stationary', 'Certificate of competance','Work Placement Assistance']
-  requirments:any=['Certified','Proof Of Residence', 'R500 Registration fee','NQF level 1 or Grade 9']
+  package:any= [];
+ 
+
+  requirments:any=[];
+  
   constructor(private _formBuilder: FormBuilder, private _apiService: ApiService) {
     
    }
@@ -119,35 +122,35 @@ export class AddNewCourseComponent implements OnInit {
   }
 
 
-  secondForm() {
-    let safety = this.secondFormGroup.get('safetyClothing').value;
-    let learningMaterial = this.secondFormGroup.get('learningMaterial').value;
-    let certificate = this.secondFormGroup.get('certificate').value;
-    let placement = this.secondFormGroup.get('placement').value;
-    let certifiedId = this.secondFormGroup.get('certifiedId').value;
-    let registrationfee = this.secondFormGroup.get('registrationFee').value;
-    let proofOfResidence = this.secondFormGroup.get('proofOfResidence').value;
-    let qualificationLevel = this.secondFormGroup.get('qualificationLevel').value;
+  // secondForm() {
+  //   let safety = this.secondFormGroup.get('safetyClothing').value;
+  //   let learningMaterial = this.secondFormGroup.get('learningMaterial').value;
+  //   let certificate = this.secondFormGroup.get('certificate').value;
+  //   let placement = this.secondFormGroup.get('placement').value;
+  //   let certifiedId = this.secondFormGroup.get('certifiedId').value;
+  //   let registrationfee = this.secondFormGroup.get('registrationFee').value;
+  //   let proofOfResidence = this.secondFormGroup.get('proofOfResidence').value;
+  //   let qualificationLevel = this.secondFormGroup.get('qualificationLevel').value;
 
-    safety? this.course.setReuirements('safety clothing') : '';
-    learningMaterial? this.course.setReuirements('learning material') : '';
-    certificate ? this.course.setReuirements('certificate') : '';
-    placement ? this.course.setReuirements('placement') : '';
-    registrationfee ? this.course.setReuirements(registrationfee) : '';
-    certifiedId ? this.course.setReuirements('certified id') : '';
-    proofOfResidence ? this.course.setReuirements('cv') : '';
-    qualificationLevel ? this.course.setReuirements('NQF level 1 or grade 9') : '';
+  //   safety? this.course.setReuirements('safety clothing') : '';
+  //   learningMaterial? this.course.setReuirements('learning material') : '';
+  //   certificate ? this.course.setReuirements('certificate') : '';
+  //   placement ? this.course.setReuirements('placement') : '';
+  //   registrationfee ? this.course.setReuirements(registrationfee) : '';
+  //   certifiedId ? this.course.setReuirements('certified id') : '';
+  //   proofOfResidence ? this.course.setReuirements('cv') : '';
+  //   qualificationLevel ? this.course.setReuirements('NQF level 1 or grade 9') : '';
 
-    console.log(this.course)
+  //   console.log(this.course)
 
-    for(let item of this.secondFormGroup.value.additional){
+  //   for(let item of this.secondFormGroup.value.additional){
 
-      let requirement = item.requirement.replace(/\s/g, "").toLowerCase();
-      if( requirement != "" ){
-        this.course.setReuirements(item.requirement);
-      }
-    }
-  }
+  //     let requirement = item.requirement.replace(/\s/g, "").toLowerCase();
+  //     if( requirement != "" ){
+  //       this.course.setReuirements(item.requirement);
+  //     }
+  //   }
+  // }
 
   preview(files) {
     if (files.length === 0)
@@ -186,12 +189,17 @@ export class AddNewCourseComponent implements OnInit {
   addtoList(){
 
     return this.package.push(this.secondFormGroup.get("include").value);
-    
+     
   }
   addtoList1(){
 
     return this.requirments.push(this.secondFormGroup.get("require").value);
     
+  }
+
+  onItemSub(){
+
+    console.log(" First list : "+ this.package +" second list :" + this.requirments);
   }
 }
 
