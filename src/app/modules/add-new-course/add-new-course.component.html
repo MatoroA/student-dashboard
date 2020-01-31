@@ -93,7 +93,7 @@
       <h2>Course image :</h2>
     
       <input #file type="file" accept='image/*' (change)="preview(file.files)" />
-      <img [src]="imgURL" height="200" *ngIf="imgURL"><br>
+      <img [src]="imgURL" width="400" height="400" *ngIf="imgURL"><br>
 
       <div>
         <button mat-raised-button matStepperPrevious (click)="uploadCourse()">Upload course</button>
