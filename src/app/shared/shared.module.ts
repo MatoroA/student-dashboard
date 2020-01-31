@@ -22,6 +22,7 @@ import { DoubleBarComponent } from './widgets/double-bar/double-bar.component';
     WidgetsComponent,
     BarChartComponent,
     DoubleBarComponent,
+
     
   ],
   imports: [
@@ -38,7 +39,7 @@ import { DoubleBarComponent } from './widgets/double-bar/double-bar.component';
     MatStepperModule,
     MatListModule,
     MatTabsModule,
-   
+  
     
   ],
   exports:[
