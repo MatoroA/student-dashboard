@@ -120,7 +120,26 @@ export class ApiService {
       }))
     )
   }
+  // , ref => ref.where('size', '==', size)
+  getStudent(id: string) {
+    return this.afs.collection<StudentCourse>('studentCourse', ref => ref.where('courseID', '==', id)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as StudentCourse;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    )
+  }
 
+  getRegisteredStudent() {
+    return this.afs.collection<StudentCourse>('studentCourse', ref => ref.where('status', '==', true)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as StudentCourse;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    )
+  }
   getStudentCourse() {
     return this.afs.collection<StudentCourse>('studentCourse').snapshotChanges().pipe(
       map(actions => actions.map(a => {

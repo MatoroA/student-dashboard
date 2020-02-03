@@ -153,14 +153,15 @@ export class AddNewCourseComponent implements OnInit {
 
 
   uploadCourse(){
-    console.log(this.course)
+    console.log(this.package)
 
-    this._apiService.uploadCourse(this.course).then(results=>{
-      console.log(results)
-    })
+    // this._apiService.uploadCourse(this.course).then(results=>{
+    //   console.log(results)
+    // })
   }
  
   addtoList(){
+    console.log('okay')
 
     return this.package.push(this.secondFormGroup.get("include").value);
      
