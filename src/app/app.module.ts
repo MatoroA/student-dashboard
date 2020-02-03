@@ -17,7 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { LoginComponent } from './login/login.component';
 
 import { AddUserComponent } from './modules/add-user/add-user.component';
-import { MatProgressBarModule } from '@angular/material';
+import { MatProgressBarModule, MatListModule } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import { DeleteDialogComponent } from './dialog/delete-dialog/delete-dialog.component';
@@ -25,6 +25,7 @@ import { UpdateTurtorComponent } from './dialog/update-turtor/update-turtor.comp
 import { ApplicantComponent } from './dialog/applicant/applicant.component';
 import { OpenFileComponent } from './dialog/open-file/open-file.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     MatProgressBarModule,
     MatCheckboxModule,
     MatRadioModule,
-    PdfViewerModule
+    PdfViewerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

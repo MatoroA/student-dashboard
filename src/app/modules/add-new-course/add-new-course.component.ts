@@ -28,6 +28,7 @@ export class AddNewCourseComponent implements OnInit {
  
 
   requirments:any=[];
+  firstFormMessages: any;
   
   constructor(private _formBuilder: FormBuilder, private _apiService: ApiService) {
     
@@ -49,55 +50,28 @@ export class AddNewCourseComponent implements OnInit {
       pakageItems: [''],
       requireItems:[''],
       include:[''],
-      require:['']
-      
-      // additional: this._formBuilder.array([
-      //   this.additionalReuirementField()
-      // ]),
-      // feesInclude: this._formBuilder.array([
-      //   this.additionalField()
-      // ])
+      require:['']  
+     
     });
+    this.firstFormMessages = {
+      'nameCtrl': [
+        { type: 'required', message: 'Username is required' },
+      ],
+      'idCtrl': [
+        { type: 'required', message: 'Course ID is required' },
+      ],
+      'feeCtrl': [
+        { type: 'required', message: 'Course fee is required' },
+      ],
+      'depCtrl': [
+        { type: 'required', message: 'Deposit is required' },
+      ],
+    }
   }
 
-  // additionalReuirementField(): FormGroup {
-  //   return this._formBuilder.group({
-  //     requirement: ['', ]
-  //   });
 
-  // }
 
-  // additionalField(): FormGroup {
-  //   return this._formBuilder.group({
-  //     include: ['',]
-  //   });
-
-  // }
-
-  // addNewInputField(i: number): void {
-
-  //   if(i == 0){
-  //     const control = <FormArray>this.secondFormGroup.controls.additional;
-  //     control.push(this.additionalReuirementField());
-  //   } else if(i == 1) {
-  //     const control = <FormArray>this.secondFormGroup.controls.feesInclude;
-  //     control.push(this.additionalField());
-  //   }
-
-  // }
-
-  // removeInputField(i: number, j: number): void {
-
-  //   if(j == 0){
-  //     const control = <FormArray>this.secondFormGroup.controls.additional;
-  //     control.removeAt(i);
-  //   } else if( j == 1){
-  //     const control = <FormArray>this.secondFormGroup.controls.feesInclude;
-  //     control.removeAt(i);
-  //   }
-
-  // }
-
+ 
 
 
   onSubmit() {
@@ -197,10 +171,7 @@ export class AddNewCourseComponent implements OnInit {
     
   }
 
-  onItemSub(){
-
-    console.log(" First list : "+ this.package +" second list :" + this.requirments);
-  }
+  
 }
 
 
