@@ -1,18 +1,20 @@
 export class RegisteredUser {
     private name: string;
-    private count: number;
+    private y: number;
+    private waitingStudents: number;
     // private id: string;
 
     public constructor() {
-        this.count = 0;
+        this.y = 0;
+        this.waitingStudents = 0;
     }
 
     public addStudentsCount(){
-        ++this.count;
+        ++this.y;
     }
 
     getRegisteredStudentsCount(){
-        return this.count;
+        return this.y;
     }
 
     public setCourseName(name: string){
@@ -21,6 +23,13 @@ export class RegisteredUser {
 
     public getCourse(){
         return this.name;
+    }
+
+    public incrementWaitingList(){
+        ++this.waitingStudents;
+    }
+    public getWaitingStudents(){
+        return this.waitingStudents;
     }
     // public setId(id: string){
     //     this.id = id;

@@ -17,7 +17,7 @@ export class PostsComponent implements OnInit {
   pageSizeOptions;
 
   private registeredStudents: EnrolledStudent[] = [];
-  private tableData = new MatTableDataSource<any>();
+  private tableData = new MatTableDataSource<any>(); 
   constructor(private _apiService: ApiService) { }
 
   @ViewChild(MatSort) sort: MatSort;

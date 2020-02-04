@@ -69,6 +69,7 @@ export class BarChartComponent implements OnInit {
     details: { name: string, count: number }
 
     private registeredStudents: RegisteredUser[];
+    private waitForData: boolean = false;
 
     constructor(private _apiService: ApiService, private afs: AngularFirestore) {
 
@@ -77,18 +78,18 @@ export class BarChartComponent implements OnInit {
 
     }
 
-     ngOnInit() {
-     this.getData()
+    ngOnInit() {
+        this.getData()
         // console.log(this.registeredStudents);
 
 
         // this.graphData();
     }
 
-     getData() {
+    getData() {
 
         console.log("one")
-         this._apiService.getCourses().subscribe(courseList => {
+        this._apiService.getCourses().subscribe(courseList => {
             this.registeredStudents = [];
             console.log(courseList)
             for (let course of courseList) {
@@ -104,10 +105,12 @@ export class BarChartComponent implements OnInit {
                         }
                     }
                 });
-            }     
+            }
+            setTimeout(() => {
+                this.chartOptions.series[0].data = this.registeredStudents;
+                this.waitForData = true
+            }, 1000);
         });
-        this.chartOptions.series[0].data = [{name:'', y: 5}];
-        console.log(this.chartOptions.series[0].data)
     }
 
 }
