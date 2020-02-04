@@ -46,6 +46,8 @@ export class AddCourseContentComponent implements OnInit {
       content: this.fb.array([
         this.additionalNewContent()
       ]),
+      pdfTitle: ['', Validators.required],
+      vTitle:['', Validators.required]
     })
 
   }

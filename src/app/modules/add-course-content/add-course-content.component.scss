@@ -1,5 +1,8 @@
 
-
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+  padding: 7px;
+}
 *,
 *:before,
 *:after {
@@ -23,4 +26,13 @@ button{
   width: 150px;
   outline-color: NONE;
   
+}
+.container{
+  background-color: #5a5a5a;
+  padding: 10px;
+  color: white;
+}
+mat-label{
+
+  color: white; 
 }
