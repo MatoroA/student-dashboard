@@ -25,6 +25,7 @@ import { UpdateTurtorComponent } from './dialog/update-turtor/update-turtor.comp
 import { ApplicantComponent } from './dialog/applicant/applicant.component';
 import { OpenFileComponent } from './dialog/open-file/open-file.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { EditCourseComponent } from './modules/edit-course/edit-course.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     UpdateTurtorComponent,
     ApplicantComponent,
     OpenFileComponent,
+    EditCourseComponent,
   ],
   imports: [
     BrowserModule, 

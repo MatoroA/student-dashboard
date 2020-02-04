@@ -12,6 +12,7 @@ import { AddCourseContentComponent } from './modules/add-course-content/add-cour
 import { LoginComponent } from './login/login.component';
 import { ApplicationsComponent } from './modules/applications/applications.component';
 import { AddUserComponent } from './modules/add-user/add-user.component';
+import { EditCourseComponent } from './modules/edit-course/edit-course.component';
 
 
 const routes: Routes = [
@@ -30,10 +31,9 @@ children:[{
 },
 { path: 'addCourseContent', component: AddCourseContentComponent
 },
-
 {path: 'applications', component:ApplicationsComponent},
-
-{path: 'addUser', component:AddUserComponent}
+{path: 'addUser', component:AddUserComponent},
+{path: 'editCourse', component:EditCourseComponent}
 
 ]
 },{path: '' , component:LoginComponent}

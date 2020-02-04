@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginatorModule, MatPaginator} from '@angular/material';
 import { ApiService } from 'src/app/backend/api.service';
+import { Router } from '@angular/router';
 
 export interface Data{
     code: string;
@@ -19,7 +20,7 @@ export class CoursesComponent implements OnInit {
   private dataSource = new MatTableDataSource<Data>();
   pageSizeOptions;
  
-  constructor(private _apiService: ApiService) { }
+  constructor(private _apiService: ApiService, private router: Router ) { }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -52,5 +53,8 @@ export class CoursesComponent implements OnInit {
 
   getRecord(clickedRow: Data){
     console.log(clickedRow.id)
+    let id = clickedRow.id;
+    this.router.navigateByUrl("default/editCourse");
+    //this.router.navigate(["default/editCourse"], { queryParams: { order: id } });
   }
 }
