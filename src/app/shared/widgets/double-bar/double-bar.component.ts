@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
+import { ApiService } from 'src/app/backend/api.service';
+import { RegisteredUser } from 'src/app/models/registered-user';
 
 @Component({
   selector: 'app-double-bar',
@@ -9,93 +11,133 @@ import HC_exporting from 'highcharts/modules/exporting';
 })
 export class DoubleBarComponent implements OnInit {
 
-  chartOptions: {};
+  chartOptions = {
+
+    chart: {
+      type: 'column'
+    },
+
+    title: {
+      text: 'Accepted Students vs rejected or unaceppted'
+    },
+
+    subtitle: {
+      text: 'Resize the frame or click buttons to change appearance'
+    },
+
+    legend: {
+      align: 'right',
+      verticalAlign: 'middle',
+      layout: 'vertical'
+    },
+
+    xAxis: {
+      categories: [],
+      labels: {
+        x: -10
+      }
+    },
+
+    yAxis: {
+      allowDecimals: false,
+      title: {
+        text: 'Amount'
+      }
+    },
+
+    series: [{
+      name: 'accepted students',
+      data: []
+    }, {
+      name: 'waiting or rejected students',
+      data: []
+    }],
+
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            align: 'center',
+            verticalAlign: 'bottom',
+            layout: 'horizontal'
+          },
+          yAxis: {
+            labels: {
+              align: 'left',
+              x: 0,
+              y: -5
+            },
+            title: {
+              text: null
+            }
+          },
+          subtitle: {
+            text: null
+          },
+          credits: {
+            enabled: false
+          }
+        }
+      }]
+    }
+  };
+
   series: any;
 
   Highcharts = Highcharts;
-  constructor() { }
+
+  private acceptedStudents: number[] = [];
+  private waitingOrRejectedStudents: number[] = [];
+  private courseNames: string[] = [];
+
+  private registeredStudents: RegisteredUser[];
+
+
+  private showGraph: boolean = false;
+  
+  constructor(private _apiService: ApiService) { }
 
   ngOnInit() {
-    this.chartOptions = {
 
-      chart: {
-        type: 'column'
-      },
+    this._apiService.getCourses().subscribe(courseList => {
+      this.registeredStudents = [];
+      console.log(courseList)
+      for (let course of courseList) {
+          let item = new RegisteredUser();
+          item.setCourseName(course.name);
+          // item.setId(course.id);
+          this.registeredStudents.push(item);
 
-      title: {
-        text: 'Highcharts responsive chart'
-      },
-
-      subtitle: {
-        text: 'Resize the frame or click buttons to change appearance'
-      },
-
-      legend: {
-        align: 'right',
-        verticalAlign: 'middle',
-        layout: 'vertical'
-      },
-
-      xAxis: {
-        categories: ['Apples', 'Oranges', 'Bananas'],
-        labels: {
-          x: -10
-        }
-      },
-
-      yAxis: {
-        allowDecimals: false,
-        title: {
-          text: 'Amount'
-        }
-      },
-
-      series: [{
-        name: 'Christmas Eve',
-        data: [1, 4, 3]
-      }, {
-        name: 'Christmas Day before dinner',
-        data: [6, 4, 2]
-      }],
-
-      responsive: {
-        rules: [{
-          condition: {
-            maxWidth: 500
-          },
-          chartOptions: {
-            legend: {
-              align: 'center',
-              verticalAlign: 'bottom',
-              layout: 'horizontal'
-            },
-            yAxis: {
-              labels: {
-                align: 'left',
-                x: 0,
-                y: -5
-              },
-              title: {
-                text: null
+          this._apiService.getStudent(course.id).subscribe(studentApplications => {
+              for (let application of studentApplications) {
+                  if (application.status) {
+                      item.addStudentsCount();
+                  } else{
+                    item.incrementWaitingList();
+                  }
               }
-            },
-            subtitle: {
-              text: null
-            },
-            credits: {
-              enabled: false
-            }
-          }
-        }]
+          });
       }
-    };
+      setTimeout(() => {
+        console.log(this.registeredStudents);
+        for(let item of this.registeredStudents){
+          this.acceptedStudents.push(item.getRegisteredStudentsCount());
+          this.waitingOrRejectedStudents.push(item.getWaitingStudents());
+          this.courseNames.push(item.getCourse());
+        }
 
-    HC_exporting(Highcharts);
-    setTimeout(() => {
-      window.dispatchEvent(
-        new Event('resize')
-      );
-    }, 300)
+        this.chartOptions.xAxis.categories = this.courseNames;
+        this.chartOptions.series[0].data = this.acceptedStudents;
+        this.chartOptions.series[1].data = this.waitingOrRejectedStudents;
+        this.showGraph = true;
+          // this.chartOptions.series[0].data = this.registeredStudents;
+          // this.waitForData = true
+      }, 1000);
+  });
+
 
   }
 }
