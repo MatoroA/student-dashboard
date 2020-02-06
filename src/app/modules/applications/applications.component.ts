@@ -21,6 +21,7 @@ export class ApplicationsComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  searchKey: string;
 
   constructor(private _apiService: ApiService, private changeDetectorRefs: ChangeDetectorRef, public dialog: MatDialog) {
 
@@ -135,6 +136,16 @@ export class ApplicationsComponent implements OnInit {
     // if (status) {
     //   this._apiService.updateStudentStatus(docId, registeredDocId, status);
     // }
+  }
+
+  searchApplicant(){
+  
+    this.tableData.filter = this.searchKey.trim().toLowerCase();
+
+  }
+  onSearchClear() {
+    this.searchKey = "";
+    this.searchApplicant();
   }
 
 }

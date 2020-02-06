@@ -68,28 +68,23 @@
             </ul><br>
             <mat-form-field>
               <input matInput placeholder="add items to the list" formControlName="include" id="InputID">
-              
+              <button type="button" matSuffix mat-icon-button (click)="addtoList()">
+                <i class="material-icons">add</i></button>
             </mat-form-field>
-            <button type="button" (click)="addtoList()">
-              <i class="material-icons">add</i></button>
+           
             <br>
   
-            <!-- <mat-label>Requirements: </mat-label>
-            <mat-checkbox class="example-margin" formControlName="one" value="Safety clothing" > Safety clothing</mat-checkbox>
-            <mat-checkbox class="example-margin" formControlName="two" value="Learning material" > Learning material</mat-checkbox>
-            <mat-checkbox class="example-margin" formControlName="three" value="Stationary" > Stationary</mat-checkbox>
-            <mat-checkbox class="example-margin" formControlName="four" value="Certificate of competance" > Certificate of competance</mat-checkbox>
-            <mat-checkbox class="example-margin" formControlName="five" value="Work Placement Assistance" > Work Placement Assistance</mat-checkbox> -->
+  
             <mat-label>Requrements: </mat-label>
             <ul *ngFor='let item of requirments'>
                 <li> {{item}}  </li>
             </ul><br>
             <mat-form-field>
               <input matInput placeholder="add requirments" formControlName="require" >
-              
+              <button type="button" matSuffix mat-icon-button (click)="addtoList1()" id="requirement-btn">
+                <i class="material-icons">add</i></button>
             </mat-form-field>
-            <button type="button" (click)="addtoList1()" id="requirement-btn">
-              <i class="material-icons">add</i></button>
+
             <br>
             
           <div>

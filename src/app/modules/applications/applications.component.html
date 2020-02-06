@@ -1,13 +1,23 @@
 <h1>Applications</h1>
 
-<mat-form-field>
+<!-- <mat-form-field>
   <mat-label>Courses</mat-label>
   <mat-select (selectionChange)="doSomething($event)">
     <mat-option *ngFor="let item of course | async" [value]="item?.id">
       {{item?.name}}
     </mat-option>
   </mat-select>
-</mat-form-field>
+</mat-form-field> -->
+
+<div class="search-div">
+  
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input matInput placeholder="search " [(ngModel)]="searchKey" (keyup)="searchApplicant()" >
+    <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey"  (click)="onSearchClear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
 
 <mat-checkbox *ngIf="!isChecked" [checked]="isChecked"  (change)="showAllStudents()">Show all!</mat-checkbox>
 <table mat-table [dataSource]="tableData" class="mat-elevation-z8">

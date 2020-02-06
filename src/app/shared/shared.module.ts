@@ -13,7 +13,7 @@ import { AreaComponent } from './widgets/area/area.component';
 import { WidgetsComponent } from './widgets/widgets.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart.component';
 import { DoubleBarComponent } from './widgets/double-bar/double-bar.component';
-
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -39,6 +39,7 @@ import { DoubleBarComponent } from './widgets/double-bar/double-bar.component';
     HighchartsChartModule,
     MatStepperModule,
     MatTabsModule,
+    FormsModule,
   
     
   ],

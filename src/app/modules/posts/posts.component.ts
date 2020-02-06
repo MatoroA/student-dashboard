@@ -18,6 +18,7 @@ export class PostsComponent implements OnInit {
 
   private registeredStudents: EnrolledStudent[] = [];
   private tableData = new MatTableDataSource<any>(); 
+  searchKey: string;
   constructor(private _apiService: ApiService) { }
 
   @ViewChild(MatSort) sort: MatSort;
@@ -69,5 +70,17 @@ export class PostsComponent implements OnInit {
         }
       }, 1000);
     }
+  }
+
+  search(){
+    // filterValue = filterValue.trim();
+    // filterValue =  filterValue.toLocaleLowerCase();
+    // this.dataSource.filter = filterValue;
+    this.tableData.filter = this.searchKey.trim().toLowerCase();
+
+  }
+  onSearchClear() {
+    this.searchKey = "";
+    this.search();
   }
 }
