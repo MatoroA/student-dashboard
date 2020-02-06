@@ -11,7 +11,7 @@ export class DefaultComponent implements OnInit {
   sideBarOpen = true;
   adminPages = [
     { name: 'Home', page: 'home' , icon:'assignment'},
-    { name: 'Add New Course', page: 'addNewCourse' },
+    //{ name: 'Add New Course', page: 'addNewCourse' },
     { name: 'Courses', page: 'courses' },
     { name: 'Add Course Content', page: 'addCourseContent' },
     { name: 'Add User', page: 'addUser' },

@@ -33,8 +33,8 @@
           </mat-form-field><br>
           <mat-label>Duration:</mat-label>
           <div class="date-field">
-            <mat-form-field>
-              <input matInput placeholder="Start Date" type="date" formControlName="dur1Ctrl" >
+            <mat-form-field  style="margin-right: 20px;" >
+              <input matInput placeholder="Start Date" type="date"  formControlName="dur1Ctrl" >
             </mat-form-field>
             <mat-form-field>
               <input matInput placeholder="End Date" type="date" formControlName="dur2Ctrl" >
@@ -91,9 +91,9 @@
             <button type="button" (click)="addtoList1()" id="requirement-btn">
               <i class="material-icons">add</i></button>
             <br>
-            <button mat-raised-button (click)="onItemSub()">submit</button><br>
+            
           <div>
-            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button matStepperPrevious style="margin-right: 16px;">Back</button>
             <button mat-raised-button matStepperNext type="submit" [disabled]="!secondFormGroup.valid">Next</button>
           </div>
         </div>
@@ -111,7 +111,7 @@
       
 
       <div>
-        <button mat-raised-button matStepperPrevious (click)="uploadCourse()">Upload course</button>
+        <button mat-raised-button matStepperPrevious style="margin-right: 16px;" (click)="uploadCourse()">Upload course</button>
         <button mat-raised-button (click)="stepper.reset()">Reset</button>
       </div>
     </div>

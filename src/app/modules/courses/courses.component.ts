@@ -7,6 +7,7 @@ export interface Data{
     code: string;
     name: string;
     id: string;
+    
 }
 
 @Component({
@@ -16,8 +17,10 @@ export interface Data{
 })
 export class CoursesComponent implements OnInit {
 
-  displayedColumns: string[]=['Course_name', 'Course_ID']
+  searchKey: string;
+  displayedColumns: string[]=['Course_name', 'Course_ID','action']
   private dataSource = new MatTableDataSource<Data>();
+
   pageSizeOptions;
  
   constructor(private _apiService: ApiService, private router: Router ) { }
@@ -45,10 +48,16 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  searchCourse(filterValue: string){
-    filterValue = filterValue.trim();
-    filterValue =  filterValue.toLocaleLowerCase();
-    this.dataSource.filter = filterValue;
+  searchCourse(){
+    // filterValue = filterValue.trim();
+    // filterValue =  filterValue.toLocaleLowerCase();
+    // this.dataSource.filter = filterValue;
+    this.dataSource.filter = this.searchKey.trim().toLowerCase();
+
+  }
+  onSearchClear() {
+    this.searchKey = "";
+    this.searchCourse();
   }
 
   getRecord(clickedRow: Data){
@@ -57,4 +66,6 @@ export class CoursesComponent implements OnInit {
     this.router.navigateByUrl("default/editCourse");
     //this.router.navigate(["default/editCourse"], { queryParams: { order: id } });
   }
+
+  
 }
