@@ -153,11 +153,17 @@ export class AddNewCourseComponent implements OnInit {
 
 
   uploadCourse(){
-    console.log(this.package)
 
-    // this._apiService.uploadCourse(this.course).then(results=>{
-    //   console.log(results)
-    // })
+    for(let item of this.package){
+      this.course.setFeesInclude(item);
+    }
+    for(let item of this.requirments){
+      this.course.setReuirements(item);
+    }
+    
+    this._apiService.uploadCourse(this.course).then(results=>{
+      console.log(results)
+    })
   }
  
   addtoList(){

@@ -177,4 +177,9 @@ export class AddCourseContentComponent implements OnInit {
     console.log(this.courseArrayList.getAll())
   }
 
+  onConsoleLog(){
+
+    let name = this.courseForm.get('title').value;
+    console.log(name);
+  }
 }

@@ -13,10 +13,20 @@ export class NewCourse{
     private imageName: string;
     private code: string;
     private courseContentDb: Content[];
+    private feesInclude: string[];
 
     constructor(){
         this.courseContentDb = [];
         this.requirements = [];
+        this.feesInclude = [];
+    }
+
+    public setFeesInclude(item: string){
+        this.feesInclude.push(item);
+    }
+
+    public getFeesInclude(){
+        return this.feesInclude;
     }
     
     public setCourseContent(info: Content){

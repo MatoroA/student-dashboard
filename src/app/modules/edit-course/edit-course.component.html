@@ -1,11 +1,55 @@
 <h1>Edit a course</h1>
-<div><img src="https://firebasestorage.googleapis.com/v0/b/a-team-654df.appspot.com/o/courses%2FT5HexnJCijpoTsGH07hL%2FSS-BP-19.jpg?alt=media&token=b031573f-6a50-4387-b4b6-21c0d693df5f" width="900" height="300">
 
 
+<form class="example-form">
 
+    <!-- <img src="https://firebasestorage.googleapis.com/v0/b/a-team-654df.appspot.com/o/courses%2FT5HexnJCijpoTsGH07hL%2FSS-BP-19.jpg?alt=media&token=b031573f-6a50-4387-b4b6-21c0d693df5f" width="900" height="300"> -->
+    <mat-form-field class="example-full-width" >
+        <mat-label>Course name:</mat-label>
+        <input matInput type="text" name="name"  [(ngModel)]="courseName">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" >
+        <mat-label>Course Id:</mat-label>
+        <input matInput type="text" name="id"  [(ngModel)]="courseId">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" >
+        <mat-label>Fees:</mat-label>
+        <input matInput type="text" name="fees"  [(ngModel)]="courseFee">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>deposit:</mat-label>
+        <input matInput  type="number" >
+       
+      </mat-form-field>
+      
+        <mat-form-field  style="margin-right: 20px;" >
+          <input matInput placeholder="Start Date" type="date" >
+        </mat-form-field>
+        <mat-form-field>
+         <input matInput placeholder="End Date" type="date">
+        </mat-form-field><br>
 
-<form >
-<mat-label>Course name:</mat-label>
- <input matInput   >
+        <mat-label>Fees Includes:</mat-label>
+        <ul *ngFor='let item of feesIncludes'>
+          <li> {{item}}  </li>
+         
+        </ul>
+      
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="add items to the list" >
+          <button type="button" matSuffix mat-icon-button>
+            <i class="material-icons">add</i></button>
+        </mat-form-field>
+    
+        <mat-label>Requrements: </mat-label>
+        <ul *ngFor='let item of requirements'>
+            <li> {{item}}  </li>
+        </ul><br>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="add requirments"  >
+          <button type="button" matSuffix mat-icon-button>
+            <i class="material-icons">add</i></button>
+        </mat-form-field>
+       
+        
 </form>
-</div>

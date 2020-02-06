@@ -33,6 +33,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
+import { EditCourseComponent } from 'src/app/modules/edit-course/edit-course.component';
+import {MatListModule} from '@angular/material/list';
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -46,7 +48,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ApplicationsComponent,
     AddUserComponent,
     TurtorFormComponent,
-    AdminFormComponent
+    AdminFormComponent,
+    EditCourseComponent
     
   ],
   imports: [
@@ -75,7 +78,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSlideToggleModule,
     PdfViewerModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatListModule
+    
   ],
   entryComponents: [DeleteDialogComponent, UpdateTurtorComponent, ApplicantComponent, 
     OpenFileComponent]

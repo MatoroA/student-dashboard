@@ -219,10 +219,11 @@ export class ApiService {
           name: course.getCourseName(),
           requirement: course.getRequirements(),
           fee: course.getCourseFee(),
-          description: course.getDescription()
+          description: course.getDescription(),
+          feesInclude: course.getFeesInclude(),
+          requirements: course.getRequirements()
         }
 
-        console.log(courseDoc)
 
         return this.afs.collection("courses").add(courseDoc);
       })

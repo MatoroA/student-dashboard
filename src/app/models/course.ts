@@ -6,7 +6,8 @@ export interface Course{
     fee: string;
     name: string;
     paymentDuration: string;
-    requirements: string;
+    requirements: string[];
     contents?: Content[];
+    feesInclude?: string[];
     id: string;
 }
