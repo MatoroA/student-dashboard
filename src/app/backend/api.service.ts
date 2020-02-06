@@ -25,9 +25,13 @@ export class ApiService {
     private _storage: AngularFireStorage) { }
 
 
-  updateCourseList(uid: string, courseId: String[]) {
-    this.afs.doc("turtors/" + uid).update({ course: courseId })
-  }
+    updateCourseList(uid: string, courses: String[]) {
+      return this.afs.doc("turtors/" + uid).update({ course: courses }).then(success=>{
+        return success;
+      }, err =>{
+        return err;
+      })
+    }
   async addAdmin(admin: Admin) {
     return await this.afAuth.auth.createUserWithEmailAndPassword(admin.getEmail(), admin.getPassword()).then(user => {
       const firebase = require('firebase');
@@ -121,7 +125,7 @@ export class ApiService {
     )
   }
   // , ref => ref.where('size', '==', size)
-  getStudent(id: string) {
+  getStudentApplications(id: string) {
     return this.afs.collection<StudentCourse>('studentCourse', ref => ref.where('courseID', '==', id)).snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as StudentCourse;

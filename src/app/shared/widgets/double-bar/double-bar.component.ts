@@ -97,7 +97,7 @@ export class DoubleBarComponent implements OnInit {
 
 
   private showGraph: boolean = false;
-  
+
   constructor(private _apiService: ApiService) { }
 
   ngOnInit() {
@@ -106,37 +106,43 @@ export class DoubleBarComponent implements OnInit {
       this.registeredStudents = [];
       console.log(courseList)
       for (let course of courseList) {
-          let item = new RegisteredUser();
-          item.setCourseName(course.name);
-          // item.setId(course.id);
-          this.registeredStudents.push(item);
+        let item = new RegisteredUser();
+        item.setCourseName(course.name);
 
-          this._apiService.getStudent(course.id).subscribe(studentApplications => {
-              for (let application of studentApplications) {
-                  if (application.status) {
-                      item.addStudentsCount();
-                  } else{
-                    item.incrementWaitingList();
-                  }
-              }
-          });
-      }
-      setTimeout(() => {
-        console.log(this.registeredStudents);
-        for(let item of this.registeredStudents){
-          this.acceptedStudents.push(item.getRegisteredStudentsCount());
-          this.waitingOrRejectedStudents.push(item.getWaitingStudents());
-          this.courseNames.push(item.getCourse());
-        }
+        this.registeredStudents.push(item);
 
-        this.chartOptions.xAxis.categories = this.courseNames;
-        this.chartOptions.series[0].data = this.acceptedStudents;
-        this.chartOptions.series[1].data = this.waitingOrRejectedStudents;
-        this.showGraph = true;
+        this._apiService.getStudentApplications(course.id).subscribe(applications => {
+          for (let application of applications) {
+            if (application.status) {
+              item.addStudentsCount();
+            } else {
+              item.incrementWaitingList();
+            }
+          }
+        })
+
+        setTimeout(() => {
+          console.log(this.registeredStudents);
+          for (let item of this.registeredStudents) {
+            this.acceptedStudents.push(item.getRegisteredStudentsCount());
+            this.waitingOrRejectedStudents.push(item.getWaitingStudents());
+            this.courseNames.push(item.getCourse());
+          }
+
+          this.chartOptions.xAxis.categories = this.courseNames;
+          this.chartOptions.series[0].data = this.acceptedStudents;
+          this.chartOptions.series[1].data = this.waitingOrRejectedStudents;
+          this.showGraph = true;
           // this.chartOptions.series[0].data = this.registeredStudents;
           // this.waitForData = true
-      }, 1000);
-  });
+        }, 1000);
+
+      }
+
+    });
+
+
+
 
 
   }

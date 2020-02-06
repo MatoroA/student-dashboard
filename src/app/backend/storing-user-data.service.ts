@@ -8,27 +8,24 @@ import { Turtor } from '../models/turtor';
 })
 export class StoringUserDataService {
 
-  private currentCourseList: Course[] = []
-  private AllTurtors: Turtor[] = [];
+  private currentCourse: Course;
+  private selectedTurtor: Trainer;
 
   constructor() { }
 
-
-  setCurrentCourses(courses: Course[]) {
-    this.currentCourseList = []
-    this.currentCourseList = courses;
-  }
-  getCurrentCourses() {
-    return this.currentCourseList;
+  setSelectedUser(turtor: Trainer){
+    this.selectedTurtor = turtor;
   }
 
-  setAllTurtors(turtors: Turtor[]) {
-    this.AllTurtors = []
-    this.AllTurtors = turtors;
-  }
-  getAllTurtors(): Turtor[] {
-    return this.AllTurtors;
+  getSelectedUser(){
+    return this.selectedTurtor;
   }
 
-
+  setCurrentCourse(courses: Course) {
+    this.currentCourse = courses;
+  }
+  getCurrentCourse() {
+    return this.currentCourse;
+  }
 }
+

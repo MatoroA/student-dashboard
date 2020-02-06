@@ -1,7 +1,7 @@
 <mat-form-field id="course-select">
   <mat-label>Select course:</mat-label>
   <mat-select (selectionChange)="selectedCourse($event.value)">
-    <mat-option *ngFor="let course of allCourses$ | async as courses" [value]="course?.id">
+    <mat-option *ngFor="let course of allCourses$ | async as courses; let i = index" [value]="course">
       {{course?.name}}
     </mat-option>
   </mat-select>
@@ -13,7 +13,7 @@
     <h2 id="msg">Available turtors for this course are:</h2>
     <div class="box" *ngFor="let item of turtorsOnTheCourse">
       <p>{{item?.name}} {{item?.surname}}</p>
-      <button (click)="delete(item?.id, item?.courseId)">delete</button>
+      <button (click)="delete(item)">delete</button>
     </div>
 
     <br><br>
@@ -31,12 +31,12 @@
     <br><br>
   </ng-template>
 
-  <mat-slide-toggle *ngIf="turtorsOnTheCourse?.length == 0" [(ngModel)]="toggleChecked" (change)="changed($event)">
+  <mat-slide-toggle *ngIf="currentCourse != null"  [(ngModel)]="toggleChecked" (change)="changed($event)">
     Assign existing trainers:</mat-slide-toggle>
 
     <br><br><br>
 
-  <div *ngIf="!toggleChecked && turtorsOnTheCourse?.length == 0" class="turtor-form">
+  <div *ngIf="!toggleChecked && currentCourse != null" class="turtor-form">
     <form [formGroup]="turtorForm" (ngSubmit)="submitForm()">
       <div class="example-container">
         <mat-form-field>
@@ -89,7 +89,7 @@
         <td mat-cell *matCellDef="let user">{{user.course}}</td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr id="row" [ngClass]="{'clicked': rowClicked === row.position}" (click)="turtorRowClicked(row)" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr id="row" [ngClass]="{'clicked': rowClicked === row.position}" (click)="turtorRowClicked(i)" mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[1, 2, 4, 8]" showFirstLastButtons></mat-paginator>
   </div>

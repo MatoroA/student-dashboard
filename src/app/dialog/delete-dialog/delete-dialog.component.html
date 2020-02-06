@@ -1,7 +1,7 @@
-<h2>Are you sure you wanna remove {{userName}} from facilitating the following course: </h2>
+<h2>Are you sure you wanna remove {{user?.name}} {{user?.surname}} from facilitating the following course: </h2>
 
-<h4>course name: {{courseName}}</h4>
-<h4>course code: {{courseCode}}</h4>
+<h4>course name: {{currentCourse?.name}}</h4>
+<h4>course code: {{currentCourse?.code}}</h4>
 
 <div id="btn-rmv" (click)="removeUser()" >
   <p>

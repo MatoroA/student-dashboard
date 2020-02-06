@@ -3,8 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ApiService } from 'src/app/backend/api.service';
 import { DialogData } from 'src/app/modules/add-user/add-user.component';
 import { StoringUserDataService } from 'src/app/backend/storing-user-data.service';
-import { Turtor } from 'src/app/models/turtor';
 import { Course } from 'src/app/models/course';
+import { Trainer } from 'src/app/models/trainer';
 
 @Component({
   selector: 'app-update-turtor',
@@ -12,13 +12,7 @@ import { Course } from 'src/app/models/course';
   styleUrls: ['./update-turtor.component.scss']
 })
 export class UpdateTurtorComponent implements OnInit {
-
-  private courseId: string = null;
-  private uid: string = null;
-  private trainers: Turtor[];
-  private courses: Course[];
-
-  private selectedTrainer: Turtor;
+  private selectedTrainer: Trainer;
   private selectedCourse: Course;
 
   private trainerCourseDb: String[] = []
@@ -30,35 +24,25 @@ export class UpdateTurtorComponent implements OnInit {
 
   ngOnInit() {
 
+    this.selectedTrainer = this._userDataService.getSelectedUser();
+    this.selectedCourse = this._userDataService.getCurrentCourse();
 
-    console.log("Hi am consoling from update turtor.."  + this.data.courseId);
-    this.uid = this.data.userId;
-    this.courseId = this.data.courseId;
-    this.trainers = this._userDataService.getAllTurtors();
-    this.courses = this._userDataService.getCurrentCourses();
+    console.log(this.selectedTrainer.courseList);
+    console.log(this.selectedCourse);
 
+    for(let item of this.selectedTrainer.getCourseList()){
 
-    for(let item of this.trainers){
-      if( item.uid == this.uid ){
-        this.selectedTrainer = item;
-        this.trainerCourseDb = this.selectedTrainer.course;
-        // return;
-      }
-    }
-
-    for(let item of this.courses){
-      if( item.id == this.courseId ){
-        this.selectedCourse = item;
-        console.log("selected item")
-        // return;
-      }
     }
   }
 
 
   assignBtn(){
-    this.trainerCourseDb.push(this.selectedCourse.id);
-    this._apiService.updateCourseList(this.selectedTrainer.uid, this.trainerCourseDb);
-    this.dialogRef.close('');
+    this.selectedTrainer.courseList.push(this.selectedCourse.id);
+    console.log(this.selectedTrainer.courseList)
+    this._apiService.updateCourseList(this.selectedTrainer.uid, this.selectedTrainer.courseList)
+    .then( message =>{
+      this.dialogRef.close("User has been successfully assigned!");
+    })
+    
   }
 }

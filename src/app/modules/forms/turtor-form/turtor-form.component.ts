@@ -3,11 +3,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Course } from 'src/app/models/course';
 import { ApiService } from 'src/app/backend/api.service';
-import { MatDialog, MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { DeleteDialogComponent } from 'src/app/dialog/delete-dialog/delete-dialog.component';
 import { Trainer } from 'src/app/models/trainer';
 import { UpdateTurtorComponent } from 'src/app/dialog/update-turtor/update-turtor.component';
 import { StoringUserDataService } from 'src/app/backend/storing-user-data.service';
+
 
 @Component({
   selector: 'app-turtor-form',
@@ -15,18 +16,19 @@ import { StoringUserDataService } from 'src/app/backend/storing-user-data.servic
   styleUrls: ['./turtor-form.component.scss']
 })
 export class TurtorFormComponent implements OnInit {
-
   @Input() courseId: string;
 
   turtorForm: FormGroup;
   private allCourses$: Observable<Course[]>;
   private turtors: Trainer[] = null;
   private turtorsOnTheCourse: Trainer[];
-  private showTurtorForm: boolean = false;
+  private isShowForm: boolean = false;
   private tableData = new MatTableDataSource<any>();
   private course: string = '';
   private toggleChecked: boolean = false;
   private rowClicked: number = null;
+
+  private currentCourse: Course = null;
 
   displayedColumns: string[] = ['position', 'applicant', 'course'];
   pageSizeOptions;
@@ -34,8 +36,8 @@ export class TurtorFormComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private formBuilder: FormBuilder, private _api: ApiService,
-     private _userdata: StoringUserDataService ,public dialog: MatDialog) {
+  constructor(private formBuilder: FormBuilder, private _api: ApiService, private _snackBar: MatSnackBar,
+    private _userdata: StoringUserDataService, public dialog: MatDialog) {
 
     this.turtorForm = this.formBuilder.group({
       firstname: [null, Validators.compose([Validators.required])],
@@ -43,24 +45,19 @@ export class TurtorFormComponent implements OnInit {
       cellphone: [null, Validators.compose([Validators.required])],
       email: [null, Validators.compose([Validators.required])],
       password1: [null, Validators.compose([Validators.required])],
-      password2: [null, Validators.compose([Validators.required])]
+      password2: [null]
     });
   }
 
   ngOnInit() {
     this.allCourses$ = this._api.getCourses();
-
-    this.allCourses$.subscribe(courses=>{
-        this._userdata.setCurrentCourses(courses);
-        console.log(courses)
-    });
     this.getTurtorsAndCourse();
 
   }
   private getTurtorsAndCourse() {
     this._api.getTurtors().subscribe(turtorsList => {
-
-      this._userdata.setAllTurtors(turtorsList)
+      console.log(turtorsList)
+      // this._userdata.setAllTurtors(turtorsList)
       let turtorObjects = [];
       for (let turtor of turtorsList) {
         let obj = new Trainer();
@@ -79,76 +76,106 @@ export class TurtorFormComponent implements OnInit {
     });
   }
 
-  selectedCourse(courseId: string) {
-    this.course = courseId;
-    this.showTurtorForm = false;
+  selectedCourse(course: Course) {
+    this.courseId = course.id;
+    this.isShowForm = false;
+    this.currentCourse = course;
+    this.toggleChecked = false;
+
+    this._userdata.setCurrentCourse(course);
     this.turtorsOnTheCourse = [];
     for (let turtor of this.turtors) {
       for (let course of turtor.getCourseList()) {
-        if (course == courseId) {
-          console.log(course)
-          turtor.setCourseId(courseId)
+        if (course == this.courseId) {
+          turtor.setCourseId(this.courseId)
           this.turtorsOnTheCourse.push(turtor);
         }
       }
     }
   }
 
-  delete(uid: string, courseid: string): void {
+  showForm() {
+
+    if(this.toggleChecked){
+      this.toggleChecked = false;
+    }
+  }
+
+  delete(user: Trainer): void {
+    this._userdata.setSelectedUser(user);
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '500px',
       height: 'auto',
-      data: {
-        userId: uid,
-        courseId: courseid
-      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getTurtorsAndCourse();
-      this.selectedCourse(this.courseId);
-      // this.animal = result;
+      this.selectedCourse(this.currentCourse);
+      this.openSnackBar(result);
+      this.tableDataInfo();
     });
   }
 
   changed(event) {
-
     this.toggleChecked = event.checked;
-    this.tableData = new MatTableDataSource<any>();
-    let index = 0;
-    for (let trainer of this.turtors) {
+    console.log(this.toggleChecked)
+    this.tableDataInfo();
 
-      console.log(trainer)
-      let obj = {
-        name: trainer.getName() + ' ' + trainer.getSurnmae(),
-        turtorUid: trainer.getId(),
-        course: trainer.getCourseList().length,
-        courseList: trainer.getCourseList().length,
-        position: ++index
-      }
-      this.tableData.data.push(obj);
-      this.tableData._updateChangeSubscription();
+    if(this.toggleChecked){
+      this.isShowForm = false;
     }
+
   }
 
-  turtorRowClicked(row) {
+  tableDataInfo() {
+    this.tableData = new MatTableDataSource<any>();
+    let index = 0;
+    console.log(this.turtors)
+    for (let trainer of this.turtors) {
+      for(let courseId of trainer.getCourseList()){
+        if(courseId == this.courseId)
+          return;
+      }
+
+      console.log(trainer.getCourseList())
+          console.log(trainer)
+          let obj = {
+            name: trainer.getName() + ' ' + trainer.getSurnmae(),
+            turtorUid: trainer.getId(),
+            course: trainer.getCourseList().length,
+            courseList: trainer.getCourseList().length,
+            position: ++index
+          }
+          this.tableData.data.push(obj);
+          this.tableData._updateChangeSubscription();
+
+    }
+
+  }
+  turtorRowClicked(i) {
+    console.log(i)
+    this._userdata.setSelectedUser(this.turtors[i]);
     const dialogRef = this.dialog.open(UpdateTurtorComponent, {
       width: '500px',
-      height: 'auto',
-      data: {
-        userId: row.turtorUid,
-        courseId: this.course
-      }
+      height: 'auto'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+
       this.getTurtorsAndCourse();
-      this.selectedCourse(this.courseId);
+      this.selectedCourse(this.currentCourse);
+      this.openSnackBar(result);
+      this.tableDataInfo();
     });
   }
 
+  openSnackBar(message) {
+    this._snackBar.open(message, "Ok", {
+      duration: 5000,
+    });
+  }
   submitForm() {
     console.log(this.turtorForm.value)
 

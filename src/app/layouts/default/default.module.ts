@@ -30,6 +30,8 @@ import { ApplicantComponent } from 'src/app/dialog/applicant/applicant.component
 import { OpenFileComponent } from 'src/app/dialog/open-file/open-file.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatDialogModule,
     MatSlideToggleModule,
     PdfViewerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
   entryComponents: [DeleteDialogComponent, UpdateTurtorComponent, ApplicantComponent, 
     OpenFileComponent]

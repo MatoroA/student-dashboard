@@ -43,9 +43,9 @@ export class AddCourseContentComponent implements OnInit {
 
     this.course = this._apiService.getCourses();
     this.courseForm = this.fb.group({
-      content: this.fb.array([
-        this.additionalNewContent()
-      ]),
+      // content: this.fb.array([
+      //   this.additionalNewContent()
+      // ]),
       pdfTitle: ['', Validators.required],
       vTitle:['', Validators.required]
     })

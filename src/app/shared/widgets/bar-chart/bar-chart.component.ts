@@ -98,7 +98,7 @@ export class BarChartComponent implements OnInit {
                 // item.setId(course.id);
                 this.registeredStudents.push(item);
 
-                this._apiService.getStudent(course.id).subscribe(studentApplications => {
+                this._apiService.getStudentApplications(course.id).subscribe(studentApplications => {
                     for (let application of studentApplications) {
                         if (application.status) {
                             item.addStudentsCount();

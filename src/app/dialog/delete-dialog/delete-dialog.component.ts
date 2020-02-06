@@ -1,7 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogData } from 'src/app/modules/add-user/add-user.component';
+import { StoringUserDataService } from 'src/app/backend/storing-user-data.service';
 import { ApiService } from 'src/app/backend/api.service';
+import { Course } from 'src/app/models/course';
+import { Trainer } from 'src/app/models/trainer';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -10,52 +13,39 @@ import { ApiService } from 'src/app/backend/api.service';
 })
 export class DeleteDialogComponent implements OnInit {
 
-  private courseId: string = null;
-  private userId: string = null;
-  private courseName: string = null;
-  private courseCode: string = null;
-  private userName: string = null; 
-  private courses: string[] = [];
-  private newCourses: string[] = [];
+  
+  private currentCourse: Course;
+  private user: Trainer;
+  private temporaryList: string[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<DeleteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _apiService: ApiService) { 
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _apiService: ApiService, private _storedData: StoringUserDataService) { 
     }
  
   ngOnInit() {
-    this.courseId = this.data.courseId;
-    console.log(this.courseId)
-    this._apiService.getCourseDocument(this.courseId).subscribe(courseDoc =>{
-      this.courseName = courseDoc.name;
-      this.courseCode = courseDoc.code;
-    });
 
-    this.userId = this.data.userId;
-    console.log(this.userId)
-    this._apiService.getTurtorDoc(this.userId).subscribe(turtorDoc=>{
-      this.userName = turtorDoc.firstname + ' ' + turtorDoc.lastname;
+    this.currentCourse = this._storedData.getCurrentCourse();
+    this.user = this._storedData.getSelectedUser();
 
-      for(let course of turtorDoc.course){
-        this.courses.push(course);
-      }
-    })
+    console.log(this.currentCourse);
+    console.log(this.user)
   }
 
   removeUser(){
-    console.log(this.courses)
-    this.newCourses = [];
-    for( let course of this.courses ){
-      if(course != this.courseId ){
-        this.newCourses.push(course);
+    for( let course of this.user.courseList ){
+      if(course != this.currentCourse.id ){
+        this.temporaryList.push(course);
       }
     }
 
-    this._apiService.updateCourses(this.userId, "turtors", this.userId, this.newCourses)
-    console.log(this.newCourses)
-    this.dialogRef.close('');
+    this.user.courseList = this.temporaryList;
+
+    this._apiService.updateCourseList(this.user.uid, this.user.courseList)
+    .then(()=>{
+      this.dialogRef.close('User has been successfully removed.');
+    })
+    
   }
-
-
 
 }
