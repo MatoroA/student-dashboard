@@ -25,9 +25,7 @@ export class EditCourseComponent implements OnInit {
   private feesIncludes: string[];
   editForm: FormGroup;
   name:string;
-  //array lists for packages and requirement
-  package:any[]=['safety clothing','work pacement'];
-  requirments:any[]=['proof of residence','nqf level 1'];
+
   private course;
   constructor( private db  :AngularFirestore, private _storeData: StoringUserDataService) { 
 

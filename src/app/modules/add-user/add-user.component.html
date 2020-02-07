@@ -1,4 +1,4 @@
-<div class="page-add-user">
+<!-- <div class="page-add-user">
   <h1>Add a new user...</h1>
   <mat-radio-group aria-label="Select an option">
     <mat-radio-button (change)="userType($event)" value="2">Admin</mat-radio-button>
@@ -16,4 +16,16 @@
     <app-turtor-form *ngIf="userId == 1"></app-turtor-form>
     <app-admin-form *ngIf="userId == 2"></app-admin-form>
   </div>
-</div>  
+</div>   -->
+
+<mat-tab-group>
+  <mat-tab label="Admin">
+    <app-admin-form ></app-admin-form>
+  </mat-tab>
+  <mat-tab label="Tutor">
+    <app-turtor-form ></app-turtor-form>
+  </mat-tab>
+  <mat-tab label="Student">
+    <app-student-form ></app-student-form>
+  </mat-tab>
+</mat-tab-group>

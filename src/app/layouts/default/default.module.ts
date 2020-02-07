@@ -31,6 +31,7 @@ import { OpenFileComponent } from 'src/app/dialog/open-file/open-file.component'
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 import { EditCourseComponent } from 'src/app/modules/edit-course/edit-course.component';
@@ -79,7 +80,8 @@ import {MatListModule} from '@angular/material/list';
     PdfViewerModule,
     MatProgressBarModule,
     MatSnackBarModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule
     
   ],
   entryComponents: [DeleteDialogComponent, UpdateTurtorComponent, ApplicantComponent, 
