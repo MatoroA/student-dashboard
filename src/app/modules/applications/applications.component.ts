@@ -149,9 +149,9 @@ export class ApplicationsComponent implements OnInit {
 
     console.log(registeredDocId+'   '+docId)
 
-    // if (status) {
-    //   this._apiService.updateStudentStatus(docId, registeredDocId, status);
-    // }
+    if (status) {
+      this._apiService.updateStudentStatus(docId, registeredDocId, status);
+    }
   }
 
   searchApplicant(){

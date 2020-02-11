@@ -40,6 +40,7 @@ export class AdminFormComponent implements OnInit {
     user.setSurname(this.form.value.surname);
     user.setEmail(this.form.value.email);
     user.setPassword(this.form.value.password);
+    user.setCellphone(this.form.value.cellphone);
 
     this._apiService.addAdmin(user).then(result=>{
       console.log(result)
