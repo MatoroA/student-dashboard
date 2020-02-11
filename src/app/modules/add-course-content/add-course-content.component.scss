@@ -2,20 +2,7 @@
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 16px;
   padding: 7px;
-}
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding-bottom: 2px;;
-  font: 1rem/1.5 "PT Sans", Arial, sans-serif;
-  color: #5a5a5a;
+  margin-top: 7px;
 }
 
 button{
@@ -28,11 +15,14 @@ button{
   
 }
 .container{
-  background-color: #C0C0C0;
+  background-color: #D3D3D3;
   padding: 10px;
-  color: white;
+  color: black;
 }
 mat-label{
 
-  color: white; 
+  color: black; 
+}
+label{
+  margin-top: 10px;
 }

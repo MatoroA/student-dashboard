@@ -46,6 +46,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,
+  
     MatSelectModule,
     MatProgressBarModule,
     MatCheckboxModule,

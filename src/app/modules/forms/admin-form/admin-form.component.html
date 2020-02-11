@@ -1,49 +1,30 @@
-<form [formGroup] = "form" (ngSubmit)="onSubmit()">
+<form [formGroup] ="form" (ngSubmit)="onSubmit()">
 
   <mat-form-field >
-    <input matInput 
-     formControlName = "name"
-    placeholder="First name"
-    autocomplete="off"
-    type="text"/>
+    <input matInput formControlName="name" placeholder="First name" type="text"/>
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput formControlName = "surname"
-    placeholder="Last name"
-    autocomplete="off"
-    type="text"/>
+    <input matInput formControlName="surname" placeholder="Last name" type="text"/>
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput formControlName = "email"
-    placeholder="Email"
-    autocomplete="off"
-    type="email"/>
-
-    <!-- <mat-error *ngIf="email.invalid && email.dirty">
-      You must enter a vaild email address
-    </mat-error> -->
+    <input matInput formControlName="email" placeholder="Email" type="email"/>
+    
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput formControlName = "cellphone"
-    placeholder="Cellphone number"
-    autocomplete="off"
-    type="tel"/>
+    <input matInput formControlName="cellphone" placeholder="Cellphone number" autocomplete="off" type="tel"/>
   </mat-form-field>
   <br>
 
   <mat-form-field>
-    <input matInput formControlName = "password"
-    placeholder="Password"
-    autocomplete="off"
-    type="tel"/>
+    <input matInput formControlName="password" placeholder="Password" type="tel"/>
   </mat-form-field>
-
   <br>
-  <button matButton [disabled]="form.invalid" type="submit">Add a new admin</button>
+
 </form>
+<button mat-raised-button  [disabled]="!form.valid" type="submit">Add a new admin</button>
 
 
 

@@ -36,6 +36,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 
 import { EditCourseComponent } from 'src/app/modules/edit-course/edit-course.component';
 import {MatListModule} from '@angular/material/list';
+
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -81,7 +82,8 @@ import {MatListModule} from '@angular/material/list';
     MatProgressBarModule,
     MatSnackBarModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    
     
   ],
   entryComponents: [DeleteDialogComponent, UpdateTurtorComponent, ApplicantComponent, 
