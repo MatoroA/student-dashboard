@@ -8,6 +8,8 @@ export interface Course{
     paymentDuration: string;
     requirements: string[];
     contents?: Content[];
-    feesInclude?: string[];
+    feeInclude?: string[];
     id: string;
+    deposit: number;
+    coverUrl: string;
 }

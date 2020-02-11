@@ -181,5 +181,5 @@ export class AddCourseContentComponent implements OnInit {
 
     let name = this.courseForm.get('title').value;
     console.log(name);
-  }
+  }z
 }

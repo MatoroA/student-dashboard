@@ -5,6 +5,8 @@ export class NewCourse{
     private courseFee: string;
     private courseId: string;
     private duration: string;
+    private courseCover: string;
+    private deposit: number;
     private description: string;
     private requirements: string[];
     private startDate: string;
@@ -21,6 +23,20 @@ export class NewCourse{
         this.feesInclude = [];
     }
 
+    public setDeposit(deposit: number){
+        this.deposit = deposit;
+    }
+
+    public getDeposit(){
+        return this.deposit;
+    }
+    public setCouresUrl(coverUrl: string){
+        this.courseCover = coverUrl;
+    }
+
+    public getCourseCover(){
+        return this.courseCover;
+    }
     public setFeesInclude(item: string){
         this.feesInclude.push(item);
     }
@@ -108,4 +124,26 @@ export class NewCourse{
     getCode(){
         return this.code;
     }
+
+    setArrayRequirements(array: string[]){
+        this.requirements = array;
+    }
+
+    getArrayRequirements(){
+        return this.requirements;
+    }
+    setArrayFeeIncludes(array: string[]){
+        this.feesInclude = array;
+    }
+    getArrayFeeIncludes(){
+        return this.feesInclude;
+    }
+
+    setArrayCourseContentDb(array: Content[]){
+        this.courseContentDb = array;
+    }
+    getArrayCourseContentDb(){
+        return this.courseContentDb;
+    }
+    
 }

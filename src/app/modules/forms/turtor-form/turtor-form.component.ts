@@ -96,7 +96,7 @@ export class TurtorFormComponent implements OnInit {
 
   showForm() {
 
-    if(this.toggleChecked){
+    if (this.toggleChecked) {
       this.toggleChecked = false;
     }
   }
@@ -122,7 +122,7 @@ export class TurtorFormComponent implements OnInit {
     console.log(this.toggleChecked)
     this.tableDataInfo();
 
-    if(this.toggleChecked){
+    if (this.toggleChecked) {
       this.isShowForm = false;
     }
 
@@ -131,25 +131,30 @@ export class TurtorFormComponent implements OnInit {
   tableDataInfo() {
     this.tableData = new MatTableDataSource<any>();
     let index = 0;
+
+    let isCurrentTurtor = false;
+
     console.log(this.turtors)
+
     for (let trainer of this.turtors) {
-      for(let courseId of trainer.getCourseList()){
-        if(courseId == this.courseId)
-          return;
+      for (let courseId of trainer.getCourseList()) {
+        if (courseId == this.courseId)
+          isCurrentTurtor = true;
       }
 
-      console.log(trainer.getCourseList())
-          console.log(trainer)
-          let obj = {
-            name: trainer.getName() + ' ' + trainer.getSurnmae(),
-            turtorUid: trainer.getId(),
-            course: trainer.getCourseList().length,
-            courseList: trainer.getCourseList().length,
-            position: ++index
-          }
-          this.tableData.data.push(obj);
-          this.tableData._updateChangeSubscription();
+      if (!isCurrentTurtor) {
+        let obj = {
+          name: trainer.getName() + ' ' + trainer.getSurnmae(),
+          turtorUid: trainer.getId(),
+          course: trainer.getCourseList().length,
+          courseList: trainer.getCourseList().length,
+          position: ++index
+        }
+        this.tableData.data.push(obj);
+        this.tableData._updateChangeSubscription();
+      }
 
+      isCurrentTurtor = false;
     }
 
   }
@@ -164,10 +169,12 @@ export class TurtorFormComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
 
-      this.getTurtorsAndCourse();
-      this.selectedCourse(this.currentCourse);
-      this.openSnackBar(result);
-      this.tableDataInfo();
+      if(result != null){
+        this.getTurtorsAndCourse();
+        this.selectedCourse(this.currentCourse);
+        this.openSnackBar(result);
+        this.tableDataInfo();
+      }
     });
   }
 

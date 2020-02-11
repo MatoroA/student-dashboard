@@ -5,9 +5,7 @@
     <form>
 
       <div>
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/a-team-654df.appspot.com/o/courses%2FT5HexnJCijpoTsGH07hL%2FSS-BP-19.jpg?alt=media&token=b031573f-6a50-4387-b4b6-21c0d693df5f"
-          width="900" height="300">
+        <img [src]="courseCover" width="auto" height="auto">
         <button class="now" type="button" matSuffix mat-icon-button>
           <i class="material-icons">backup</i></button>
       </div>
@@ -24,14 +22,14 @@
         <mat-label>Fees:</mat-label>
         <input matInput type="text" name="fees" [(ngModel)]="courseFee">
       </mat-form-field>
+
       <mat-form-field class="example-full-width">
         <mat-label>deposit:</mat-label>
-        <input matInput type="number">
-
-
+        <input matInput name="deposit" [(ngModel)]="deposit">
       </mat-form-field>
+
       <mat-form-field class="example-full-width">
-        <textarea matInput #message maxlength="256" placeholder="description" required></textarea>
+        <textarea matInput #message maxlength="256" name="description" placeholder="description" [(ngModel)]="description" required></textarea>
         <mat-hint align="start"><strong>Provide a full description of the course</strong> </mat-hint>
         <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
       </mat-form-field>
@@ -42,36 +40,36 @@
     </form>
   </mat-step>
   <mat-step>
-    <form>
+    <!-- <form> -->
 
       <div class="example-container2">
         <mat-label>Fees Includes:</mat-label>
-        <ul *ngFor='let item of feesIncludes'>
+        <ul *ngFor='let item of feeIncludesArray'>
           <li> {{item}}<i class="material-icons">remove</i></li>
 
         </ul>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="add items to the list">
-          <button type="button" matSuffix mat-icon-button>
+          <input matInput [(ngModel)]="newFeeInclude" placeholder="add items to the list">
+          <button type="button" (click)="addMore()" matSuffix mat-icon-button>
             <i class="material-icons">add</i></button>
         </mat-form-field>
 
         <mat-label>Requrements: </mat-label>
-        <ul *ngFor='let item of requirements'>
+        <ul *ngFor='let item of requirementsArray'>
           <li> {{item}}<i class="material-icons">remove</i></li>
         </ul><br>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="add requirments">
-          <button type="button" matSuffix mat-icon-button>
+          <input matInput name="requirements" placeholder="add requirments" [(ngModel)]="newRequirements" >
+          <button type="button" (click)="addMore()"  matSuffix mat-icon-button>
             <i class="material-icons">add</i></button>
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
+          <button mat-button (click)="changes()">Apply Changes!</button>
         </div>
       </div>
-    </form>
+    <!-- </form> -->
   </mat-step>
 
 </mat-horizontal-stepper>

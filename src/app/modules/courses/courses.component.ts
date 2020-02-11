@@ -73,9 +73,7 @@ export class CoursesComponent implements OnInit {
   }
 
   getRecord(clickedRow: Data) {
-    console.log(clickedRow)
     let id = clickedRow.id;
-    console.log(this.courseListInfo[clickedRow.position])
     let course = this.courseListInfo[clickedRow.position];
 
     let courseClicked: NewCourse = new NewCourse();
@@ -84,9 +82,11 @@ export class CoursesComponent implements OnInit {
     courseClicked.setDuration(course.duration);
     courseClicked.setCode(course.code);
     courseClicked.setCourseFee(course.fee);
+    courseClicked.setDeposit(course.deposit);
+    courseClicked.setCouresUrl(course.coverUrl);
 
-    if (course.feesInclude != null) {
-      for (let item of course.feesInclude) {
+    if (course.feeInclude != null) {
+      for (let item of course.feeInclude) {
         courseClicked.setFeesInclude(item);
       }
     }
@@ -108,7 +108,7 @@ export class CoursesComponent implements OnInit {
 
 
     this._storeData.setClickedCourse(courseClicked);
-
+    console.log(courseClicked)
     this.router.navigateByUrl("default/editCourse");
     //this.router.navigate(["default/editCourse"], { queryParams: { order: id } });
   }

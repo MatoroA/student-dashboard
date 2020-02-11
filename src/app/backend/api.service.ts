@@ -37,8 +37,7 @@ export class ApiService {
       const firebase = require('firebase');
       const firebaseFunction = firebase.functions();
       const adminRole = firebaseFunction.httpsCallable('addAdmin');
-      adminRole({ email: admin.getEmail() }).then(result => {
-        console.log(result);
+      return  adminRole({ email: admin.getEmail() }).then(result => {
 
         let doc = {
           firstname: admin.getName(),
@@ -47,11 +46,10 @@ export class ApiService {
           cellPhone: admin.getCellPhone(),
           uid: user.user.uid
         }
-
         this.afs.doc("Users/" + user.user.uid).set(doc);
 
-
         return result;
+
       });
     });
   }
