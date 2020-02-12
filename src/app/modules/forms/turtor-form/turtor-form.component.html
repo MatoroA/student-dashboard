@@ -138,4 +138,4 @@
         </mat-option>
       </mat-select>
     </mat-form-field><br>
-    <button mat-flat-button>submit</button>
+    <button mat-flat-button [disabled]="!turtorForm.valid">submit</button>

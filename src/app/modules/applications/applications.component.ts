@@ -60,6 +60,7 @@ export class ApplicationsComponent implements OnInit {
       });
 
     })
+    this.tableData.paginator= this.paginator
   }
 
   doSomething(event) {

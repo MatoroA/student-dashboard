@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "command-to-build (ex: webpack, tsc, babel, etc.)",
+    "build": "ng build", 
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
