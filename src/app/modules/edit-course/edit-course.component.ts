@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { StoringUserDataService } from 'src/app/backend/storing-user-data.service';
 import { Content } from '../../models/content-interface';
 import { NewCourse } from '../../models/new-course';
@@ -27,8 +27,6 @@ export class EditCourseComponent implements OnInit {
   private code: string;
   private courseContentDb: Content[];
   private feesIncludes: string[] = [];
-  editForm: FormGroup;
-  name: string;
   private courseCover: string;
   private deposit: number = 0;
   private course;
@@ -37,19 +35,28 @@ export class EditCourseComponent implements OnInit {
   private newRequirements: string = null;
   private newFeeInclude: string = null;
 
-  private requirementsArray: string[] = [];
-  private feeIncludesArray: string[] = [];
+  imagePath;
+  imgURL
 
-  constructor(private db: AngularFirestore, private _storeData: StoringUserDataService) {
+  private courseForm: FormGroup;
+
+  constructor(private db: AngularFirestore, private _storeData: StoringUserDataService,
+    private _fb: FormBuilder) {
+    this.courseForm = _fb.group({
+      courseName: ['', Validators.required],
+      courseFee: [, Validators.required],
+      code: [, Validators.required],
+      deposit: [, Validators.required],
+      description: [, Validators.required]
+    });
   }
   ngOnInit() {
-    this.newData = new NewCourse();
     this.courseData = this._storeData.getClickedCourse();
 
     if (this.courseData != null) {
       this.courseName = this.courseData.getCourseName() != null ? this.courseData.getCourseName() : '';
       this.courseFee = this.courseData.getCourseFee() != null ? this.courseData.getCourseFee() : '';
-      this.courseId = this.courseData.getCode() != null ? this.courseData.getCode() : '';
+      this.code = this.courseData.getCode() != null ? this.courseData.getCode() : '';
       this.description = this.courseData.getDescription() != null ? this.courseData.getDescription() : '';
       this.requirements = this.courseData.getRequirements() != null ? this.courseData.getRequirements() : [];
       this.feesIncludes = this.courseData.getFeesInclude() != null ? this.courseData.getFeesInclude() : [];
@@ -58,39 +65,71 @@ export class EditCourseComponent implements OnInit {
       this.endDate = this.courseData.getSEndDate() != null ? this.courseData.getSEndDate() : '';
       this.courseCover = this.courseData.getCourseCover() != null ? this.courseData.getCourseCover() : '';
       this.deposit = this.courseData.getDeposit() != null ? this.courseData.getDeposit() : 0;
+      this.courseData.setDeposit(this.deposit);
 
-      this.feeIncludesArray = this.courseData.getFeesInclude();
-      this.requirementsArray =  this.courseData.getRequirements();
+      this.courseForm.setValue({
+        courseName: this.courseName,
+        courseFee: this.courseFee,
+        code: this.code,
+        deposit: this.deposit,
+        description: this.description,
+      });
     }
+
+    console.log(this.newData)
+  }
+  onSubmit() {
+    console.log(this.courseForm.value);
+  }
+
+  preview(files) {
+    if (files.length === 0)
+      return;
+
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      // this.message = "Only images are supported.";
+      return;
+    }
+
+    const file = files[0];
+    console.log(file)
+    const fileName = files[0].name;
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+    }
+
+    console.log(file)
   }
 
   addMore() {
     if (this.newRequirements != null) {
-      this.requirementsArray.push(this.newRequirements);
+      this.requirements.push(this.newRequirements);
       this.newRequirements = null;
     } else if (this.newFeeInclude != null) {
-      this.feeIncludesArray.push(this.newFeeInclude);
+      this.feesIncludes.push(this.newFeeInclude)
       this.newFeeInclude = null;
     }
   }
 
+  remove(i: number, index: number) {
+    if (i == 0) {
+      this.feesIncludes.splice(index, 1);
+    } else { 
+      this.requirements.splice(index, 1);
+    }
+  }
   private changes() {
-    this.newData.setCourseName(this.courseName);
-    this.newData.setCourseFee(this.courseFee);
-    this.newData.setCode(this.courseId);
-    this.newData.setDescription(this.description);
-    this.newData.setEndDate(this.endDate);
-    this.newData.setStartDate(this.startDate);
-    this.newData.setCode(this.code);
-    this.newData.setDuration(this.duration);
-    this.newData.setArrayCourseContentDb(this.courseContentDb);
-    this.newData.setDeposit(this.deposit);
-    this.newData.setArrayFeeIncludes(this.feeIncludesArray);
-    this.newData.setArrayRequirements(this.requirementsArray);
-    this.newData.setCouresUrl(this.courseCover);
-    console.log(deepEqual(this.courseData , this.newData));
 
-    console.log(this.courseData , this.newData);
+    this.newData = new NewCourse();
+    this.courseData.setArrayFeeIncludes(this.feesIncludes);
+    this.courseData.setArrayRequirements(this.requirements);
+
+
+    console.log(this.courseData);
   }
 
 }

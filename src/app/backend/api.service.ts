@@ -32,6 +32,15 @@ export class ApiService {
         return err;
       })
     }
+
+    async deleteCourse(courseId: string){
+      return await this.afs.doc("courses/"+courseId)
+      .delete().then(results=>{
+        return results
+      },error =>{
+        return error;
+      })
+    }
   async addAdmin(admin: Admin) {
     return await this.afAuth.auth.createUserWithEmailAndPassword(admin.getEmail(), admin.getPassword()).then(user => {
       const firebase = require('firebase');
@@ -187,9 +196,6 @@ export class ApiService {
     return courseDoc.valueChanges();
   }
 
-  async signIn(email: string, password) {
-    return await this.afAuth.auth.signInWithEmailAndPassword(email, password)
-  }
 
   async uploadingImage(folder: string, courseId: string, fileName: string, file: File) {
     return await this._storage.upload(folder + '/' + courseId + '/' + fileName + '/', file);

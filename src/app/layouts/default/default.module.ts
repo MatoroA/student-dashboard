@@ -36,6 +36,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 
 import { EditCourseComponent } from 'src/app/modules/edit-course/edit-course.component';
 import {MatListModule} from '@angular/material/list';
+import { DeleteCourseComponent } from 'src/app/dialog/delete-course/delete-course.component';
+import { CanActivateRouteGuard } from 'src/app/can-activate-route.guard';
+import { AuthService } from 'src/app/backend/auth.service';
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -84,7 +87,8 @@ import {MatListModule} from '@angular/material/list';
     MatTabsModule
     
   ],
-  entryComponents: [DeleteDialogComponent, UpdateTurtorComponent, ApplicantComponent, 
-    OpenFileComponent]
+  providers: [AuthService ,CanActivateRouteGuard],
+  entryComponents: [DeleteDialogComponent, UpdateTurtorComponent,
+     ApplicantComponent, OpenFileComponent, DeleteCourseComponent]
 })
 export class DefaultModule { }
