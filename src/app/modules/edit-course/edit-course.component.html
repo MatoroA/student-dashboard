@@ -1,14 +1,22 @@
-<h1>Edit a course</h1>
+
+<h1><button mat-raised-button  routerLink="/default/courses"><i class="material-icons left">
+  keyboard_backspace
+  </i></button>Edit a course</h1>
 
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step>
     <form>
 
-      <div>
-        <img [src]="courseCover" width="auto" height="auto">
-        <button class="now" type="button" matSuffix mat-icon-button>
-          <i class="material-icons">backup</i></button>
-      </div>
+      <mat-card>
+        <mat-card-header>
+         Cover image
+          </mat-card-header>
+          <mat-card-content><img [src]="courseCover" height="500px" width="100%"></mat-card-content>
+          <mat-card-footer>
+        <button mat-raised-button class="now" type="button" >
+      upload new image</button>
+        </mat-card-footer>
+    </mat-card>
 
       <mat-form-field class="example-full-width">
         <mat-label>Course name:</mat-label>
