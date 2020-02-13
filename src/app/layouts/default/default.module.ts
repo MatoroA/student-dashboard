@@ -39,6 +39,7 @@ import {MatListModule} from '@angular/material/list';
 import { DeleteCourseComponent } from 'src/app/dialog/delete-course/delete-course.component';
 import { CanActivateRouteGuard } from 'src/app/can-activate-route.guard';
 import { AuthService } from 'src/app/backend/auth.service';
+
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -84,7 +85,8 @@ import { AuthService } from 'src/app/backend/auth.service';
     MatProgressBarModule,
     MatSnackBarModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    
     
   ],
   providers: [AuthService ,CanActivateRouteGuard],

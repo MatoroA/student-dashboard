@@ -1,14 +1,5 @@
 
 
-.search-box{
-    float: right;
-    width: 450px;
-
-    .mat-form-field{
-        width: 100%;
-    }
-}
-
 table{
     width: 100%;
 }
@@ -17,9 +8,9 @@ table{
     margin: 10px;
       }
       .search-form-field{
-          width: 60%;
+          width: 30%;
           margin-left: 10px;
-          padding: 5px 10px;
+          padding: 2px 5px;
           background-color: #f5f5f5;
           border-radius: 5px;
           }
@@ -33,6 +24,6 @@ table{
             padding-bottom: 0px;
         }
         .search-form-field div.mat-form-field-suffix button{
-            height: 32px;
-            width: 32px;
+            height: 15px;
+            width: 15px;
         }

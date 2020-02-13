@@ -1,38 +1,48 @@
-<form [formGroup]="userForm" >
+<form [formGroup]="userForm">
   <div class="example-container">
     <mat-form-field>
-      <mat-label>first name</mat-label>
-      <input matInput formControlName="firstname" required>
+      <mat-label>First name</mat-label>
+      <input matInput formControlName="firstname" >
     </mat-form-field>
     <br>
     <mat-form-field>
-      <mat-label>last name</mat-label>
-      <input matInput formControlName="lastname" required>
+      <mat-label>Last name</mat-label>
+      <input matInput formControlName="lastname" >
     </mat-form-field>
- <br>
-     
-      <mat-label>Gender :</mat-label>
-      <mat-radio-group formControlName="gender" required class="example-radio-group">
-        <mat-radio-button value="male"class="example-radio-button" *ngFor="let item of gender" [value]="item">{{item}}</mat-radio-button>
-  
-       
-      </mat-radio-group>
-<br>
-    <mat-form-field>
-      <mat-label>Id number</mat-label>
-      <input matInput formControlName="idnumber" required>
-    </mat-form-field>
-<br>
+    <br>
+
+    <mat-label>Gender :</mat-label>
+    <mat-radio-group formControlName="gender" required class="example-radio-group">
+      <mat-radio-button value="male" class="example-radio-button" *ngFor="let item of gender" [value]="item">{{item}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <br>
     <mat-form-field>
       <mat-label>cell number</mat-label>
-      <input matInput formControlName="cellnumber" required>
+      <input matInput formControlName="cellnumber" >
     </mat-form-field>
-<br>
+    <br>
     <mat-form-field>
       <mat-label>email</mat-label>
-      <input matInput formControlName="email" required>
+      <input matInput formControlName="email" >
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Id number</mat-label>
+      <input matInput formControlName="idnumber" >
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Date of Birth:</mat-label>
+      <input type="date" matInput formControlName="dob" >
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Address </mat-label>
+      <input matInput matGoogleMapsAutocomplete formControlName="address">
     </mat-form-field>
 
   </div>
 </form>
-  <button mat-raised-button [disabled]="!userForm.valid">Submit</button>
+<button mat-raised-button [disabled]="!userForm.valid">Submit</button>

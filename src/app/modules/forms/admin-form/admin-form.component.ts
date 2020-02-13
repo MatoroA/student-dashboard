@@ -28,7 +28,8 @@ export class AdminFormComponent implements OnInit {
       surname: ['', [Validators.required, Validators.maxLength(40)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(40)]],
       cellphone: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
-      password: ['', ]
+      password: ['', Validators.required],
+     
     })
   }
 

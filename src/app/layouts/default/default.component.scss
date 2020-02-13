@@ -6,8 +6,9 @@
 
 mat-drawer{
     width: 200px;
-    border-right:  none;
+    //border-right:  none;
     text-align: start;
+    padding-right: 7px;
 }
 
 mat-drawer-container{
@@ -17,16 +18,19 @@ mat-drawer-container{
 
 mat-drawer-content{
     padding: 10px;
-    background-color: rgb(226, 226, 226);
-    color: #868686;
+    // background-color: rgb(226, 226, 226);
+    //color: #868686;
+    background-color: white;
+    color: #808080;
     border: none;
 
     mat-card{
-        height: 100vh;
-        width: 99%;
+        height: 100%;
+        width: 100%;
         position: relative;
         color: #808080;
         border: none;
-        padding-bottom: 20px;
+        //padding-bottom: 20px;
     }
+    
 }

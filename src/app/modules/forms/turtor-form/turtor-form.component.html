@@ -1,4 +1,4 @@
-<mat-form-field id="course-select">
+<!-- <mat-form-field id="course-select">
   <mat-label>Select course:</mat-label>
   <mat-select (selectionChange)="selectedCourse($event.value)">
     <mat-option *ngFor="let course of allCourses$ | async as courses; let i = index" [value]="course">
@@ -92,4 +92,50 @@
       <tr id="row" [ngClass]="{'clicked': rowClicked === row.position}" (click)="turtorRowClicked(i)" mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[1, 2, 4, 8]" showFirstLastButtons></mat-paginator>
-  </div>
+  </div> -->
+
+
+    <form [formGroup]="turtorForm" (ngSubmit)="submitForm()">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>First name</mat-label>
+          <input matInput formControlName="firstname">
+
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Last name</mat-label>
+          <input matInput formControlName="lastname">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Cellphone</mat-label>
+          <input matInput formControlName="cellphone">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password2">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Confirm password</mat-label>
+          <input matInput formControlName="password1">
+        </mat-form-field>
+
+      </div>
+
+      
+
+    </form>
+    <mat-form-field id="course-select">
+      <mat-label>Select course:</mat-label>
+      <mat-select (selectionChange)="selectedCourse($event.value)">
+        <mat-option *ngFor="let course of allCourses$ | async as courses; let i = index" [value]="course">
+          {{course?.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field><br>
+    <button mat-flat-button [disabled]="!turtorForm.valid">submit</button>
