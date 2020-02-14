@@ -13,30 +13,64 @@ import { LoginComponent } from './login/login.component';
 import { ApplicationsComponent } from './modules/applications/applications.component';
 import { AddUserComponent } from './modules/add-user/add-user.component';
 import { EditCourseComponent } from './modules/edit-course/edit-course.component';
+import { CanActivateRouteGuard } from './can-activate-route.guard';
 
 
 const routes: Routes = [
-  {path:'default', component: DefaultComponent,
-children:[{
-  path:'home', component:DashboardComponent
-},
-{
-  path:'posts', component:PostsComponent 
-},
-{ path: 'trainers', component: TrainersComponent
-},
-{ path: 'courses', component: CoursesComponent
-},
-{ path: 'addNewCourse', component:AddNewCourseComponent
-},
-{ path: 'addCourseContent', component: AddCourseContentComponent
-},
-{path: 'applications', component:ApplicationsComponent},
-{path: 'addUser', component:AddUserComponent},
-{path: 'editCourse', component:EditCourseComponent}
+  {
+    path: '',
+    component: LoginComponent
+  },
+  {
+    path: 'default', component: DefaultComponent,
+    canActivate: [CanActivateRouteGuard],
+    children: [
+      {
+        path: 'home',
+        component: DashboardComponent,
+        canActivate: [CanActivateRouteGuard]
+      },
+      {
+        path: 'posts',
+        component: PostsComponent,
+        canActivate: [CanActivateRouteGuard]
+      },
+      {
+        path: 'trainers',
+        component: TrainersComponent,
+        canActivate: [CanActivateRouteGuard]
+      },
+      {
+        path: 'courses',
+        component: CoursesComponent,
+        canActivate: [CanActivateRouteGuard]
+      },
+      {
+        path: 'addNewCourse',
+        component: AddNewCourseComponent,
+        canActivate: [CanActivateRouteGuard]
+      },
+      {
+        path: 'addCourseContent',
+        component: AddCourseContentComponent,
+        canActivate: [CanActivateRouteGuard]
+      },
+      {
+        path: 'applications',
+        component: ApplicationsComponent,
+        canActivate: [CanActivateRouteGuard]
+      },
+      {
+        path: 'addUser', component: AddUserComponent,
+        canActivate: [CanActivateRouteGuard]
+      },
+      {
+        path: 'editCourse', component: EditCourseComponent,
+        canActivate: [CanActivateRouteGuard]
+      }
 
-]
-},{path: '' , component:LoginComponent}
+    ]
+  }
 ];
 
 @NgModule({

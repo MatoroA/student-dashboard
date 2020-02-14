@@ -5,7 +5,7 @@
 
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step>
-    <form>
+    <form [formGroup]="courseForm" (ngSubmit)="onSubmit()"  >
 
       <mat-card>
         <mat-card-header>
@@ -13,38 +13,49 @@
           </mat-card-header>
           <mat-card-content><img [src]="courseCover" height="500px" width="100%"></mat-card-content>
           <mat-card-footer>
-        <button mat-raised-button class="now" type="button" >
+        <button mat-raised-button class="now" (click)="changeCover()" type="button" >
       upload new image</button>
         </mat-card-footer>
     </mat-card>
+      <!-- <div>
+          <img [src]="courseCover" width="auto" height="auto">
+         <img [src]="courseCover" width="auto" height="auto">
+        <input #file type="file" accept='image/*' (change)="preview(file.files)" /> 
+
+          <img [src]="imgURL" width="400" height="400" *ngIf="imgURL"><br>
+
+        <button class="now" (click)="changeCover()"  type="button" matSuffix mat-icon-button>
+          <i class="material-icons">backup</i></button>
+      </div> -->
 
       <mat-form-field class="example-full-width">
         <mat-label>Course name:</mat-label>
-        <input matInput type="text" name="name" [(ngModel)]="courseName">
+        <input matInput type="text" name="name" formControlName="courseName">
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Course Id:</mat-label>
-        <input matInput type="text" name="id" [(ngModel)]="courseId">
+        <input matInput type="text" name="id" formControlName="code">
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Fees:</mat-label>
-        <input matInput type="text" name="fees" [(ngModel)]="courseFee">
+        <input matInput type="text" name="fees" formControlName="courseFee">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>deposit:</mat-label>
-        <input matInput name="deposit" [(ngModel)]="deposit">
+        <input matInput name="deposit" formControlName="deposit">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <textarea matInput #message maxlength="256" name="description" placeholder="description" [(ngModel)]="description" required></textarea>
+        <textarea matInput #message maxlength="256" name="description" placeholder="description" formControlName="description" required></textarea>
         <mat-hint align="start"><strong>Provide a full description of the course</strong> </mat-hint>
         <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
       </mat-form-field>
 
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button type="submit"  matStepperNext>Next</button>
       </div>
+      <!-- [disabled]="!courseForm.valid" -->
     </form>
   </mat-step>
   <mat-step>
@@ -52,9 +63,9 @@
 
       <div class="example-container2">
         <mat-label>Fees Includes:</mat-label>
-        <ul *ngFor='let item of feeIncludesArray'>
-          <li> {{item}}<i class="material-icons">remove</i></li>
-
+        <ul *ngFor='let item of feesIncludes; let i = index;'>
+          <li (click)="remove(0,i)"> {{item}}<i class="material-icons">remove</i></li>
+ 
         </ul>
 
         <mat-form-field class="example-full-width">
@@ -64,8 +75,8 @@
         </mat-form-field>
 
         <mat-label>Requrements: </mat-label>
-        <ul *ngFor='let item of requirementsArray'>
-          <li> {{item}}<i class="material-icons">remove</i></li>
+        <ul *ngFor='let item of requirements; let i = index;'>
+          <li (click)="remove(1,i)" > {{item}} <i class="material-icons">remove</i></li>
         </ul><br>
         <mat-form-field class="example-full-width">
           <input matInput name="requirements" placeholder="add requirments" [(ngModel)]="newRequirements" >

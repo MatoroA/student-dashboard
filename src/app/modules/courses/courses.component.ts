@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginatorModule, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginatorModule, MatPaginator, MatDialog } from '@angular/material';
 import { ApiService } from 'src/app/backend/api.service';
 import { Router } from '@angular/router';
 import { Course } from '../../models/course';
 import { NewCourse } from '../../models/new-course';
 import { StoringUserDataService } from 'src/app/backend/storing-user-data.service';
+import { DeleteCourseComponent } from 'src/app/dialog/delete-course/delete-course.component';
 
 export interface Data {
   code: string;
@@ -22,13 +23,14 @@ export class CoursesComponent implements OnInit {
 
   searchKey: string;
   displayedColumns: string[] = ['Course_name', 'Course_ID', 'action']
-  private dataSource = new MatTableDataSource<Data>();
+  private dataSource = new MatTableDataSource<Course>();
 
   private courseListInfo: Course[] = []
 
   pageSizeOptions;
 
-  constructor(private _apiService: ApiService, private router: Router, private _storeData: StoringUserDataService) { }
+  constructor(private _apiService: ApiService, private router: Router,
+     private _storeData: StoringUserDataService, public dialog: MatDialog) { }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -41,21 +43,13 @@ export class CoursesComponent implements OnInit {
 
   private getCourses() {
     this._apiService.getCourses().subscribe(courseList => {
-
       this.courseListInfo = courseList;
       console.log(courseList)
-      this.dataSource = new MatTableDataSource<Data>();
+      this.dataSource = new MatTableDataSource<Course>();
       let index = 0;
       for (let course of courseList) {
-        let data = {
-          code: course.code,
-          name: course.name,
-          id: course.id,
-          position: index
-        }
-        this.dataSource.data.push(data);
 
-        ++index;
+        this.dataSource.data.push(course);
       }
     });
   }
@@ -72,45 +66,44 @@ export class CoursesComponent implements OnInit {
     this.searchCourse();
   }
 
-  getRecord(clickedRow: Data) {
-    let id = clickedRow.id;
-    let course = this.courseListInfo[clickedRow.position];
+  getRecord(clickedRow: Course) {
+    console.log(clickedRow)
 
     let courseClicked: NewCourse = new NewCourse();
-    courseClicked.setCourseName(course.name);
-    courseClicked.setDescription(course.description);
-    courseClicked.setDuration(course.duration);
-    courseClicked.setCode(course.code);
-    courseClicked.setCourseFee(course.fee);
-    courseClicked.setDeposit(course.deposit);
-    courseClicked.setCouresUrl(course.coverUrl);
-
-    if (course.feeInclude != null) {
-      for (let item of course.feeInclude) {
-        courseClicked.setFeesInclude(item);
-      }
-    }
-
-    if (course.requirements != null) {
-      for (let item of course.requirements) {
-        courseClicked.setReuirements(item);
-      }
-
-    }
-
-    if (course.contents != null) {
-      for (let item of course.contents) {
-        courseClicked.setCourseContent(item);
-      }
-
-    }
-
+    courseClicked.setCourseId(clickedRow.id);
+    courseClicked.setCourseName(clickedRow.name);
+    courseClicked.setDescription(clickedRow.description);
+    // courseClicked.setDuration(clickedRow.duration);
+    courseClicked.setCode(clickedRow.code);
+    courseClicked.setCourseFee(clickedRow.fee);
+    courseClicked.setDeposit(clickedRow.deposit);
+    courseClicked.setCouresUrl(clickedRow.coverUrl);
+    courseClicked.setArrayRequirements(clickedRow.requirements);
+    courseClicked.setArrayFeeIncludes(clickedRow.feeInclude);
+    courseClicked.getCourseContent() != null ? courseClicked.setArrayCourseContentDb(clickedRow.contents): courseClicked.setArrayCourseContentDb([]);
 
 
     this._storeData.setClickedCourse(courseClicked);
     console.log(courseClicked)
     this.router.navigateByUrl("default/editCourse");
     //this.router.navigate(["default/editCourse"], { queryParams: { order: id } });
+  }
+
+  deleteCourse(course: Course){
+
+    this._storeData.setCurrentCourse(course);
+    const dialogRef = this.dialog.open(DeleteCourseComponent, {
+      width: '500px',
+      height: 'auto',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.getTurtorsAndCourse();
+      // this.selectedCourse(this.currentCourse);
+      // this.openSnackBar(result);
+      // this.tableDataInfo();
+    });
   }
 
 

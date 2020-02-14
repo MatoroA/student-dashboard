@@ -15,6 +15,7 @@ import { environment } from '../environments/environment';
 import {MatSelectModule} from '@angular/material/select';
 
 import { LoginComponent } from './login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatProgressBarModule, MatListModule } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -24,6 +25,10 @@ import { UpdateTurtorComponent } from './dialog/update-turtor/update-turtor.comp
 import { ApplicantComponent } from './dialog/applicant/applicant.component';
 import { OpenFileComponent } from './dialog/open-file/open-file.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { DeleteCourseComponent } from './dialog/delete-course/delete-course.component';
+import { CanActivateRouteGuard } from './can-activate-route.guard';
+import { AuthService } from './backend/auth.service';
+
 
 
 
@@ -35,6 +40,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     UpdateTurtorComponent,
     ApplicantComponent,
     OpenFileComponent,
+    DeleteCourseComponent,
+   
    
   ],
   imports: [
@@ -52,9 +59,11 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     MatCheckboxModule,
     MatRadioModule,
     PdfViewerModule,
-    MatListModule
+    MatListModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthService,CanActivateRouteGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
