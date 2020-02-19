@@ -78,8 +78,8 @@ export class CoursesComponent implements OnInit {
     courseClicked.setCourseFee(clickedRow.fee);
     courseClicked.setDeposit(clickedRow.deposit);
     courseClicked.setCouresUrl(clickedRow.coverUrl);
-    courseClicked.setArrayRequirements(clickedRow.requirements);
-    courseClicked.setArrayFeeIncludes(clickedRow.feeInclude);
+    courseClicked.setArrayRequirements(clickedRow.requirement);
+    courseClicked.setArrayFeeIncludes(clickedRow.feesInclude);
     courseClicked.getCourseContent() != null ? courseClicked.setArrayCourseContentDb(clickedRow.contents): courseClicked.setArrayCourseContentDb([]);
 
 

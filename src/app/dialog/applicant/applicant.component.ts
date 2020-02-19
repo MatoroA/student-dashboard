@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogData } from 'src/app/modules/add-user/add-user.component';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+declare var require: any
 
 @Component({
   selector: 'app-applicant',
@@ -7,7 +12,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApplicantComponent implements OnInit {
 
-  constructor() { }
+  private url: SafeResourceUrl;
+  private pdfSrc: any;
+  constructor(public dialogRef: MatDialogRef<ApplicantComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
   }

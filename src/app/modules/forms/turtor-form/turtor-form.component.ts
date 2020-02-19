@@ -125,7 +125,6 @@ export class TurtorFormComponent implements OnInit {
     if (this.toggleChecked) {
       this.isShowForm = false;
     }
-
   }
 
   tableDataInfo() {

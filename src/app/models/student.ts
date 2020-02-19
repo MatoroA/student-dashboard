@@ -5,7 +5,7 @@ export class Student{
     public firstName: string;
     public lastName: string;
     public idNumber?: string;
-    public proofOfPayUrl?: string;
+    public proofOfPayUrl?: string[];
     public idUrl?: string;
     public cvUrl?: string;
     public resultsUrl?: string;

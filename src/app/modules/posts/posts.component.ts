@@ -36,6 +36,9 @@ export class PostsComponent implements OnInit {
           this.registeredStudents.push(item);
         }
         this._apiService.getRegisteredStudent().subscribe(registeredList => {
+          for(let courseData of this.registeredStudents){
+            courseData.clearStudentList()
+          }
           for (let student of registeredList) {
             for (let course of this.registeredStudents) {
               if (course.getCourseId() == student.courseID) {

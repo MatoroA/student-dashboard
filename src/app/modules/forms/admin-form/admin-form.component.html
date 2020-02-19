@@ -1,56 +1,29 @@
-<form [formGroup] ="form" (ngSubmit)="onSubmit()">
-
-  <mat-form-field >
-    <input matInput formControlName="name" placeholder="First name" type="text"/>
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <input matInput formControlName="surname" placeholder="Last name" type="text"/>
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <input matInput formControlName="email" placeholder="Email" type="email"/>
-    
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <input matInput formControlName="cellphone" placeholder="Cellphone number" autocomplete="off" type="tel"/>
-  </mat-form-field>
-  <br>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
 
   <mat-form-field>
-    <input matInput formControlName="password" placeholder="Password" type="tel"/>
+    <input matInput formControlName="name" placeholder="First name" type="text" />
   </mat-form-field>
   <br>
+  <mat-form-field>
+    <input matInput formControlName="surname" placeholder="Last name" type="text" />
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput formControlName="email" placeholder="Email" type="email" />
+
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput formControlName="cellphone" placeholder="Cellphone number" autocomplete="off" type="tel" />
+  </mat-form-field>
+  <br>
+
+  <mat-form-field>
+    <input matInput formControlName="password" placeholder="Password" type="tel" />
+  </mat-form-field>
+  <br>
+
+
+  <button mat-raised-button [disabled]="!form.valid" type="submit">Add a new admin</button>
 
 </form>
-<button mat-raised-button  [disabled]="!form.valid" type="submit">Add a new admin</button>
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -17,17 +17,13 @@ import { NewCourse } from 'src/app/models/new-course';
 export class AddCourseContentComponent implements OnInit {
 
   private course: Observable<Course[]>;
-  // private course: string = "";
-  private imagePath: any;
-  private message: string;
-  private imgURL: any = null;
-  private imgURL1: any = null;
   private courseData: any;
   private fileName: string;
-   courseArrayList: ArrayList;
-   private file: string;
+  courseArrayList: ArrayList;
+  private pdfFile: string;
+  private videoFile: string;
 
-   private isCourseSelected: boolean = false;
+  private isCourseSelected: boolean = false;
   courseForm: FormGroup;
   count: number = 0;
   format: any;
@@ -43,44 +39,12 @@ export class AddCourseContentComponent implements OnInit {
 
     this.course = this._apiService.getCourses();
     this.courseForm = this.fb.group({
-      // content: this.fb.array([
-      //   this.additionalNewContent()
-      // ]),
-      pdfTitle: ['', Validators.required],
-      vTitle:['', Validators.required]
-    })
-
-  }
-
-  additionalNewContent(): FormGroup {
-    return this.fb.group({
-      title: ['', Validators.required],
-      audience: ['', Validators.required]
+      pdfTitle: [''],
+      pdfAudience: [''],
+      vTitle: [''],
+      vAudience: ['']
     });
-  }
 
-  addNewInputField(i: number): void {
-    const control = <FormArray>this.courseForm.controls.content;
-    control.push(this.additionalNewContent());
-
-    console.log(i)
-    let data: CourseData = new CourseData();
-    data.setFile(this.url);
-    data.setFormat(this.format);
-    data.setFileName(this.fileName);
-    data.setFileUrl(this.file);
-    this.courseArrayList.add(data);
-
-    this.url = null;
-    this.format = null;
-    this.fileName = null;
-    this.file = null;
-  }
-
-  removeInputField(i: number): void {
-    const control = <FormArray>this.courseForm.controls.content;
-    control.removeAt(i);
-    this.courseArrayList.removeAt(i);
   }
 
   selectedCourse(event) {
@@ -94,92 +58,71 @@ export class AddCourseContentComponent implements OnInit {
         this.selectedCourseInfo.setCourseId(courseId);
         console.log(result.contents);
 
-        if(result.contents != null){
-          for(let item of result.contents){
+        if (result.contents != null) {
+          for (let item of result.contents) {
             this.selectedCourseInfo.setCourseContent(item);
           }
         }
-
-        
-        console.log(result)
-      })
+      });
   }
 
-  uploadAll(i: number){
+  pdfFileSelected(fileInput) {
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      this.pdfFile = fileInput.target.files[0];
+      console.log(this.pdfFile);
+      
+    }
 
   }
-  preview(files, i: number) {
+
+  videoFileSelected(files) {
     if (files.length === 0)
       return;
     const file = files[0];
-    this.file = file;
-    this.fileName = file.name;
-    if (file) {
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-      if(file.type.indexOf('image')> -1){
-        this.format = 'image';
-      } else if(file.type.indexOf('video')> -1){
-        this.format = 'video';
-      } else if(file.type.indexOf('pdf')> -1){
-        this.format = 'pdf';
-      }
 
-      console.log(this.format)
-      reader.onload = (event) => {
-        this.url = (<FileReader>event.target).result;
-      }
+    this.videoFile = file;
+  }
+
+  onSubmit() {
+    this.courseArrayList = new ArrayList();
+    let pdfTitle: string = this.courseForm.value.pdfTitle;
+    let videoTitle: string = this.courseForm.value.vTitle;
+
+
+    if (this.pdfFile != "" && pdfTitle != "") {
+      let pdfData: CourseData = new CourseData();
+      let audience = this.courseForm.value.pdfAudience == "" ? "all" : this.courseForm.value.pdfAudience;
+      pdfData.setTitle(pdfTitle);
+      pdfData.setFile(this.pdfFile);
+      pdfData.setFormat("pdf");
+      pdfData.setAudience(audience);
+      pdfData.setFileUrl(this.pdfFile);
+      pdfData.setFileName(pdfTitle)
+      this.courseArrayList.add(pdfData);
+      console.log(pdfData);
+
     }
-  }
-
-  openPdfFile(url){
-    const dialogRef = this.dialog.open(OpenFileComponent, {
-      width: 'auto',
-      height: 'auto',
-      maxHeight: '90vh',
-      data: {
-        file: url
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.getTurtorsAndCourse();
-      // this.selectedCourse(this.courseId);
-      // this.animal = result;
-    });
-
-  }
-  submitForm(){
-    for(let j = 0; j < this.courseForm.value.content.length; j++){
-
-      if(this.courseArrayList.getItemAt(j) != null){
-        this.courseArrayList.getItemAt(j).setTitle(this.courseForm.value.content[j].title);
-        this.courseArrayList.getItemAt(j).setAudience(this.courseForm.value.content[j].audience);
-      } else {
-        let data: CourseData = new CourseData();
-        data.setFile(this.url);
-        data.setFormat(this.format);
-        data.setFileName(this.fileName);
-        data.setTitle(this.courseForm.value.content[j].title);
-        data.setAudience(this.courseForm.value.content[j].audience);
-        data.setFileUrl(this.file);
-        this.courseArrayList.add(data);
-
-        console.log(this.fileName)
-        this.url = null;
-        this.file = null;
-       
-      }
+    if (this.videoFile != "" && videoTitle != "") {
+      let videoData: CourseData = new CourseData();
+      let audience = this.courseForm.value.vAudience == "" ? "all" : this.courseForm.value.vAudience;
+      videoData.setTitle(videoTitle);
+      videoData.setFile(this.videoFile);
+      videoData.setFormat("video");
+      videoData.setAudience(audience);
+      videoData.setFileUrl(this.videoFile);
+      videoData.setFileName(videoTitle)
+      console.log(videoData)
+      this.courseArrayList.add(videoData);
     }
 
-    this._apiService.uploadFiles( this.selectedCourseInfo ,this.courseArrayList);
-    console.log(this.courseArrayList.getAll())
+    console.log(this.courseArrayList.getAll());
+    
+
+    this._apiService.uploadFiles(this.selectedCourseInfo, this.courseArrayList).then(success=>{
+      console.log(success);
+    }, error =>{
+      console.log(error);
+      
+    })
   }
-
-  onConsoleLog(){
-
-    let name = this.courseForm.get('title').value;
-    console.log(name);
-  }z
 }

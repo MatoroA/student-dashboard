@@ -1,49 +1,58 @@
 <h1>Add new course content</h1>
 
-<form [formGroup]="courseForm">
-</mat-form-field><br>
-<mat-form-field>
-  <mat-label>Select a course</mat-label>
-  <select matNativeControl required>
-  </select>
-</mat-form-field>
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
 
-<div class="container">
-  <h4>PDF file</h4>
-  <mat-form-field>
-    <mat-label>Title</mat-label>
-    <input matInput  formControlName="pdfTitle" >
+  <div class="container">
+    <h4>PDF file</h4>
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="pdfTitle">
+
+
+    </mat-form-field><br>
+    <!-- <mat-form-field>
+      <mat-label>Select a course</mat-label>
+      <select matNativeControl required>
+      </select>
+    </mat-form-field><br> -->
+    <label>
+      <input type="file" accept="pdf/*"  (change)="pdfFileSelected($event)" placeholder="Upload file..." />
+      <span class="file-custom"></span>
+    </label><br>
     
+    <mat-radio-group formControlName="pdfAudience" aria-label="Select an option">
+      <mat-radio-button value="premium">Premium</mat-radio-button>
+      <mat-radio-button value="all">All </mat-radio-button>
+    </mat-radio-group>
+    <br>
+  </div>
+  <hr>
 
-><br>
-   
-  <mat-radio-group aria-label="Select an option">
-    <mat-radio-button value="premium">Premium</mat-radio-button>
-    <mat-radio-button value="all">All </mat-radio-button>
-  </mat-radio-group>
-<br>
-</div><hr>
+  <div class="container">
+    <h4>Video file</h4>
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="title" formControlName="vTitle">
+    </mat-form-field><br>
 
-<div class="container">
-  <h4>Video file</h4>
-<mat-form-field>
-  <mat-label>Title</mat-label>
-  <input matInput placeholder="title" formControlName="vTitle" >
-</mat-form-field><br>
-<mat-form-field>
-  <mat-label>Select a course</mat-label>
-  <select matNativeControl required>
-  </select>
-</mat-form-field><br>
-  <label class="file">
-    <input type="file" accept="video/*"aria-label="File browser example">
-    <span class="file-custom"></span>
-  </label><br>
-  <mat-radio-group aria-label="Select an option">
-    <mat-radio-button value="premium">Premium</mat-radio-button>
-    <mat-radio-button value="all">All </mat-radio-button>
-  </mat-radio-group>
-</div>
-<br>
+    <mat-form-field>
+      <mat-label>Select course</mat-label>
+      <mat-select (selectionChange)="selectedCourse($event)">
+        <mat-option *ngFor="let item of course | async" [value]="item?.id">
+          {{item?.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <label class="file">
+      <input #file type="file" accept='video/*' (change)="videoFileSelected(file.files)" />
+      <span class="file-custom"></span>
+    </label><br>
+    <mat-radio-group formControlName="vAudience" aria-label="Select an option">
+      <mat-radio-button value="premium">Premium</mat-radio-button>
+      <mat-radio-button value="all">All </mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <br>
+  <button mat-raised-button type="submit">Submit</button>
 </form>
-<button mat-raised-button >Submit</button>
