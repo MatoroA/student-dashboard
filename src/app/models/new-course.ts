@@ -52,6 +52,10 @@ export class NewCourse{
         return this.courseContentDb;
     }
 
+    clearCourseContent(){
+        this.courseContentDb = [];
+    }
+
     setCourseName(name: string){
         this.courseName = name;
     }

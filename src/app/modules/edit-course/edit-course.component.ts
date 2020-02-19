@@ -52,7 +52,6 @@ export class EditCourseComponent implements OnInit {
   }
   ngOnInit() {
     this.courseData = this._storeData.getClickedCourse();
-
     if (this.courseData != null) {
       this.courseName = this.courseData.getCourseName() != null ? this.courseData.getCourseName() : '';
       this.courseFee = this.courseData.getCourseFee() != null ? this.courseData.getCourseFee() : '';
@@ -75,11 +74,14 @@ export class EditCourseComponent implements OnInit {
         description: this.description,
       });
     }
-
-    console.log(this.newData)
   }
   onSubmit() {
-    console.log(this.courseForm.value);
+    this.courseName != this.courseForm.value.courseName? this.courseData.setCourseName(this.courseForm.value.courseName): '';
+    this.courseFee != this.courseForm.value.courseFee? this.courseData.setCourseFee(this.courseForm.value.courseFee): '';
+    this.deposit != this.courseForm.value.deposit? this.courseData.setDeposit(this.courseForm.value.deposit): '';
+    this.code != this.courseForm.value.code? this.courseData.setCode(this.courseForm.value.code): '';
+    this.deposit != this.courseForm.value.deposit? this.courseData.setDeposit(this.courseForm.value.deposit): ''; 
+    this.description != this.courseForm.value.description? this.courseData.setDescription(this.courseForm.value.description): '';
   }
 
   preview(files) {

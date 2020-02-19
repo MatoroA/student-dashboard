@@ -16,9 +16,9 @@ export class ApplicationsComponent implements OnInit {
   private tableData = new MatTableDataSource<any>();
   enrolledArray: EnrolledStudent[] = [];
   isChecked: boolean = false;
-  displayedColumns: string[] = ['applicant', 'course', 'cellphone', 'Status','id'];
+  displayedColumns: string[] = ['applicant', 'course', 'cellphone', 'Status', 'id'];
   pageSizeOptions;
- 
+
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
@@ -46,21 +46,23 @@ export class ApplicationsComponent implements OnInit {
             if (!student.status) {
               if (course.getCourseId() === student.courseID) {
                 this._apiService.getStudentDoc(student.userID).subscribe(studentDoc => {
-                  console.log(studentDoc)
-                  studentDoc.studentCourseId = student.id;
-                  studentDoc.status = student.status;
-                  course.setStudentsList(studentDoc);
+                  if (studentDoc != null) {
+                    console.log(studentDoc);
+                    
+                    studentDoc.studentCourseId = student.id;
+                    studentDoc.status = student.status;
+                    course.setStudentsList(studentDoc);
+                  }
                 });
               }
             }
           }
         }
-        this.showAllStudents()
-
+        this.showAllStudents();
       });
 
     })
-    this.tableData.paginator= this.paginator
+    this.tableData.paginator = this.paginator
   }
 
   doSomething(event) {
@@ -91,7 +93,7 @@ export class ApplicationsComponent implements OnInit {
 
     let index = 0;
     for (let i of this.enrolledArray) {
-      // console.log(i)
+      console.log(i.getStudentsList())
       let courseName = i.getCourse().name;
       // console.log(courseName)
       setTimeout(() => {
@@ -108,7 +110,9 @@ export class ApplicationsComponent implements OnInit {
             course: courseName,
             docId: j.id,
             studentCourseDocId: j.studentCourseId,
-            status: j.status
+            status: j.status,
+            results: j.resultsUrl,
+            proofOfPayments: j.proofOfPayUrl
           }
 
           this.tableData.data.push(obj)
@@ -122,21 +126,20 @@ export class ApplicationsComponent implements OnInit {
   clickedRow(student) {
 
     console.log(student)
-    // const dialogRef = this.dialog.open(ApplicantComponent, {
-    //   width: '500px',
-    //   height: 'auto',
-    //   data: {
-    //     // userId: uid,
-    //     // courseId: courseid
-    //   }
-    // });
+    const dialogRef = this.dialog.open(ApplicantComponent, {
+      width: '100vh',
+      height: '80vh',
+      data: {
+        student: student
+      }
+    });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   // this.getTurtorsAndCourse();
-    //   // this.selectedCourse(this.courseId);
-    //   // this.animal = result;
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.getTurtorsAndCourse();
+      // this.selectedCourse(this.courseId);
+      // this.animal = result;
+    });
     console.log(student)
     let docId = student.docId;
     let registeredDocId = student.studentCourseDocId;
@@ -148,15 +151,15 @@ export class ApplicationsComponent implements OnInit {
       status = false;
     }
 
-    console.log(registeredDocId+'   '+docId)
+    // console.log(registeredDocId+'   '+docId)
 
-    if (status) {
-      this._apiService.updateStudentStatus(docId, registeredDocId, status);
-    }
+    // if (status) {
+    //   this._apiService.updateStudentStatus(docId, registeredDocId, status);
+    // }
   }
 
-  searchApplicant(){
-  
+  searchApplicant() {
+
     this.tableData.filter = this.searchKey.trim().toLowerCase();
 
   }

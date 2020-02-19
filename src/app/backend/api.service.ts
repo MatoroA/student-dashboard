@@ -25,28 +25,28 @@ export class ApiService {
     private _storage: AngularFireStorage) { }
 
 
-    updateCourseList(uid: string, courses: String[]) {
-      return this.afs.doc("turtors/" + uid).update({ course: courses }).then(success=>{
-        return success;
-      }, err =>{
-        return err;
-      })
-    }
+  updateCourseList(uid: string, courses: String[]) {
+    return this.afs.doc("users/" + uid).update({ course: courses }).then(success => {
+      return success;
+    }, err => {
+      return err;
+    })
+  }
 
-    async deleteCourse(courseId: string){
-      return await this.afs.doc("courses/"+courseId)
-      .delete().then(results=>{
+  async deleteCourse(courseId: string) {
+    return await this.afs.doc("courses/" + courseId)
+      .delete().then(results => {
         return results
-      },error =>{
+      }, error => {
         return error;
       })
-    }
+  }
   async addAdmin(admin: Admin) {
     return await this.afAuth.auth.createUserWithEmailAndPassword(admin.getEmail(), admin.getPassword()).then(user => {
       const firebase = require('firebase');
       const firebaseFunction = firebase.functions();
       const adminRole = firebaseFunction.httpsCallable('addAdmin');
-      return  adminRole({ email: admin.getEmail() }).then(result => {
+      return adminRole({ email: admin.getEmail() }).then(result => {
 
         let doc = {
           firstname: admin.getName(),
@@ -55,7 +55,7 @@ export class ApiService {
           cellPhone: admin.getCellPhone(),
           uid: user.user.uid
         }
-        this.afs.doc("Users/" + user.user.uid).set(doc);
+        this.afs.doc("users/" + user.user.uid).set(doc);
 
         return result;
 
@@ -88,7 +88,7 @@ export class ApiService {
           course: trainer.getCourseList(),
           uid: user.user.uid
         }
-        this.afs.doc("turtors/" + user.user.uid).set(doc);
+        this.afs.doc("users/" + user.user.uid).set(doc);
         return "User has been successfully created.....";
       });
     })
@@ -186,7 +186,7 @@ export class ApiService {
   }
   getTurtorDoc(id: string) {
     console.log(id)
-    let studentDoc = this.afs.doc<Turtor>("turtors/" + id);
+    let studentDoc = this.afs.doc<Turtor>("users/" + id);
     return studentDoc.valueChanges();
   }
   getCourseDocument(courseId: string): Observable<Course> {
@@ -214,7 +214,7 @@ export class ApiService {
 
   async uploadCourse(course: NewCourse) {
 
-    this._storage.upload("courses/" + course.getCourseName() + "/" + course.getImageName(), course.getImageCover()).then(results => {
+   return this._storage.upload("courses/" + course.getCourseName() + "/" + course.getImageName(), course.getImageCover()).then(results => {
       results.downloadURL
       results.ref.getDownloadURL().then(url => {
         let courseDoc = {
@@ -229,41 +229,57 @@ export class ApiService {
         }
 
 
-        return this.afs.collection("courses").add(courseDoc);
+        return this.afs.collection("courses").add(courseDoc).then(results =>{
+          return results;
+        })
       })
     })
   }
 
-  uploadFiles(course: NewCourse, courseContent: ArrayList) {
+  async uploadFiles(course: NewCourse, courseContent: ArrayList) {
+    console.log(course);
 
-    for (let i = 0; i < courseContent.getAll().length; i++) {
-      console.log(courseContent.getItemAt(i).getFileName())
-      const task = this._storage.upload("courses/" + course.getCourseName() + "/contents/" + courseContent.getItemAt(i).getFileName(), courseContent.getItemAt(i).getFileUrl());
-      courseContent.getItemAt(i).setProgress(task.percentageChanges());
+    if (course.getCourseName() != null && courseContent.getSize() > 0) {
+      for (let i = 0; i < courseContent.getSize(); i++) {
+        if (courseContent.getItemAt(i).getFile() != null) {
+          console.log(courseContent.getItemAt(i).getFileName())
+           return this._storage.upload("courses/" + course.getCourseName() + "/contents/" + courseContent
+            .getItemAt(i).getFileName(), courseContent.getItemAt(i).getFileUrl())
+            .then(results => {
+              console.log(results)
+              results.ref.getDownloadURL().then(url => {
+                const data: Content = {
+                  fileUrl: url,
+                  access: courseContent.getItemAt(i).getAudience(),
+                  title: courseContent.getItemAt(i).getTitle(),
+                  format: courseContent.getItemAt(i).getFormat()
+                }
 
-      task.then(results => {
-        console.log(results)
-        results.ref.getDownloadURL().then(url => {
-          const data: Content = {
-            fileUrl: url,
-            access: courseContent.getItemAt(i).getAudience(),
-            title: courseContent.getItemAt(i).getTitle(),
-            format: courseContent.getItemAt(i).getFormat()
-          }
+                course.setCourseContent(data);
 
-          course.setCourseContent(data);
+                if ( i + 1 == courseContent.getSize()) {
+                  console.log(course.getArrayCourseContentDb());
 
-          if (courseContent.getAll().length == i + 1) {
-              this.afs.doc("courses/"+course.getCourseId()).update({contents: course.getCourseContent()})
-            .then(res=>{
-              console.log(res);
+                  return this.afs.doc("courses/" + course.getCourseId()).update({ contents: course.getCourseContent() })
+                    .then(() => {
+                      console.log("this user works just fine...");
+                      
+                      return true;
+                    
+                    }, () => {
+                      return false;
+                    })
+                }
+
+              })
             })
-          }
+        } else {
+          return false;
+        }
 
-        })
-      })
+      }
     }
-    console.log(course.getCourseName())
+
   }
   //   const task = this._storage.upload(filepath,this.selectedImage)
 

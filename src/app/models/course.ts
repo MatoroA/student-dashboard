@@ -6,9 +6,9 @@ export interface Course{
     fee: string;
     name: string;
     paymentDuration: string;
-    requirements: string[];
+    requirement: string[];
     contents?: Content[];
-    feeInclude?: string[];
+    feesInclude?: string[];
     id: string;
     deposit: number;
     coverUrl: string;
