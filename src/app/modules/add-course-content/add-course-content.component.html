@@ -1,6 +1,12 @@
 <h1>Add new course content</h1>
 
 <form [formGroup]="courseForm">
+</mat-form-field><br>
+<mat-form-field>
+  <mat-label>Select a course</mat-label>
+  <select matNativeControl required>
+  </select>
+</mat-form-field>
 
 <div class="container">
   <h4>PDF file</h4>
@@ -9,7 +15,7 @@
     <input matInput  formControlName="pdfTitle" >
     
 
-  </mat-form-field><br>
+><br>
    
   <mat-radio-group aria-label="Select an option">
     <mat-radio-button value="premium">Premium</mat-radio-button>
