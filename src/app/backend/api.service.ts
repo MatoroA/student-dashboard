@@ -214,7 +214,7 @@ export class ApiService {
 
   async uploadCourse(course: NewCourse) {
 
-   return this._storage.upload("courses/" + course.getCourseName() + "/" + course.getImageName(), course.getImageCover()).then(results => {
+    this._storage.upload("courses/" + course.getCourseName() + "/" + course.getImageName(), course.getImageCover()).then(results => {
       results.downloadURL
       results.ref.getDownloadURL().then(url => {
         let courseDoc = {
@@ -229,9 +229,7 @@ export class ApiService {
         }
 
 
-        return this.afs.collection("courses").add(courseDoc).then(results =>{
-          return results;
-        })
+        return this.afs.collection("courses").add(courseDoc);
       })
     })
   }
@@ -239,11 +237,11 @@ export class ApiService {
   async uploadFiles(course: NewCourse, courseContent: ArrayList) {
     console.log(course);
 
-    if (course.getCourseName() != null && courseContent.getSize() > 0) {
-      for (let i = 0; i < courseContent.getSize(); i++) {
+    if (course.getCourseName() != null && courseContent.getAll().length > 0) {
+      for (let i = 0; i < courseContent.getAll().length; i++) {
         if (courseContent.getItemAt(i).getFile() != null) {
           console.log(courseContent.getItemAt(i).getFileName())
-           return this._storage.upload("courses/" + course.getCourseName() + "/contents/" + courseContent
+            this._storage.upload("courses/" + course.getCourseName() + "/contents/" + courseContent
             .getItemAt(i).getFileName(), courseContent.getItemAt(i).getFileUrl())
             .then(results => {
               console.log(results)
@@ -257,7 +255,10 @@ export class ApiService {
 
                 course.setCourseContent(data);
 
-                if ( i + 1 == courseContent.getSize()) {
+                console.log();
+                
+
+                if (courseContent.getAll().length == i + 1) {
                   console.log(course.getArrayCourseContentDb());
 
                   return this.afs.doc("courses/" + course.getCourseId()).update({ contents: course.getCourseContent() })

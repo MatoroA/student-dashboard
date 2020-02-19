@@ -16,7 +16,7 @@ export class ApplicationsComponent implements OnInit {
   private tableData = new MatTableDataSource<any>();
   enrolledArray: EnrolledStudent[] = [];
   isChecked: boolean = false;
-  displayedColumns: string[] = ['applicant', 'course', 'cellphone', 'Status', 'id'];
+  displayedColumns: string[] = ['applicant', 'course', 'cellphone', 'Status', 'id', 'button'];
   pageSizeOptions;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -125,21 +125,21 @@ export class ApplicationsComponent implements OnInit {
 
   clickedRow(student) {
 
-    console.log(student)
-    const dialogRef = this.dialog.open(ApplicantComponent, {
-      width: '100vh',
-      height: '80vh',
-      data: {
-        student: student
-      }
-    });
+    // console.log(student)
+    // const dialogRef = this.dialog.open(ApplicantComponent, {
+    //   width: '100vh',
+    //   height: '80vh',
+    //   data: {
+    //     student: student
+    //   }
+    // });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.getTurtorsAndCourse();
-      // this.selectedCourse(this.courseId);
-      // this.animal = result;
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    //   // this.getTurtorsAndCourse();
+    //   // this.selectedCourse(this.courseId);
+    //   // this.animal = result;
+    // });
     console.log(student)
     let docId = student.docId;
     let registeredDocId = student.studentCourseDocId;
@@ -153,9 +153,9 @@ export class ApplicationsComponent implements OnInit {
 
     // console.log(registeredDocId+'   '+docId)
 
-    // if (status) {
-    //   this._apiService.updateStudentStatus(docId, registeredDocId, status);
-    // }
+    if (status) {
+      this._apiService.updateStudentStatus(docId, registeredDocId, status);
+    }
   }
 
   searchApplicant() {
