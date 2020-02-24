@@ -20,17 +20,15 @@
 
     background-color: #800020;
     color: white;
-    border: none;
-    width: 150px;
+    
+  
    
     
   }
-  
-  li:not(:last-child) {
-    margin-bottom: 2px;
-  }
-  .now{
-    color: white;
-    width: 150px;
-    margin-right: 10px;
+
+
+
+  img{
+
+    object-fit: fill;
   }

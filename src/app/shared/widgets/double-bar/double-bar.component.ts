@@ -21,9 +21,7 @@ export class DoubleBarComponent implements OnInit {
       text: 'Accepted Students vs rejected or unaceppted'
     },
 
-    subtitle: {
-      text: 'Resize the frame or click buttons to change appearance'
-    },
+   
 
     legend: {
       align: 'right',

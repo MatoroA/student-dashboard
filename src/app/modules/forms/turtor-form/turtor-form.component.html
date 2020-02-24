@@ -109,9 +109,7 @@
 
       </div>
 
-      <button mat-flat-button [disabled]="!turtorForm.valid">submit</button>
 
-    </form>
     <mat-form-field id="course-select">
       <mat-label>Select course:</mat-label>
       <mat-select (selectionChange)="selectedCourse($event.value)">
@@ -120,4 +118,6 @@
         </mat-option>
       </mat-select>
     </mat-form-field><br>
-    
+    <button mat-flat-button [disabled]="!turtorForm.valid">submit</button>
+
+  </form> 

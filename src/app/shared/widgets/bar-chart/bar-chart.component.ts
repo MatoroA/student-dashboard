@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
-import HC_exporting from 'highcharts/modules/exporting';
 import { ApiService } from 'src/app/backend/api.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Course } from 'src/app/models/course';
