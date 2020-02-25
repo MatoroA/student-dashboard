@@ -44,14 +44,14 @@
           <mat-label>Duration:</mat-label>
           <div class="date-field">
             <mat-form-field style="margin-right: 20px;">
-              <input matInput placeholder="Start Date" type="date" formControlName="dur1Ctrl">
+              <input matInput placeholder="Start Date" type="date" formControlName="dur1Ctrl"(input)="startDate($event.target.value)">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="End Date" type="date" formControlName="dur2Ctrl">
+              <input matInput placeholder="End Date" type="date" formControlName="dur2Ctrl" (input)="endDate($event.target.value)">
 
             </mat-form-field>
-
-          </div><br>
+  
+          </div><mat-error>{{dateCtrl}}</mat-error>
 
           <mat-form-field class="example-full-width">
             <textarea matInput #message maxlength="256" placeholder="description" formControlName="desCtrl"
@@ -61,7 +61,7 @@
           </mat-form-field>
           <div>
             <br>
-            <button mat-raised-button matStepperNext [disabled]="!firstFormGroup.valid" type="submit">Next</button>
+            <button mat-raised-button matStepperNext [disabled]="!firstFormGroup.valid && !ctrl" type="submit">Next</button>
           </div>
         </div>
       </form>
