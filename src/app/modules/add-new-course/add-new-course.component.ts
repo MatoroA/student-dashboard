@@ -29,6 +29,7 @@ export class AddNewCourseComponent implements OnInit {
 
   requirments:any=[];
   firstFormMessages: any;
+  private currentDate: Date;
   
   constructor(private _formBuilder: FormBuilder, private _apiService: ApiService) {
     
@@ -36,15 +37,17 @@ export class AddNewCourseComponent implements OnInit {
 
   ngOnInit() {
     this.course = new NewCourse();
+    this.currentDate = new Date();
 
     this.firstFormGroup = this._formBuilder.group({
       nameCtrl: ['', Validators.required],
       idCtrl:['',Validators.required],
       feeCtrl:['', Validators.required],
-      dur1Ctrl:['',Validators.required],
-      dur2Ctrl:['',Validators.required],
+      startDate:['',Validators.required],
+      endDate:['',Validators.required],
       desCtrl:['',Validators.required],
-      depCtrl:['', Validators.required]
+      depCtrl:['', Validators.required],
+      closingDate: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
       pakageItems: [''],
@@ -80,16 +83,17 @@ export class AddNewCourseComponent implements OnInit {
     let name = this.firstFormGroup.get('nameCtrl').value;
     let id = this.firstFormGroup.get('idCtrl').value;
     let fees = this.firstFormGroup.get('feeCtrl').value;
-    let duration1 = this.firstFormGroup.get('dur1Ctrl').value;
-    let duration2 = this.firstFormGroup.get('dur2Ctrl').value;
+    let startDate = this.firstFormGroup.get('startDate').value;
+    let endDate = this.firstFormGroup.get('endDate').value;
     let description = this.firstFormGroup.get('desCtrl').value;
-
-    let duration  = duration1 +'-' + duration2;
+    let closingDate = this.firstFormGroup.get('closingDate').value;
 
     this.course.setCourseName(name);
     this.course.setCourseId(id);
     this.course.setCourseFee(fees);
-    this.course.setDescription(duration);
+    this.course.setStartDate(startDate);
+    this.course.setEndDate(endDate);
+    this.course.setClosingDate(closingDate);
     this.course.setDescription(description);
 
     console.log(this.course)
@@ -160,6 +164,9 @@ export class AddNewCourseComponent implements OnInit {
     for(let item of this.requirments){
       this.course.setReuirements(item);
     }
+
+    console.log(this.course);
+    
     
     this._apiService.uploadCourse(this.course).then(results=>{
       console.log(results)

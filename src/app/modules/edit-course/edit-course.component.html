@@ -11,10 +11,20 @@
         <mat-card-header>
          Cover image
           </mat-card-header>
-          <mat-card-content><img [src]="courseCover" height="500px" width="100%"></mat-card-content>
+          <!-- <mat-card-content id="overlay" ></mat-card-content> -->
+
+          <!-- <div class="loader-27">
+          </div> -->
+          <div class="overlay">
+            <img [src]="courseCover" *ngIf="courseCover" height="500px" width="500px">
+            <div class="overlay__inner">
+                <div class="overlay__content" *ngIf="courseCover == null || uploadingNewCover" ><span class="spinner"></span></div>
+            </div>
+        </div>
           <mat-card-footer>
-        <button mat-raised-button class="now" (click)="changeCover()" type="button" >
-      upload new image</button>
+        <!-- <button mat-raised-button class="now" (click)="changeCover()" type="button" > -->
+          <input #file type="file" class="now" accept='image/*' (change)="preview(file.files)" /> 
+      <!-- upload new image</button> -->
         </mat-card-footer>
     </mat-card>
       <!-- <div>

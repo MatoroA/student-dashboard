@@ -16,6 +16,7 @@ export class NewCourse{
     private code: string;
     private courseContentDb: Content[];
     private feesInclude: string[];
+    private closingDate: string;
 
     constructor(){
         this.courseContentDb = [];
@@ -23,6 +24,13 @@ export class NewCourse{
         this.feesInclude = [];
     }
 
+    public setClosingDate(date: string){
+        this.closingDate = date;
+    }
+
+    public getClosingDate(){
+        return this.closingDate;
+    }
     public setDeposit(deposit: number){
         this.deposit = deposit;
     }

@@ -83,15 +83,17 @@ export class TurtorFormComponent implements OnInit {
     this.toggleChecked = false;
 
     this._userdata.setCurrentCourse(course);
-    this.turtorsOnTheCourse = [];
-    for (let turtor of this.turtors) {
-      for (let course of turtor.getCourseList()) {
-        if (course == this.courseId) {
-          turtor.setCourseId(this.courseId)
-          this.turtorsOnTheCourse.push(turtor);
-        }
-      }
-    }
+    console.log(this._userdata);
+    
+    // this.turtorsOnTheCourse = [];
+    // for (let turtor of this.turtors) {
+    //   for (let course of turtor.getCourseList()) {
+    //     if (course == this.courseId) {
+    //       turtor.setCourseId(this.courseId)
+    //       this.turtorsOnTheCourse.push(turtor);
+    //     }
+    //   }
+    // }
   }
 
   showForm() {
@@ -192,7 +194,8 @@ export class TurtorFormComponent implements OnInit {
       turtor.setCellphone(this.turtorForm.value.cellphone);
       turtor.setEmail(this.turtorForm.value.email);
       turtor.setPassword(this.turtorForm.value.password1);
-      turtor.setCourseList(this.course)
+      this.courseId != null? turtor.setCourseList(this.courseId): '';
+      console.log(turtor);      
       this._api.addTutor(turtor).then(result => {
         console.log(result)
       })

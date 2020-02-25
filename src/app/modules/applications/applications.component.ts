@@ -19,6 +19,9 @@ export class ApplicationsComponent implements OnInit {
   displayedColumns: string[] = ['applicant', 'course', 'cellphone', 'Status', 'id', 'button'];
   pageSizeOptions;
 
+
+  pageSizeArray: number[] = [];
+
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
@@ -61,8 +64,7 @@ export class ApplicationsComponent implements OnInit {
         this.showAllStudents();
       });
 
-    })
-    this.tableData.paginator = this.paginator
+    });
   }
 
   doSomething(event) {
@@ -90,6 +92,7 @@ export class ApplicationsComponent implements OnInit {
   showAllStudents() {
     this.tableData = new MatTableDataSource<Student>();
     this.isChecked = true;
+    let studentsCount = 0;
 
     let index = 0;
     for (let i of this.enrolledArray) {
@@ -97,8 +100,10 @@ export class ApplicationsComponent implements OnInit {
       let courseName = i.getCourse().name;
       // console.log(courseName)
       setTimeout(() => {
+        
         for (let j of i.getStudentsList()) {
           ++index;
+          ++studentsCount;
 
           let obj = {
             position: index,
@@ -119,12 +124,39 @@ export class ApplicationsComponent implements OnInit {
           this.tableData._updateChangeSubscription();
           // this.changeDetectorRefs.detectChanges();
         }
+
+        this.tableData.paginator = this.paginator;
       }, 1000);
+
+      console.log(studentsCount);
+      
     }
+
+    console.log(this.pageSizeArray);
+        
+
+    // if(studentsCount <= 5){
+    //   this.pageSizeArray.push(studentsCount)
+    // } else {
+    //   while(studentsCount > 0){
+    //     if(studentsCount > 5){
+    //       this.pageSizeArray.push(5);
+    //       studentsCount -=5;
+    //     } else {
+    //       this.pageSizeArray.push(studentsCount);
+    //       studentsCount = 0;
+    //     }
+    //   }
+
+    //   console.log(this.pageSizeArray);
+      
+    // }
   }
 
-  clickedRow(student) {
+  clickedRow(docId: string, registeredDocId: string, status) {
 
+    console.log(status);
+    
     // console.log(student)
     // const dialogRef = this.dialog.open(ApplicantComponent, {
     //   width: '100vh',
@@ -140,11 +172,7 @@ export class ApplicationsComponent implements OnInit {
     //   // this.selectedCourse(this.courseId);
     //   // this.animal = result;
     // });
-    console.log(student)
-    let docId = student.docId;
-    let registeredDocId = student.studentCourseDocId;
-    let status;
-    if (!student.status) {
+    if (!status) {
       status = true;
     } else {
       console.log("The student is already registered....")

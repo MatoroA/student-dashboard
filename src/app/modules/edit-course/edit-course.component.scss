@@ -34,3 +34,54 @@
     width: 150px;
     margin-right: 10px;
   }
+
+  .course-cover{
+    width: 500px;
+    height: 500px;
+    border: 1px solid red;
+  }
+
+  .overlay {
+    left: 0;
+    top: 0;
+    width: 500px;
+    height: 500px;
+    position: relative;
+    background: #eee;
+}
+
+.overlay__inner {
+    left: 0;
+    top: 0;
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    border: none;
+}
+
+.overlay__content {
+    margin: auto;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.spinner {
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+    border-width: 5px;
+    border-color: rgba(255, 255, 255, 0.05);
+    border-top-color: #800020;
+    animation: spin 1s infinite linear;
+    border-radius: 100%;
+    border-style: solid;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

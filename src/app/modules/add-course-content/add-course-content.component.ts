@@ -33,6 +33,7 @@ export class AddCourseContentComponent implements OnInit {
   constructor(private _apiService: ApiService, private fb: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit() {
+    
 
     this.courseArrayList = new ArrayList();
     this.selectedCourseInfo = new NewCourse();

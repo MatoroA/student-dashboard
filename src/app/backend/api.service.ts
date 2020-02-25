@@ -78,8 +78,9 @@ export class ApiService {
       const firebase = require('firebase');
       const firebaseFunction = firebase.functions();
       const roleTurtor = firebaseFunction.httpsCallable('addTurtor');
-      roleTurtor({ email: trainer.getEmail() }).then(result => {
-        console.log(result)
+      return roleTurtor({ email: trainer.getEmail() }).then(result => {
+
+        console.log(result);
 
         let doc = {
           firstname: trainer.getName(),
@@ -89,7 +90,7 @@ export class ApiService {
           uid: user.user.uid
         }
         this.afs.doc("users/" + user.user.uid).set(doc);
-        return "User has been successfully created.....";
+        return result;
       });
     })
 
@@ -197,8 +198,38 @@ export class ApiService {
   }
 
 
-  async uploadingImage(folder: string, courseId: string, fileName: string, file: File) {
-    return await this._storage.upload(folder + '/' + courseId + '/' + fileName + '/', file);
+  async uploadCourseCover(courseName: string, file: File, courseId: string) {
+    return await this._storage.upload("courses" + '/' + courseName + '/courseCover/', file).then(results => {
+      results.downloadURL
+      return results.ref.getDownloadURL().then(url => {
+        console.log(url);
+
+        return this.afs.doc("courses/" + courseId).update({ coverUrl: url }).then(() => {
+          return url;
+        }, () => {
+          return -1;
+        })
+      })
+    })
+  }
+
+ async updateCourse(course: NewCourse) {
+
+    let courseData = {
+      courseId: course.getCourseId(),
+      courseName: course.getCourseName(),
+      description: course.getDescription(),
+      courseFee: course.getCourseFee(),
+      code: course.getCode(),
+      deposit: course.getDeposit(),
+      requirement: course.getRequirements(),
+      feesInclude: course.getFeesInclude()
+    }
+
+    return await this.afs.doc("courses/" + course.getCourseId())
+      .update(courseData).then(() => {
+        return "Course data has been updated!";
+      })
   }
   async updateCourseDBData(courseId: string, coverImage: string) {
     let doc = {
@@ -225,7 +256,9 @@ export class ApiService {
           fee: course.getCourseFee(),
           description: course.getDescription(),
           feesInclude: course.getFeesInclude(),
-          requirements: course.getRequirements()
+          endDate: course.getSEndDate(),
+          startDate: course.getStartDate(),
+          closingDate: course.getClosingDate()
         }
 
 
@@ -237,11 +270,17 @@ export class ApiService {
   async uploadFiles(course: NewCourse, courseContent: ArrayList) {
     console.log(course);
 
+    let dateArray = new Date().toLocaleDateString().split("/");
+
+    let day = dateArray[1].length == 1 ? "0" + dateArray[1] : dateArray[1];
+    let month = dateArray[0].length == 1 ? "0" + dateArray[0] : dateArray[0];
+    let year = dateArray[2];
+
     if (course.getCourseName() != null && courseContent.getAll().length > 0) {
       for (let i = 0; i < courseContent.getAll().length; i++) {
         if (courseContent.getItemAt(i).getFile() != null) {
           console.log(courseContent.getItemAt(i).getFileName())
-            this._storage.upload("courses/" + course.getCourseName() + "/contents/" + courseContent
+          this._storage.upload("courses/" + course.getCourseName() + "/contents/" + courseContent
             .getItemAt(i).getFileName(), courseContent.getItemAt(i).getFileUrl())
             .then(results => {
               console.log(results)
@@ -250,23 +289,20 @@ export class ApiService {
                   fileUrl: url,
                   access: courseContent.getItemAt(i).getAudience(),
                   title: courseContent.getItemAt(i).getTitle(),
-                  format: courseContent.getItemAt(i).getFormat()
+                  format: courseContent.getItemAt(i).getFormat(),
+                  date: day + "/" + month + "/" + year
                 }
 
                 course.setCourseContent(data);
 
-                console.log();
-                
 
                 if (courseContent.getAll().length == i + 1) {
-                  console.log(course.getArrayCourseContentDb());
-
                   return this.afs.doc("courses/" + course.getCourseId()).update({ contents: course.getCourseContent() })
                     .then(() => {
                       console.log("this user works just fine...");
-                      
+
                       return true;
-                    
+
                     }, () => {
                       return false;
                     })

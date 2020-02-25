@@ -1,6 +1,6 @@
 <h1><button mat-raised-button class="now" routerLink="/default/courses"><i class="material-icons left">
-  keyboard_backspace
-  </i></button>Register a course</h1>
+      keyboard_backspace
+    </i></button>Register a course</h1>
 
 <div>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
@@ -44,13 +44,20 @@
           <mat-label>Duration:</mat-label>
           <div class="date-field">
             <mat-form-field style="margin-right: 20px;">
-              <input matInput placeholder="Start Date" type="date" formControlName="dur1Ctrl">
+              <input matInput placeholder="Start Date" [min]="currentDate"  type="date" formControlName="startDate">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="End Date" type="date" formControlName="dur2Ctrl">
+              <input matInput placeholder="End Date" [min]="currentDate"  type="date" formControlName="endDate">
 
             </mat-form-field>
 
+          </div><br>
+
+          <mat-label>Closing date:</mat-label>
+          <div class="date-field">
+            <mat-form-field style="margin-right: 20px;">
+              <input matInput placeholder="Application closing date" [min]="currentDate" type="date" formControlName="closingDate">
+            </mat-form-field>
           </div><br>
 
           <mat-form-field class="example-full-width">
@@ -86,10 +93,10 @@
 
           <mat-label>Requrements: </mat-label>
           <div class="listItem">
-          <ul *ngFor='let item of requirments'>
-            <li> {{item}} </li>
-          </ul>
-        </div>
+            <ul *ngFor='let item of requirments'>
+              <li> {{item}} </li>
+            </ul>
+          </div>
           <br>
           <mat-form-field>
             <input matInput placeholder="add requirments" formControlName="require">

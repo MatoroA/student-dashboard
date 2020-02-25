@@ -5,6 +5,7 @@ import { StoringUserDataService } from 'src/app/backend/storing-user-data.servic
 import { Content } from '../../models/content-interface';
 import { NewCourse } from '../../models/new-course';
 import * as deepEqual from "deep-equal";
+import { ApiService } from 'src/app/backend/api.service';
 
 
 @Component({
@@ -34,13 +35,14 @@ export class EditCourseComponent implements OnInit {
   private newData: NewCourse;
   private newRequirements: string = null;
   private newFeeInclude: string = null;
+  private uploadingNewCover: boolean = false;
 
   imagePath;
   imgURL
 
   private courseForm: FormGroup;
 
-  constructor(private db: AngularFirestore, private _storeData: StoringUserDataService,
+  constructor(private db: AngularFirestore, private _storeData: StoringUserDataService, private _apiService: ApiService,
     private _fb: FormBuilder) {
     this.courseForm = _fb.group({
       courseName: ['', Validators.required],
@@ -65,6 +67,7 @@ export class EditCourseComponent implements OnInit {
       this.courseCover = this.courseData.getCourseCover() != null ? this.courseData.getCourseCover() : '';
       this.deposit = this.courseData.getDeposit() != null ? this.courseData.getDeposit() : 0;
       this.courseData.setDeposit(this.deposit);
+      this.courseId = this.courseData.getCourseId();
 
       this.courseForm.setValue({
         courseName: this.courseName,
@@ -76,12 +79,12 @@ export class EditCourseComponent implements OnInit {
     }
   }
   onSubmit() {
-    this.courseName != this.courseForm.value.courseName? this.courseData.setCourseName(this.courseForm.value.courseName): '';
-    this.courseFee != this.courseForm.value.courseFee? this.courseData.setCourseFee(this.courseForm.value.courseFee): '';
-    this.deposit != this.courseForm.value.deposit? this.courseData.setDeposit(this.courseForm.value.deposit): '';
-    this.code != this.courseForm.value.code? this.courseData.setCode(this.courseForm.value.code): '';
-    this.deposit != this.courseForm.value.deposit? this.courseData.setDeposit(this.courseForm.value.deposit): ''; 
-    this.description != this.courseForm.value.description? this.courseData.setDescription(this.courseForm.value.description): '';
+    this.courseName != this.courseForm.value.courseName ? this.courseData.setCourseName(this.courseForm.value.courseName) : '';
+    this.courseFee != this.courseForm.value.courseFee ? this.courseData.setCourseFee(this.courseForm.value.courseFee) : '';
+    this.deposit != this.courseForm.value.deposit ? this.courseData.setDeposit(this.courseForm.value.deposit) : '';
+    this.code != this.courseForm.value.code ? this.courseData.setCode(this.courseForm.value.code) : '';
+    this.deposit != this.courseForm.value.deposit ? this.courseData.setDeposit(this.courseForm.value.deposit) : '';
+    this.description != this.courseForm.value.description ? this.courseData.setDescription(this.courseForm.value.description) : '';
   }
 
   preview(files) {
@@ -104,7 +107,17 @@ export class EditCourseComponent implements OnInit {
       this.imgURL = reader.result;
     }
 
-    console.log(file)
+    this.uploadingNewCover = true;
+
+    if(this.courseId != null){
+      this._apiService.uploadCourseCover(this.courseName, file, this.courseId)
+      .then(result => {
+        if (result != -1) {
+          this.courseCover = result;
+        }
+        this.uploadingNewCover = false;
+      });
+    }
   }
 
   addMore() {
@@ -120,18 +133,21 @@ export class EditCourseComponent implements OnInit {
   remove(i: number, index: number) {
     if (i == 0) {
       this.feesIncludes.splice(index, 1);
-    } else { 
+    } else {
       this.requirements.splice(index, 1);
     }
   }
-  private changes() {
+  changes() {
 
-    this.newData = new NewCourse();
-    this.courseData.setArrayFeeIncludes(this.feesIncludes);
-    this.courseData.setArrayRequirements(this.requirements);
-
-
-    console.log(this.courseData);
+    if(this.courseData != null){
+      this.courseData.setArrayFeeIncludes(this.feesIncludes);
+      this.courseData.setArrayRequirements(this.requirements);
+  
+      this._apiService.updateCourse(this.courseData).then(results =>{
+        console.log(results);
+        
+      })
+    }
   }
 
 }

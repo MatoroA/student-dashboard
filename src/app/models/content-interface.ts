@@ -3,4 +3,5 @@ export interface Content{
     access: string;
     title: string;
     format: string;
+    date: string;
 }
