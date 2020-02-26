@@ -8,6 +8,7 @@ import { DeleteDialogComponent } from 'src/app/dialog/delete-dialog/delete-dialo
 import { Trainer } from 'src/app/models/trainer';
 import { UpdateTurtorComponent } from 'src/app/dialog/update-turtor/update-turtor.component';
 import { StoringUserDataService } from 'src/app/backend/storing-user-data.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -29,6 +30,8 @@ export class TurtorFormComponent implements OnInit {
   private rowClicked: number = null;
 
   private currentCourse: Course = null;
+  private isShowingTurtorList: boolean = false;
+
 
   displayedColumns: string[] = ['position', 'applicant', 'course'];
   pageSizeOptions;
@@ -37,7 +40,7 @@ export class TurtorFormComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private formBuilder: FormBuilder, private _api: ApiService, private _snackBar: MatSnackBar,
-    private _userdata: StoringUserDataService, public dialog: MatDialog) {
+    private _userdata: StoringUserDataService, public dialog: MatDialog, private router: Router) {
 
     this.turtorForm = this.formBuilder.group({
       firstname: [null, Validators.compose([Validators.required])],
@@ -51,30 +54,8 @@ export class TurtorFormComponent implements OnInit {
 
   ngOnInit() {
     this.allCourses$ = this._api.getCourses();
-    this.getTurtorsAndCourse();
-
   }
-  private getTurtorsAndCourse() {
-    this._api.getTurtors().subscribe(turtorsList => {
-      console.log(turtorsList)
-      // this._userdata.setAllTurtors(turtorsList)
-      let turtorObjects = [];
-      for (let turtor of turtorsList) {
-        let obj = new Trainer();
-        obj.setId(turtor.uid);
 
-        obj.setName(turtor.firstname);
-        obj.setSurname(turtor.lastname);
-
-        for (let courseId of turtor.course) {
-          obj.setCourseList(courseId);
-        }
-        turtorObjects.push(obj);
-        console.log()
-      }
-      this.turtors = turtorObjects;
-    });
-  }
 
   selectedCourse(course: Course) {
     this.courseId = course.id;
@@ -82,8 +63,8 @@ export class TurtorFormComponent implements OnInit {
     this.currentCourse = course;
     this.toggleChecked = false;
 
-    this._userdata.setCurrentCourse(course);
-    console.log(this._userdata);
+    // this._userdata.setCurrentCourse(course);
+    // console.log(this._userdata);
     
     // this.turtorsOnTheCourse = [];
     // for (let turtor of this.turtors) {
@@ -103,21 +84,21 @@ export class TurtorFormComponent implements OnInit {
     }
   }
 
-  delete(user: Trainer): void {
-    this._userdata.setSelectedUser(user);
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: '500px',
-      height: 'auto',
-    });
+  // delete(user: Trainer): void {
+  //   this._userdata.setSelectedUser(user);
+  //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
+  //     width: '500px',
+  //     height: 'auto',
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getTurtorsAndCourse();
-      this.selectedCourse(this.currentCourse);
-      this.openSnackBar(result);
-      this.tableDataInfo();
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed');
+  //     this.getTurtorsAndCourse();
+  //     this.selectedCourse(this.currentCourse);
+  //     this.openSnackBar(result);
+  //     this.tableDataInfo();
+  //   });
+  // }
 
   changed(event) {
     this.toggleChecked = event.checked;
@@ -171,7 +152,7 @@ export class TurtorFormComponent implements OnInit {
       console.log('The dialog was closed');
 
       if(result != null){
-        this.getTurtorsAndCourse();
+        // this.getTurtorsAndCourse();
         this.selectedCourse(this.currentCourse);
         this.openSnackBar(result);
         this.tableDataInfo();
@@ -206,4 +187,8 @@ export class TurtorFormComponent implements OnInit {
 
   }
 
+  addExistingTurtors(){
+    // this.router.navigate(["/trainers"]);
+    this.isShowingTurtorList = true;
+  }  
 }

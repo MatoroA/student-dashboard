@@ -20,19 +20,10 @@
 
     background-color: #800020;
     color: white;
-    border: none;
-    width: 150px;
+    
+  
    
     
-  }
-  
-  li:not(:last-child) {
-    margin-bottom: 2px;
-  }
-  .now{
-    color: white;
-    width: 150px;
-    margin-right: 10px;
   }
 
   .course-cover{
@@ -85,3 +76,9 @@
     transform: rotate(360deg);
   }
 }
+
+
+  img{
+
+    object-fit: fill;
+  }

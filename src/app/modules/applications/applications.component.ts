@@ -16,11 +16,11 @@ export class ApplicationsComponent implements OnInit {
   private tableData = new MatTableDataSource<any>();
   enrolledArray: EnrolledStudent[] = [];
   isChecked: boolean = false;
-  displayedColumns: string[] = ['applicant', 'course', 'cellphone', 'Status', 'id', 'button'];
+  displayedColumns: string[] = ['applicant', 'course', 'Status', 'id', 'button'];
   pageSizeOptions;
 
 
-  pageSizeArray: number[] = [];
+  pageSizeArray: number[] = [5,3];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -51,7 +51,7 @@ export class ApplicationsComponent implements OnInit {
                 this._apiService.getStudentDoc(student.userID).subscribe(studentDoc => {
                   if (studentDoc != null) {
                     console.log(studentDoc);
-                    
+
                     studentDoc.studentCourseId = student.id;
                     studentDoc.status = student.status;
                     course.setStudentsList(studentDoc);
@@ -95,13 +95,13 @@ export class ApplicationsComponent implements OnInit {
     let studentsCount = 0;
 
     let index = 0;
-    for (let i of this.enrolledArray) {
-      console.log(i.getStudentsList())
-      let courseName = i.getCourse().name;
+    // let i of this.enrolledArray
+    for (let i = 0; i < this.enrolledArray.length; i++) {
+      let courseName = this.enrolledArray[i].getCourse().name;
       // console.log(courseName)
       setTimeout(() => {
-        
-        for (let j of i.getStudentsList()) {
+
+        for (let j of this.enrolledArray[i].getStudentsList()) {
           ++index;
           ++studentsCount;
 
@@ -109,7 +109,6 @@ export class ApplicationsComponent implements OnInit {
             position: index,
             firstName: j.firstName,
             lastName: j.lastName,
-            cellNumber: j.cellNumber,
             cvUrl: j.cvUrl,
             idUrl: j.idUrl,
             course: courseName,
@@ -120,43 +119,52 @@ export class ApplicationsComponent implements OnInit {
             proofOfPayments: j.proofOfPayUrl
           }
 
+          console.log(obj);
+
+
           this.tableData.data.push(obj)
-          this.tableData._updateChangeSubscription();
+          
           // this.changeDetectorRefs.detectChanges();
         }
 
-        this.tableData.paginator = this.paginator;
+
+
+
+
+        if (++i == this.enrolledArray.length) {
+          console.log('The last one...'+studentsCount);
+
+          while (studentsCount > 0) {
+            if(studentsCount - 5 >= 0){
+              this.pageSizeArray.push(5);
+              studentsCount -=5;
+            } else {
+              this.pageSizeArray.push(studentsCount);
+              studentsCount = 0;
+            }
+          }
+
+          setTimeout(() => {
+            console.log(this.pageSizeArray);
+            this.tableData._updateChangeSubscription();
+          this.tableData.paginator = this.paginator;
+            this.tableData._updateChangeSubscription();
+          }, 2000);
+        }
       }, 1000);
 
-      console.log(studentsCount);
-      
     }
 
-    console.log(this.pageSizeArray);
-        
 
-    // if(studentsCount <= 5){
-    //   this.pageSizeArray.push(studentsCount)
-    // } else {
-    //   while(studentsCount > 0){
-    //     if(studentsCount > 5){
-    //       this.pageSizeArray.push(5);
-    //       studentsCount -=5;
-    //     } else {
-    //       this.pageSizeArray.push(studentsCount);
-    //       studentsCount = 0;
-    //     }
-    //   }
 
-    //   console.log(this.pageSizeArray);
-      
-    // }
+
+
   }
 
   clickedRow(docId: string, registeredDocId: string, status) {
 
     console.log(status);
-    
+
     // console.log(student)
     // const dialogRef = this.dialog.open(ApplicantComponent, {
     //   width: '100vh',

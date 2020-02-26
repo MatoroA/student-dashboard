@@ -33,11 +33,6 @@
     </td>
   </ng-container>
 
-  <ng-container matColumnDef="cellphone">
-    <th mat-header-cell *matHeaderCellDef> Cellphone</th>
-    <td mat-cell *matCellDef="let user">{{user.cellNumber}}</td>
-  </ng-container>
-
   <ng-container matColumnDef="Status">
     <th mat-header-cell *matHeaderCellDef> CV</th>
     <td mat-cell *matCellDef="let user">
@@ -60,8 +55,5 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <mat-paginator [pageSizeOptions]="pageSizeArray" showFirstLastButtons></mat-paginator>
-<div>
-  okay this ifs for Rina {{pageSizeArray}}
-</div>
 
 <!-- <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator> -->

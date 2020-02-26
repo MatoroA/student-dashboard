@@ -1,6 +1,9 @@
-<h1><button mat-raised-button class="now" routerLink="/default/courses"><i class="material-icons left">
+<!-- <h1><button mat-raised-button class="now" routerLink="/default/courses"><i class="material-icons left">
       keyboard_backspace
-    </i></button>Register a course</h1>
+    </i></button>Register a course</h1> -->
+<h1><button mat-raised-button routerLink="/default/courses" style="margin-right: 14px;"><i class="material-icons left">
+  keyboard_backspace
+  </i></button>Register a course</h1>
 
 <div>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
@@ -44,14 +47,14 @@
           <mat-label>Duration:</mat-label>
           <div class="date-field">
             <mat-form-field style="margin-right: 20px;">
-              <input matInput placeholder="Start Date" [min]="currentDate"  type="date" formControlName="startDate">
+              <input matInput placeholder="Start Date" type="date" formControlName="startDate"(input)="startDate($event.target.value)">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="End Date" [min]="currentDate"  type="date" formControlName="endDate">
+              <input matInput placeholder="End Date" type="date" formControlName="endDate" (input)="endDate($event.target.value)">
 
             </mat-form-field>
-
-          </div><br>
+  
+          </div><mat-error>{{dateCtrl}}</mat-error>
 
           <mat-label>Closing date:</mat-label>
           <div class="date-field">
@@ -68,7 +71,7 @@
           </mat-form-field>
           <div>
             <br>
-            <button mat-raised-button matStepperNext [disabled]="!firstFormGroup.valid" type="submit">Next</button>
+            <button mat-raised-button matStepperNext [disabled]="!firstFormGroup.valid && !ctrl" type="submit">Next</button>
           </div>
         </div>
       </form>
@@ -106,7 +109,7 @@
 
           <br>
           <div>
-            <button mat-raised-button matStepperPrevious style="margin-right: 16px;">Back</button>
+            <button mat-raised-button matStepperPrevious style="margin-right: 14px;">Back</button>
             <button mat-raised-button matStepperNext type="submit" [disabled]="!secondFormGroup.valid">Next</button>
           </div>
         </div>

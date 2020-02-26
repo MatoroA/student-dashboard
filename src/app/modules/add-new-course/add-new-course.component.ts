@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators, FormArray, AbstractControl, ValidationErrors } from '@angular/forms'
+import { FormGroup, FormControl, FormBuilder, Validators, } from '@angular/forms'
 import { ApiService } from 'src/app/backend/api.service';
-import { Observable } from 'rxjs';
 import { Course } from 'src/app/models/course';
 import { NewCourse } from 'src/app/models/new-course';
 import { IfStmt } from '@angular/compiler';
@@ -13,18 +12,19 @@ import { IfStmt } from '@angular/compiler';
 })
 export class AddNewCourseComponent implements OnInit {
 
-  checked;
-  indeterminate;
+  
+  
   isLinear: any = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   course: NewCourse;
-
+  dateCtrl : string;
   public imagePath;
   imgURL: any;
   public message: string;
   private isAdditionalRequirementClicked: boolean = false;
   package:any= [];
+  ctrl:boolean;
  
 
   requirments:any=[];
@@ -184,7 +184,33 @@ export class AddNewCourseComponent implements OnInit {
     return this.requirments.push(this.secondFormGroup.get("require").value);
     
   }
+  endDate(endDate){
 
+    
+    let startDate = this.firstFormGroup.get('startDate').value;
+    if(startDate > endDate){
+
+      this.dateCtrl = "select a correct date";
+      this.ctrl =false;
+    }else{
+
+      this.dateCtrl = " date is correct"
+      this.ctrl = true;
+    }
+
+  }
+  startDate(start){
+    let end = this.firstFormGroup.get('endDate').value;
+    if(start > end){
+
+      this.dateCtrl = "select a correct date";
+      this.ctrl =false;
+    }else{
+
+      this.dateCtrl = " date is correct"
+      this.ctrl =true;
+    }
+  }
   
 }
 

@@ -29,7 +29,7 @@
   flex-direction: column;
   width: 25%;
   vertical-align: middle;
-  //margin-right: 12px;
+
   
   
 }
@@ -73,17 +73,10 @@ button{
   background-color: #800020;
   color: white;
   border: none;
-  width: 150px;
-  outline-color: NONE;
+  // width: 150px;
+  
   
 }
 
-li:not(:last-child) {
-  margin-bottom: 2px;
-}
 
-.now{
-  color: white;
-  width: 50px;
-  margin-right: 10px;
-}
+

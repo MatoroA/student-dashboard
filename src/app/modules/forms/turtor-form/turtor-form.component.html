@@ -71,31 +71,20 @@
       <button mat-flat-button>submit</button>
 
     </form>
-  </div>
+  </div>-->
+<button mat-raised-button (click)="addExistingTurtors()">Assign an existing tutor to a course</button>
+<mat-form-field id="course-select">
+  <mat-label>Select course:</mat-label>
+  <mat-select (selectionChange)="selectedCourse($event.value)">
+    <mat-option *ngFor="let course of allCourses$ | async as courses; let i = index" [value]="course">
+      {{course?.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field><br>
 
 
-  <div class="existing-turtors" *ngIf="toggleChecked">
-    <table mat-table [dataSource]="tableData" class="mat-elevation-z8">
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> Position</th>
-        <td mat-cell *matCellDef="let user">{{user.position}}</td>
-      </ng-container>
-      <ng-container matColumnDef="applicant">
-        <th mat-header-cell *matHeaderCellDef> Applicant name</th>
-        <td mat-cell *matCellDef="let user">{{user.name}}</td>
-      </ng-container>
-      <ng-container matColumnDef="course">
-        <th mat-header-cell *matHeaderCellDef> Classes</th>
-        <td mat-cell *matCellDef="let user">{{user.course}}</td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr id="row" [ngClass]="{'clicked': rowClicked === row.position}" (click)="turtorRowClicked(i)" mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[1, 2, 4, 8]" showFirstLastButtons></mat-paginator>
-  </div> -->
 
-
-    <form [formGroup]="turtorForm" (ngSubmit)="submitForm()">
+    <form *ngIf="!isShowingTurtorList" [formGroup]="turtorForm" (ngSubmit)="submitForm()">
       <div class="example-container">
         <mat-form-field>
           <mat-label>First name</mat-label>
@@ -127,15 +116,10 @@
 
       </div>
 
-      <button mat-flat-button [disabled]="!turtorForm.valid">submit</button>
+    <button mat-flat-button [disabled]="!turtorForm.valid">submit</button>
 
-    </form>
-    <mat-form-field id="course-select">
-      <mat-label>Select course:</mat-label>
-      <mat-select (selectionChange)="selectedCourse($event.value)">
-        <mat-option *ngFor="let course of allCourses$ | async as courses; let i = index" [value]="course">
-          {{course?.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field><br>
-    
+  </form> 
+
+  <div *ngIf="isShowingTurtorList">
+    <app-trainers [courseId]="courseId"  ></app-trainers>
+  </div>
