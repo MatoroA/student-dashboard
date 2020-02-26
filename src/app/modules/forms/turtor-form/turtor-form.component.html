@@ -1,82 +1,13 @@
-<!-- <mat-form-field id="course-select">
-  <mat-label>Select course:</mat-label>
-  <mat-select (selectionChange)="selectedCourse($event.value)">
-    <mat-option *ngFor="let course of allCourses$ | async as courses; let i = index" [value]="course">
-      {{course?.name}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-
-<div class="turtors">
-
-  <div class="available" *ngIf="turtorsOnTheCourse?.length > 0; else no_turtors">
-    <h2 id="msg">Available turtors for this course are:</h2>
-    <div class="box" *ngFor="let item of turtorsOnTheCourse">
-      <p>{{item?.name}} {{item?.surname}}</p>
-      <button (click)="delete(item)">delete</button>
-    </div>
-
-    <br><br>
-    <hr>
-    <p id="add-turtor" (click)="showForm()">
-    <i class="material-icons">
-      add
-    </i>
-    </p>
-    Add new turtor...
-  </div>
-
-  <ng-template class="available" #no_turtors>
-    <h2 id="msg" *ngIf="course != ''">This course currently doesnt have turtors assigned....</h2>
-    <br><br>
-  </ng-template>
-
-  <mat-slide-toggle *ngIf="currentCourse != null"  [(ngModel)]="toggleChecked" (change)="changed($event)">
-    Assign existing trainers:</mat-slide-toggle>
-
-    <br><br><br>
-
-  <div *ngIf="!toggleChecked && currentCourse != null" class="turtor-form">
-    <form [formGroup]="turtorForm" (ngSubmit)="submitForm()">
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>first name</mat-label>
-          <input matInput formControlName="firstname">
-
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>last name</mat-label>
-          <input matInput formControlName="lastname">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>cellphone</mat-label>
-          <input matInput formControlName="cellphone">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>email</mat-label>
-          <input matInput formControlName="email">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>password</mat-label>
-          <input matInput formControlName="password2">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>confirm password</mat-label>
-          <input matInput formControlName="password1">
-        </mat-form-field>
-
-      </div>
-      <button mat-flat-button>submit</button>
-
-    </form>
-  </div>-->
+<br>
 <button mat-raised-button routerLink="/default/trainers">Assign an existing tutor to a course</button>
 
 
+<div class="container">
+  <hr class="hr-text" data-content="OR">
 
+</div>
 
+<h2>Fill in tutour details</h2>
     <form [formGroup]="turtorForm" (ngSubmit)="submitForm()">
       <div class="example-container">
         <mat-form-field>

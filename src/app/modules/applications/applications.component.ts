@@ -62,7 +62,7 @@ export class ApplicationsComponent implements OnInit {
       });
 
     })
-    this.tableData.paginator = this.paginator
+   
   }
 
   doSomething(event) {
@@ -168,6 +168,10 @@ export class ApplicationsComponent implements OnInit {
     this.searchApplicant();
   }
 
+  ngAfterViewInit() {
+   
+    this.tableData.paginator = this.paginator
+}
 }
 
 
