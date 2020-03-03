@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ApiService } from 'src/app/backend/api.service';
+import { MatDialog } from '@angular/material';
+import { PostNewsComponent } from 'src/app/dialog/post-news/post-news.component';
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',
@@ -29,7 +31,7 @@ export class DefaultComponent implements OnInit {
 
   pagesToDisplay = [];
   constructor(
-    public afAuth: AngularFireAuth,
+    public afAuth: AngularFireAuth,public dialog: MatDialog,
      private _api: ApiService) { }
 
   ngOnInit() {
@@ -55,6 +57,25 @@ export class DefaultComponent implements OnInit {
     this.sideBarOpen = !this.sideBarOpen
   }
 
+  newsBtn(){
+      const dialogRef = this.dialog.open(PostNewsComponent, {
+        width: '500px',
+        height: 'auto'
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+  
+        if(result != null){
+          // this.getTurtorsAndCourse();
+          // this.selectedCourse(this.currentCourse);
+          // this.openSnackBar(result);
+          // this.tableDataInfo();
+        }
+      });
+    }
+
+  
 
 
 }

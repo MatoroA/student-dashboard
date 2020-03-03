@@ -7,10 +7,14 @@ export class Trainer{
    private cellphone: string;
    private password: string;
    courseList: string[];
+   private countClasses: number;
 
    constructor(){
        this.courseList = [];   
 
+   }
+   public getClassesCount(){
+       return this.courseList.length;
    }
    public setId(id: string){
        this.uid = id;

@@ -4,4 +4,5 @@ export interface Turtor{
      firstname: string;
      lastname: string;
      course: string[];
+     role: string;
 }

@@ -204,6 +204,10 @@ export class ApplicationsComponent implements OnInit {
     this.searchApplicant();
   }
 
+  ngAfterViewInit() {
+   
+    this.tableData.paginator = this.paginator
+}
 }
 
 

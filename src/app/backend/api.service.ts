@@ -53,7 +53,8 @@ export class ApiService {
           lastname: admin.getSurname(),
           email: admin.getEmail(),
           cellPhone: admin.getCellPhone(),
-          uid: user.user.uid
+          uid: user.user.uid,
+          role: "admin"
         }
         this.afs.doc("users/" + user.user.uid).set(doc);
 
@@ -87,7 +88,8 @@ export class ApiService {
           lastname: trainer.getSurnmae(),
           email: trainer.getEmail(),
           course: trainer.getCourseList(),
-          uid: user.user.uid
+          uid: user.user.uid,
+          role: "tutor"
         }
         this.afs.doc("users/" + user.user.uid).set(doc);
         return result;
@@ -161,9 +163,10 @@ export class ApiService {
       }))
     )
   }
+  // , ref => ref.where('size', '==', size)
 
   getTurtors() {
-    return this.afs.collection<Turtor>('turtors').snapshotChanges().pipe(
+    return this.afs.collection<Turtor>('users', ref => ref.where('role', '==', 'tutor')).snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Turtor;
         const id = a.payload.doc.id;

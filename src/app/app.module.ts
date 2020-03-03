@@ -28,6 +28,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { DeleteCourseComponent } from './dialog/delete-course/delete-course.component';
 import { CanActivateRouteGuard } from './can-activate-route.guard';
 import { AuthService } from './backend/auth.service';
+import { PostNewsComponent } from './dialog/post-news/post-news.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 
@@ -41,6 +43,7 @@ import { AuthService } from './backend/auth.service';
     ApplicantComponent,
     OpenFileComponent,
     DeleteCourseComponent,
+    PostNewsComponent,
    
    
   ],
@@ -60,7 +63,8 @@ import { AuthService } from './backend/auth.service';
     PdfViewerModule,
     MatListModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatAutocompleteModule
   ],
   providers: [AuthService,CanActivateRouteGuard],
   bootstrap: [AppComponent]

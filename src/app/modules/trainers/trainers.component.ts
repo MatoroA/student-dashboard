@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { ApiService } from 'src/app/backend/api.service';
 import { Trainer } from 'src/app/models/trainer';
+import { StoringUserDataService } from 'src/app/backend/storing-user-data.service';
+import { UpdateTurtorComponent } from 'src/app/dialog/update-turtor/update-turtor.component';
+import { Course } from 'src/app/models/course';
 
 @Component({
   selector: 'app-trainers',
@@ -11,15 +14,12 @@ import { Trainer } from 'src/app/models/trainer';
 export class TrainersComponent implements OnInit {
 
   @Input() courseId: string;
-  
-  displayedColumns: string[]=['Trainer_name', 'Course_training', 'Trainer_ID']
-  dataSource = new MatTableDataSource<any>([
-  {Trainer_name:'Trainer name', Course_training:'Course training', Trainer_ID: 'trainer ID'},
-  {Trainer_name:'Trainer_name1',Course_training:'Course_training1', Trainer_ID: 'trainer_ID1'},
-  {Trainer_name:'Trainer-name2',Course_training:'Course_training2', Trainer_ID: 'trainer_ID2'}])
+
+  displayedColumns: string[] = ['Trainer_name', 'Course_training', 'Trainer_ID']
+  dataSource = new MatTableDataSource<any>();
   pageSizeOptions;
- 
-  constructor( private _api: ApiService) { }
+
+  constructor(private _api: ApiService, public dialog: MatDialog, private _userData: StoringUserDataService) { }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -35,7 +35,7 @@ export class TrainersComponent implements OnInit {
     this._api.getTurtors().subscribe(turtorsList => {
       console.log(turtorsList)
       console.log('turtor list is up top...');
-      
+
       // this._userdata.setAllTurtors(turtorsList)
       let turtorObjects = [];
       for (let turtor of turtorsList) {
@@ -45,11 +45,49 @@ export class TrainersComponent implements OnInit {
         obj.setName(turtor.firstname);
         obj.setSurname(turtor.lastname);
 
-        for (let courseId of turtor.course) {
-          obj.setCourseList(courseId);
+        if (turtor.course != null) {
+          let index = 0;
+          for (let courseId of turtor.course) {
+            ++index;
+            obj.setCourseList(courseId);
+          }
         }
-        turtorObjects.push(obj);
-        console.log(turtorObjects)
+
+        console.log(obj);
+        
+        this.dataSource.data.push(obj);
+        this.dataSource._updateChangeSubscription();
+      }
+    });
+  }
+
+  
+  selectedCourse(course: Course) {
+    this.courseId = course.id;
+
+    console.log(course);
+    
+
+    this._userData.setCurrentCourse(course);
+    console.log(this._userData);
+
+  }
+  turtorRowClicked(i) {
+    console.log(i)
+    this._userData.setSelectedUser(i);
+    const dialogRef = this.dialog.open(UpdateTurtorComponent, {
+      width: '500px',
+      height: 'auto'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+      if(result != null){
+        // this.getTurtorsAndCourse();
+        // this.selectedCourse(this.currentCourse);
+        // this.openSnackBar(result);
+        // this.tableDataInfo();
       }
     });
   }

@@ -72,54 +72,70 @@
 
     </form>
   </div>-->
-<button mat-raised-button (click)="addExistingTurtors()">Assign an existing tutor to a course</button>
-<mat-form-field id="course-select">
-  <mat-label>Select course:</mat-label>
-  <mat-select (selectionChange)="selectedCourse($event.value)">
-    <mat-option *ngFor="let course of allCourses$ | async as courses; let i = index" [value]="course">
-      {{course?.name}}
-    </mat-option>
-  </mat-select>
-</mat-form-field><br>
 
 
+<!-- <button mat-raised-button (click)="addExistingTurtors()">Assign an existing tutor to a course</button> -->
 
-    <form *ngIf="!isShowingTurtorList" [formGroup]="turtorForm" (ngSubmit)="submitForm()">
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>First name</mat-label>
-          <input matInput formControlName="firstname">
+<div class="tutor-page">
 
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Last name</mat-label>
-          <input matInput formControlName="lastname">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Cellphone</mat-label>
-          <input matInput formControlName="cellphone">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input matInput formControlName="password2">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Confirm password</mat-label>
-          <input matInput formControlName="password1">
-        </mat-form-field>
-
-      </div>
-
+  <mat-form-field id="course-select">
+    <mat-label>Select course:</mat-label>
+    <mat-select (selectionChange)="selectedCourse($event.value)">
+      <mat-option *ngFor="let course of allCourses$ | async as courses; let i = index" [value]="course">
+        {{course?.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field><br>
+  
+  <mat-slide-toggle [(ngModel)]="toggleChecked" (change)="changed($event)">Assign existing tutors</mat-slide-toggle>
+  <!-- <div class="container">
+    <hr class="hr-text" data-content="OR">
+  
+    <br>
+  </div> -->
+  
+  <form *ngIf="!toggleChecked" [formGroup]="turtorForm" (ngSubmit)="submitForm()">
+  
+    <h3>Add new Tutor</h3>
+    <br>
+    <div class="example-container">
+      <mat-form-field>
+        <mat-label>First name</mat-label>
+        <input matInput formControlName="firstname">
+  
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Last name</mat-label>
+        <input matInput formControlName="lastname">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Cellphone</mat-label>
+        <input matInput formControlName="cellphone">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password2">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Confirm password</mat-label>
+        <input matInput formControlName="password1">
+      </mat-form-field>
+  
+    </div>
+  
     <button mat-flat-button [disabled]="!turtorForm.valid">submit</button>
-
-  </form> 
-
-  <div *ngIf="isShowingTurtorList">
-    <app-trainers [courseId]="courseId"  ></app-trainers>
+  
+  </form>
+  
+  <div *ngIf="toggleChecked">
+    <app-trainers [courseId]="courseId"></app-trainers>
   </div>
+  
+</div>
+

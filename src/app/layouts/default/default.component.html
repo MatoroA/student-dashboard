@@ -6,6 +6,10 @@
 
   <mat-drawer mode="side" [opened]="sideBarOpen">
     <app-sidebar *ngFor="let page of pagesToDisplay" [name]="page.name" [page]="page.page"></app-sidebar>
+
+
+    <button class="float" (click)="newsBtn()">News</button>
+    
   </mat-drawer>
 
   <mat-drawer-content>

@@ -80,10 +80,7 @@
 .mat-form-field--inline .mat-form-field:nth-child(1) {
   margin-right: 10px;
 }
-  
-//   .example-container > * {
-//     width: 100%;
-//   }
+
 .example-button-row button,
 .example-button-row a {
   margin-right: 8px;
@@ -155,4 +152,46 @@ table{
     cursor: pointer;
     font-size: 1.3em;
   }
+}
+
+.container {
+  max-width: 50%;  
+ // margin: 20px auto;
+}
+.hr-text {
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: black;
+  text-align: center;
+  height: 1.5em;
+  opacity: .5;
+  &:before {
+    content: '';
+    // use the linear-gradient for the fading effect
+    // use a solid background color for a solid bar
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+  }
+  &:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+
+    padding: 0 .5em;
+    line-height: 1.5em;
+    // this is really the only tricky part, you need to specify the background color of the container element...
+    color: #818078;
+    background-color: #fcfcfa;
+  }
+}
+
+.tutor-page{
+  padding: 10px;
 }

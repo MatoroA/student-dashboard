@@ -32,6 +32,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 import { EditCourseComponent } from 'src/app/modules/edit-course/edit-course.component';
@@ -40,6 +41,7 @@ import { DeleteCourseComponent } from 'src/app/dialog/delete-course/delete-cours
 import { CanActivateRouteGuard } from 'src/app/can-activate-route.guard';
 import { AuthService } from 'src/app/backend/auth.service';
 import { AlertComponent } from 'src/app/modules/alert/alert.component';
+import { PostNewsComponent } from 'src/app/dialog/post-news/post-news.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,7 @@ import { AlertComponent } from 'src/app/modules/alert/alert.component';
     TurtorFormComponent,
     AdminFormComponent,
     EditCourseComponent,
-    AlertComponent
+    AlertComponent,
     
   ],
   imports: [
@@ -88,11 +90,12 @@ import { AlertComponent } from 'src/app/modules/alert/alert.component';
     MatSnackBarModule,
     MatListModule,
     MatTabsModule,
-    
+    MatAutocompleteModule
     
   ],
   providers: [AuthService ,CanActivateRouteGuard],
   entryComponents: [DeleteDialogComponent, UpdateTurtorComponent,
-     ApplicantComponent, OpenFileComponent, DeleteCourseComponent,AlertComponent,]
+     ApplicantComponent, OpenFileComponent, DeleteCourseComponent,AlertComponent,
+    PostNewsComponent]
 })
 export class DefaultModule { }

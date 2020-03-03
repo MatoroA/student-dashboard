@@ -58,13 +58,8 @@ export class TurtorFormComponent implements OnInit {
 
 
   selectedCourse(course: Course) {
-    this.courseId = course.id;
-    this.isShowForm = false;
-    this.currentCourse = course;
-    this.toggleChecked = false;
-
-    // this._userdata.setCurrentCourse(course);
-    // console.log(this._userdata);
+    this._userdata.setCurrentCourse(course);
+    console.log(this._userdata);
     
     // this.turtorsOnTheCourse = [];
     // for (let turtor of this.turtors) {
@@ -103,43 +98,43 @@ export class TurtorFormComponent implements OnInit {
   changed(event) {
     this.toggleChecked = event.checked;
     console.log(this.toggleChecked)
-    this.tableDataInfo();
+    // this.tableDataInfo();
 
     if (this.toggleChecked) {
       this.isShowForm = false;
     }
   }
 
-  tableDataInfo() {
-    this.tableData = new MatTableDataSource<any>();
-    let index = 0;
+  // tableDataInfo() {
+  //   this.tableData = new MatTableDataSource<any>();
+  //   let index = 0;
 
-    let isCurrentTurtor = false;
+  //   let isCurrentTurtor = false;
 
-    console.log(this.turtors)
+  //   console.log(this.turtors)
 
-    for (let trainer of this.turtors) {
-      for (let courseId of trainer.getCourseList()) {
-        if (courseId == this.courseId)
-          isCurrentTurtor = true;
-      }
+  //   for (let trainer of this.turtors) {
+  //     for (let courseId of trainer.getCourseList()) {
+  //       if (courseId == this.courseId)
+  //         isCurrentTurtor = true;
+  //     }
 
-      if (!isCurrentTurtor) {
-        let obj = {
-          name: trainer.getName() + ' ' + trainer.getSurnmae(),
-          turtorUid: trainer.getId(),
-          course: trainer.getCourseList().length,
-          courseList: trainer.getCourseList().length,
-          position: ++index
-        }
-        this.tableData.data.push(obj);
-        this.tableData._updateChangeSubscription();
-      }
+  //     if (!isCurrentTurtor) {
+  //       let obj = {
+  //         name: trainer.getName() + ' ' + trainer.getSurnmae(),
+  //         turtorUid: trainer.getId(),
+  //         course: trainer.getCourseList().length,
+  //         courseList: trainer.getCourseList().length,
+  //         position: ++index
+  //       }
+  //       this.tableData.data.push(obj);
+  //       this.tableData._updateChangeSubscription();
+  //     }
 
-      isCurrentTurtor = false;
-    }
+  //     isCurrentTurtor = false;
+  //   }
 
-  }
+  // }
   turtorRowClicked(i) {
     console.log(i)
     this._userdata.setSelectedUser(this.turtors[i]);
@@ -155,7 +150,7 @@ export class TurtorFormComponent implements OnInit {
         // this.getTurtorsAndCourse();
         this.selectedCourse(this.currentCourse);
         this.openSnackBar(result);
-        this.tableDataInfo();
+        // this.tableDataInfo();
       }
     });
   }

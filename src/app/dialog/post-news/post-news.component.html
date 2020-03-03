@@ -1,0 +1,32 @@
+<div class="news-page">
+
+  <p (click)="cancel()">
+    <i class="material-icons">
+      clear
+      </i>
+  </p>
+
+  <form class="example-form">
+    <input type="text"
+           placeholder="Enter course"
+           [formControl]="control"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let street of filteredStreets | async" [value]="street">
+        {{street}}
+      </mat-option>
+    </mat-autocomplete>
+  </form>
+  
+
+  <input type="text" [(ngModel)]="course" class="reciptient" placeholder="Title">
+  <input type="text" [(ngModel)]="title" class="title" placeholder="Title">
+  <br>
+  <br>
+  <!-- <input type="text" placeholder="message..." class="text-area">
+
+  </div> -->
+  <textarea [(ngModel)]="message" placeholder="Type the message...">
+  </textarea>
+  <br><br>
+  <button (click)="sendNews()" >send!</button>

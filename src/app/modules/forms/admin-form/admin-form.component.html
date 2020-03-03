@@ -1,3 +1,5 @@
+<div class="admin-page">
+  <h2>Fill in admin details</h2>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
   <mat-form-field>
@@ -19,7 +21,7 @@
   <br>
 
   <mat-form-field>
-    <input matInput formControlName="password" placeholder="Password" type="tel" />
+    <input matInput formControlName="password" placeholder="Password" type="password" />
   </mat-form-field>
   <br>
 
@@ -27,3 +29,5 @@
   <button mat-raised-button [disabled]="!form.valid" type="submit">Add a new admin</button>
 
 </form>
+
+</div>
