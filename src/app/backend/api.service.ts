@@ -13,6 +13,8 @@ import { NewCourse } from '../models/new-course';
 import { Admin } from 'src/app/models/admin';
 import { ArrayList } from 'src/app/models/custom-arraylist';
 import { Content } from '../models/content-interface';
+import { Message } from '../models/message';
+import { CourseMessage } from '../models/binndingMeaageAndCourse';
 
 declare var require: any
 
@@ -24,6 +26,39 @@ export class ApiService {
   constructor(private afs: AngularFirestore, public afAuth: AngularFireAuth,
     private _storage: AngularFireStorage) { }
 
+
+
+  updateCourseNews(coursesAndNews: CourseMessage[]) {
+    for (let message of coursesAndNews) {
+      console.log(message);
+      let arrayOfMessages = [];
+      console.log(message.getMessages());
+      for (let i = 0; i < message.getMessages().length; i++) {
+        
+
+        let obj = {
+          format: message.getMessages()[i].getFormat(),
+          message: message.getMessages()[i].getMessage(),
+          title: message.getMessages()[i].getTitle()
+        }
+
+        console.log(message.getMessages().length);
+        
+        arrayOfMessages.push(obj);
+        if(1 + i == message.getMessages().length){
+          console.log(arrayOfMessages);
+          console.log(message.getCourseId());
+          
+          this.afs.doc("courses/" + message.getCourseId()).update({ news: arrayOfMessages }).then(success => {
+            console.log('this message has been sent successfully');
+  
+          }, err => {
+            return err;
+          })
+        }
+      }
+    }
+  }
 
   updateCourseList(uid: string, courses: String[]) {
     return this.afs.doc("users/" + uid).update({ course: courses }).then(success => {
@@ -216,7 +251,7 @@ export class ApiService {
     })
   }
 
- async updateCourse(course: NewCourse) {
+  async updateCourse(course: NewCourse) {
 
     let courseData = {
       courseId: course.getCourseId(),
@@ -300,6 +335,8 @@ export class ApiService {
 
 
                 if (courseContent.getAll().length == i + 1) {
+                  console.log(course.getCourseContent());
+
                   return this.afs.doc("courses/" + course.getCourseId()).update({ contents: course.getCourseContent() })
                     .then(() => {
                       console.log("this user works just fine...");

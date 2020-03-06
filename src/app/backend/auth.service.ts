@@ -15,7 +15,11 @@ export class AuthService {
   async signIn(email: string, password: string) {
     return await this.afAuth.auth.signInWithEmailAndPassword(email, password)
     .then(user=>{
+      console.log(user);
+      
       return user.user.getIdTokenResult().then(userToken=>{
+        console.log(userToken);
+        
         let access: boolean = false;
         if(userToken.claims == null){
           access = false;

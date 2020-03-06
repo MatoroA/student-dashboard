@@ -31,9 +31,6 @@ import { AuthService } from './backend/auth.service';
 import { PostNewsComponent } from './dialog/post-news/post-news.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +61,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatListModule,
     FormsModule,
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
   providers: [AuthService,CanActivateRouteGuard],
   bootstrap: [AppComponent]

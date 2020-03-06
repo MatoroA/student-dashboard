@@ -59,7 +59,7 @@ export class DefaultComponent implements OnInit {
 
   newsBtn(){
       const dialogRef = this.dialog.open(PostNewsComponent, {
-        width: '500px',
+        width: '650px',
         height: 'auto'
       });
   

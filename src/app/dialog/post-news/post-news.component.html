@@ -3,23 +3,28 @@
   <p (click)="cancel()">
     <i class="material-icons">
       clear
-      </i>
+    </i>
   </p>
+  <div class="sending-to">
 
-  <form class="example-form">
-    <input type="text"
-           placeholder="Enter course"
-           [formControl]="control"
-           [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let street of filteredStreets | async" [value]="street">
-        {{street}}
-      </mat-option>
-    </mat-autocomplete>
-  </form>
-  
+    <div class="first">
+      <form class="example-form">
+        <input type="text" placeholder="Enter course" [disabled]="true" [formControl]="control"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let course of filteredCourses | async" [value]="course?.name">
+            {{course?.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </form>
+    </div>
 
-  <input type="text" [(ngModel)]="course" class="reciptient" placeholder="Title">
+    <div class="second">
+      <mat-checkbox [(ngModel)]="isSendToAll" (change)="checkBoxOnChange($event)">send to all</mat-checkbox>
+    </div>
+  </div>
+
+
   <input type="text" [(ngModel)]="title" class="title" placeholder="Title">
   <br>
   <br>
@@ -29,4 +34,4 @@
   <textarea [(ngModel)]="message" placeholder="Type the message...">
   </textarea>
   <br><br>
-  <button (click)="sendNews()" >send!</button>
+  <button (click)="sendNews()">send!</button>
