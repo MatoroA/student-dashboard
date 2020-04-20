@@ -25,6 +25,7 @@ export class AddNewCourseComponent implements OnInit {
   private isAdditionalRequirementClicked: boolean = false;
   package:any= [];
   ctrl:boolean;
+  videoFile: string;
  
 
   requirments:any=[];
@@ -71,11 +72,6 @@ export class AddNewCourseComponent implements OnInit {
       ],
     }
   }
-
-
-
- 
-
 
   onSubmit() {
     console.log(this.firstFormGroup.value)
@@ -131,6 +127,8 @@ export class AddNewCourseComponent implements OnInit {
   // }
 
   preview(files) {
+    console.log(files);
+    
     if (files.length === 0)
       return;
  
@@ -153,6 +151,9 @@ export class AddNewCourseComponent implements OnInit {
 
     this.course.setImageName(fileName);
     this.course.setImageCover(file);
+
+    console.log("This should run really well...");
+    
   }
 
 
@@ -166,6 +167,10 @@ export class AddNewCourseComponent implements OnInit {
     }
 
     console.log(this.course);
+
+    if(this.videoFile != null){
+      this.course.setCoverVideo(this.videoFile);
+    }
     
     
     this._apiService.uploadCourse(this.course).then(results=>{
@@ -210,6 +215,17 @@ export class AddNewCourseComponent implements OnInit {
       this.dateCtrl = " date is correct"
       this.ctrl =true;
     }
+  }
+
+  videoFileSelected(files) {
+    console.log(files);
+    
+    if (files.length === 0)
+      return;
+    const file = files[0];
+    this.videoFile = file;
+    console.log(this.videoFile);
+    
   }
   
 }

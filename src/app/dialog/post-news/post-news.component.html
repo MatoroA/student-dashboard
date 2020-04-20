@@ -1,37 +1,60 @@
 <div class="news-page">
 
-  <p (click)="cancel()">
-    <i class="material-icons">
-      clear
-    </i>
-  </p>
-  <div class="sending-to">
+  <div *ngIf="!newsSent">
 
-    <div class="first">
-      <form class="example-form">
-        <input type="text" placeholder="Enter course" [disabled]="true" [formControl]="control"
-          [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let course of filteredCourses | async" [value]="course?.name">
-            {{course?.name}}
-          </mat-option>
-        </mat-autocomplete>
-      </form>
+    <p (click)="cancel()">
+      <i class="material-icons">
+        clear
+      </i>
+    </p>
+    <div class="sending-to">
+
+      <div class="first">
+        <form class="example-form">
+          <input type="text" placeholder="Enter course" [disabled]="true" [formControl]="control"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let course of filteredCourses | async" [value]="course?.name">
+              {{course?.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </form>
+      </div>
+
+      <div class="second">
+        <mat-checkbox [(ngModel)]="isSendToAll" (change)="checkBoxOnChange($event)">send to all</mat-checkbox>
+      </div>
     </div>
 
-    <div class="second">
-      <mat-checkbox [(ngModel)]="isSendToAll" (change)="checkBoxOnChange($event)">send to all</mat-checkbox>
+
+    <input type="text" [(ngModel)]="title" class="title" placeholder="Title">
+    <br>
+    <br>
+    <!-- <input type="text" placeholder="message..." class="text-area">
+  
+    </div> -->
+    <textarea [(ngModel)]="message" placeholder="Type the message...">
+    </textarea>
+    <br><br>
+  </div>
+
+  <div class="success" *ngIf="newsSent">
+
+    <div class="success-checkmark">
+      <div class="check-icon">
+        <span class="icon-line line-tip"></span>
+        <span class="icon-line line-long"></span>
+        <div class="icon-circle"></div>
+        <div class="icon-fix"></div>
+      </div>
     </div>
+    
+    <h3>Successfully sent!</h3>
   </div>
 
 
-  <input type="text" [(ngModel)]="title" class="title" placeholder="Title">
-  <br>
-  <br>
-  <!-- <input type="text" placeholder="message..." class="text-area">
 
-  </div> -->
-  <textarea [(ngModel)]="message" placeholder="Type the message...">
-  </textarea>
-  <br><br>
-  <button (click)="sendNews()">send!</button>
+</div>
+
+
+<button (click)="sendNews()">{{sendBtnTxt}}</button>

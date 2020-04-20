@@ -33,7 +33,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { EditCourseComponent } from 'src/app/modules/edit-course/edit-course.component';
 import {MatListModule} from '@angular/material/list';
@@ -42,6 +42,9 @@ import { CanActivateRouteGuard } from 'src/app/can-activate-route.guard';
 import { AuthService } from 'src/app/backend/auth.service';
 import { AlertComponent } from 'src/app/modules/alert/alert.component';
 import { PostNewsComponent } from 'src/app/dialog/post-news/post-news.component';
+
+
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer'; 
 
 @NgModule({
   declarations: [
@@ -90,7 +93,9 @@ import { PostNewsComponent } from 'src/app/dialog/post-news/post-news.component'
     MatSnackBarModule,
     MatListModule,
     MatTabsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    PdfJsViewerModule,
+    HttpClientModule
     
   ],
   providers: [AuthService ,CanActivateRouteGuard],

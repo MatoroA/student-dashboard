@@ -34,7 +34,6 @@ export class ApiService {
       let arrayOfMessages = [];
       console.log(message.getMessages());
       for (let i = 0; i < message.getMessages().length; i++) {
-        
 
         let obj = {
           format: message.getMessages()[i].getFormat(),
@@ -43,17 +42,19 @@ export class ApiService {
         }
 
         console.log(message.getMessages().length);
-        
+
         arrayOfMessages.push(obj);
-        if(1 + i == message.getMessages().length){
+        if (1 + i == message.getMessages().length) {
           console.log(arrayOfMessages);
           console.log(message.getCourseId());
-          
-          this.afs.doc("courses/" + message.getCourseId()).update({ news: arrayOfMessages }).then(success => {
+
+          return this.afs.doc("courses/" + message.getCourseId()).update({ news: arrayOfMessages }).then(success => {
             console.log('this message has been sent successfully');
-  
+
+            return true;
+
           }, err => {
-            return err;
+            return false;
           })
         }
       }
@@ -283,26 +284,42 @@ export class ApiService {
 
   async uploadCourse(course: NewCourse) {
 
-    this._storage.upload("courses/" + course.getCourseName() + "/" + course.getImageName(), course.getImageCover()).then(results => {
+    console.log("course being uploaded....");
+
+    console.log(course.getImageCover());
+    let coverVideoUrl = '';
+    this._storage.upload("courses/" + course.getCourseName() + "/videoCover", course.getCoverVideo()).then(results => {
       results.downloadURL
       results.ref.getDownloadURL().then(url => {
-        let courseDoc = {
-          coverUrl: url,
-          code: course.getCourseId(),
-          name: course.getCourseName(),
-          requirement: course.getRequirements(),
-          fee: course.getCourseFee(),
-          description: course.getDescription(),
-          feesInclude: course.getFeesInclude(),
-          endDate: course.getSEndDate(),
-          startDate: course.getStartDate(),
-          closingDate: course.getClosingDate()
-        }
+        coverVideoUrl = url;
+
+        console.log(coverVideoUrl);
+
+        this._storage.upload("courses/" + course.getCourseName() + "/imageCover", course.getImageCover()).then(results => {
+          results.downloadURL
+          results.ref.getDownloadURL().then(url => {
+            let courseDoc = {
+              coverUrl: url,
+              code: course.getCourseId(),
+              name: course.getCourseName(),
+              requirement: course.getRequirements(),
+              fee: course.getCourseFee(),
+              description: course.getDescription(),
+              feesInclude: course.getFeesInclude(),
+              endDate: course.getSEndDate(),
+              startDate: course.getStartDate(),
+              closingDate: course.getClosingDate(),
+              coverVideoUrl: coverVideoUrl
+            }
 
 
-        return this.afs.collection("courses").add(courseDoc);
+            return this.afs.collection("courses").add(courseDoc);
+          })
+        })
+
       })
     })
+
   }
 
   async uploadFiles(course: NewCourse, courseContent: ArrayList) {

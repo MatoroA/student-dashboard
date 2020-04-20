@@ -126,6 +126,11 @@
         <img [src]="imgURL" width="400" height="400" *ngIf="imgURL"><br>
 
 
+        <h2>Intro Video :</h2>
+
+        <input  type="file" accept='video/*' (change)="videoFileSelected(file.files)" />
+
+        <br>
         <div>
           <button mat-raised-button matStepperPrevious style="margin-right: 16px;" (click)="uploadCourse()">Upload
             course</button>

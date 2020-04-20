@@ -24,6 +24,9 @@ export class PostNewsComponent implements OnInit {
   filteredCourses: Observable<Course[]>;
   courses: Course[];
   private isSendToAll: boolean = false;
+  private newsSent: boolean = false;
+
+  private sendBtnTxt: string = "Send";
 
   constructor(private dialogRef: MatDialogRef<PostNewsComponent>, private _apiService: ApiService) {
     dialogRef.disableClose = true;
@@ -74,6 +77,16 @@ export class PostNewsComponent implements OnInit {
   }
 
   sendNews() {
+
+    if(this.newsSent){
+      this.dialogRef.close();
+    }
+
+    if(this.message == null || this.title == null){
+      return;
+    }
+
+    this.sendBtnTxt = "Sending...";
     console.log(this.control.value);
 
     let messageObj = new Message();
@@ -107,7 +120,14 @@ export class PostNewsComponent implements OnInit {
 
         console.log(news);
         
-                  this._apiService.updateCourseNews(news);
+                  this._apiService.updateCourseNews(news).then(isSent=>{
+                    if(isSent){
+                      this.newsSent = true;
+                      this.sendBtnTxt = "Ok, done!";
+                    }
+
+                    
+                  })
       }
     } else {
 
@@ -142,7 +162,16 @@ export class PostNewsComponent implements OnInit {
           console.log(news);
 
 
-          // this._apiService.updateCourseNews(news);
+          this._apiService.updateCourseNews(news).then(res=>{
+
+            if(res){
+              
+              this.newsSent = true;
+              this.sendBtnTxt = "Ok, done!";
+            }
+            console.log(res);
+  
+          })
         }
       }
     }

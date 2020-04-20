@@ -5,6 +5,8 @@ import { EnrolledStudent } from 'src/app/models/enrolledStudents';
 import { Observable } from 'rxjs';
 import { Student } from 'src/app/models/student';
 import { ApplicantComponent } from 'src/app/dialog/applicant/applicant.component';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-applications',
@@ -12,6 +14,10 @@ import { ApplicantComponent } from 'src/app/dialog/applicant/applicant.component
   styleUrls: ['./applications.component.scss']
 })
 export class ApplicationsComponent implements OnInit {
+
+  @ViewChild('pdfViewerOnDemand') pdfViewerOnDemand;
+  @ViewChild('pdfViewerAutoLoad') pdfViewerAutoLoad;
+
   course;
   private tableData = new MatTableDataSource<any>();
   enrolledArray: EnrolledStudent[] = [];
@@ -20,13 +26,14 @@ export class ApplicationsComponent implements OnInit {
   pageSizeOptions;
 
 
-  pageSizeArray: number[] = [5,3];
+  pageSizeArray: number[] = [5, 3];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
 
-  constructor(private _apiService: ApiService, private changeDetectorRefs: ChangeDetectorRef, public dialog: MatDialog) {
+  constructor(private _apiService: ApiService, private changeDetectorRefs: ChangeDetectorRef,
+     public dialog: MatDialog, private http: HttpClient) {
 
     this.course = this._apiService.getCourses();
 
@@ -123,7 +130,7 @@ export class ApplicationsComponent implements OnInit {
 
 
           this.tableData.data.push(obj)
-          
+
           // this.changeDetectorRefs.detectChanges();
         }
 
@@ -132,12 +139,12 @@ export class ApplicationsComponent implements OnInit {
 
 
         if (++i == this.enrolledArray.length) {
-          console.log('The last one...'+studentsCount);
+          console.log('The last one...' + studentsCount);
 
           while (studentsCount > 0) {
-            if(studentsCount - 5 >= 0){
+            if (studentsCount - 5 >= 0) {
               this.pageSizeArray.push(5);
-              studentsCount -=5;
+              studentsCount -= 5;
             } else {
               this.pageSizeArray.push(studentsCount);
               studentsCount = 0;
@@ -147,7 +154,7 @@ export class ApplicationsComponent implements OnInit {
           setTimeout(() => {
             console.log(this.pageSizeArray);
             this.tableData._updateChangeSubscription();
-          this.tableData.paginator = this.paginator;
+            this.tableData.paginator = this.paginator;
             this.tableData._updateChangeSubscription();
           }, 2000);
         }
@@ -205,9 +212,34 @@ export class ApplicationsComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-   
+
     this.tableData.paginator = this.paginator
+  }
+
+  private downloadFile(url: string): any {
+    return this.http.get(url, { responseType: 'blob' })
+        .pipe(
+            map((result: any) => {
+                return result;
+            })
+        );
 }
+
+  public openPdf() {
+    let url = "https://github.com/intbot/ng2-pdfjs-viewer/tree/master/sampledoc/pdf-sample.pdf"; // E.g. http://localhost:3000/api/GetMyPdf
+    // url can be local url or remote http request to an api/pdf file. 
+    // E.g: let url = "assets/pdf-sample.pdf";
+    // E.g: https://github.com/intbot/ng2-pdfjs-viewer/tree/master/sampledoc/pdf-sample.pdf
+    // E.g: http://localhost:3000/api/GetMyPdf
+    // Please note, for remote urls to work, CORS should be enabled at the server. Read: https://enable-cors.org/server.html
+
+    this.downloadFile(url).subscribe(
+      (res) => {
+        this.pdfViewerOnDemand.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
+        this.pdfViewerOnDemand.refresh(); // Ask pdf viewer to load/reresh pdf
+      }
+    );
+  }
 }
 
 

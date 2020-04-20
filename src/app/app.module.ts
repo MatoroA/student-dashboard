@@ -30,6 +30,7 @@ import { CanActivateRouteGuard } from './can-activate-route.guard';
 import { AuthService } from './backend/auth.service';
 import { PostNewsComponent } from './dialog/post-news/post-news.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,6 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     OpenFileComponent,
     DeleteCourseComponent,
     PostNewsComponent,
-   
    
   ],
   imports: [
@@ -62,6 +62,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    HttpClientModule
   ],
   providers: [AuthService,CanActivateRouteGuard],
   bootstrap: [AppComponent]

@@ -1,13 +1,13 @@
 <h1>Applications</h1>
 
-<!-- <mat-form-field>
+<mat-form-field>
   <mat-label>Courses</mat-label>
   <mat-select (selectionChange)="doSomething($event)">
     <mat-option *ngFor="let item of course | async" [value]="item?.id">
       {{item?.name}}
     </mat-option>
   </mat-select>
-</mat-form-field> -->
+</mat-form-field> 
 
 <div class="search-div">
   
@@ -54,6 +54,23 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<mat-paginator [pageSizeOptions]="pageSizeArray" showFirstLastButtons></mat-paginator>
+<mat-paginator [pageSizeOptions]="pageSizeArray" showFirstLastButtons></mat-paginator> 
 
 <!-- <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator> -->
+
+<!-- <button (click)="openPdf()">openfile</button>
+
+<div style="width: 800px; height: 400px">
+  <ng2-pdfjs-viewer #pdfViewerOnDemand [externalWindow]="true" [downloadFileName]="'mytestfile.pdf'" [openFile]="false"
+    [viewBookmark]="false" [download]="false"></ng2-pdfjs-viewer>
+</div>
+<div>
+  <div style="width: 800px; height: 400px">
+    <ng2-pdfjs-viewer #pdfViewerAutoLoad></ng2-pdfjs-viewer>
+  </div>
+  <div style="height: 600px">
+    <ng2-pdfjs-viewer pdfSrc="pdfViewerOnDemand.pdfSrc" viewerId="MyUniqueID" (onBeforePrint)="testBeforePrint()"
+      (onAfterPrint)="testAfterPrint()" (onDocumentLoad)="testPagesLoaded($event)"
+      (onPageChange)="testPageChange($event)">
+    </ng2-pdfjs-viewer>
+  </div> -->
